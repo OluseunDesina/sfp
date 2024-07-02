@@ -20,7 +20,7 @@ import { SharedModule } from '../shared/shared.module';
 import { TopUpHistoryComponent } from './top-up-history/top-up-history.component';
 import { VoidTransactionsComponent } from './void-transactions/void-transactions.component';
 import { TopupPersonalComponent } from './topup-personal/topup-personal.component';
-import { Angular4PaystackModule } from 'angular4-paystack';
+// import { Angular4PaystackModule } from 'angular4-paystack';
 import { TotalCostComponent } from './total-cost/total-cost.component';
 
 @NgModule({
@@ -49,7 +49,7 @@ import { TotalCostComponent } from './total-cost/total-cost.component';
     MatInputModule,
     MatDatepickerModule,
     MatSelectModule,
-    Angular4PaystackModule,
+    // Angular4PaystackModule,
   ]
 })
 export class TransactionsModule { }

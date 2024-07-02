@@ -5,7 +5,7 @@ import {
   OnInit,
   ViewChild,
 } from "@angular/core";
-import { PaystackOptions } from "angular4-paystack";
+// import { PaystackOptions } from "angular4-paystack";
 import { HelperService } from "src/app/shared/services/helper.service";
 import { NotificationService } from "src/app/shared/services/notification.service";
 import { TransactionService } from "../transaction.service";
@@ -20,7 +20,7 @@ export class TopupPersonalComponent implements OnInit, AfterViewInit {
   reference = "";
   amount: number;
   userInfo: any;
-  options: PaystackOptions;
+  // options: PaystackOptions;
   @ViewChild("paystackButton", { static: false }) paystackButton: ElementRef;
 
   constructor(
@@ -42,18 +42,18 @@ export class TopupPersonalComponent implements OnInit, AfterViewInit {
   }
 
   initiateTopUp() {
-    this.transactionService.getReference().subscribe((reference) => {
-      this.reference = reference;
-      const options: PaystackOptions = {
-        ref: this.reference,
-        amount: this.amount * 100,
-        email: this.userInfo.email,
-        key: this.userInfo.public_key,
-        channels: ["card"],
-      };
-      this.options = options;
-      this.paystackButton.nativeElement.click();
-    });
+    // this.transactionService.getReference().subscribe((reference) => {
+    //   this.reference = reference;
+    //   const options: PaystackOptions = {
+    //     ref: this.reference,
+    //     amount: this.amount * 100,
+    //     email: this.userInfo.email,
+    //     key: this.userInfo.public_key,
+    //     channels: ["card"],
+    //   };
+    //   this.options = options;
+    //   this.paystackButton.nativeElement.click();
+    // });
   }
 
   paymentInit() {}

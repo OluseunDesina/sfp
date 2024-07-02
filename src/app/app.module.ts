@@ -15,7 +15,7 @@ import { AuthInterceptor } from "./auth/auth.interceptor";
 import { AppIdInterceptor } from "./app-id.interceptor";
 import { ToastrModule } from 'ngx-toastr';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { Angular4PaystackModule } from 'angular4-paystack';
+// import { Angular4PaystackModule } from 'angular4-paystack';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,7 @@ import { Angular4PaystackModule } from 'angular4-paystack';
     MatNativeDateModule,
     CookieModule.forRoot(),
     ToastrModule.forRoot(),
-    Angular4PaystackModule.forRoot('pk_test_1'),
+    // Angular4PaystackModule.forRoot('pk_test_1'),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
