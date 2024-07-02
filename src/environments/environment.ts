@@ -4,10 +4,7 @@
 
 export const environment = {
   production: false,
-  // url: 'https://bucca-v2.herokuapp.com/'
-  // url: "https://live-bucca-v2.herokuapp.com/",
-  url: "https://d5ef-41-58-250-219.ngrok-free.app/",
-  // url: "https://bucca.secureid-digital.com.ng/",
+  url: "https://2c0e-41-58-57-134.ngrok-free.app/",
 };
 
 /*

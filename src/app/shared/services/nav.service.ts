@@ -169,7 +169,7 @@ export class NavService {
             path: "/devices",
           },
           {
-            title: "Auth",
+            title: "User Management",
             icon: "users",
             type: "sub",
             badgeType: "primary",
