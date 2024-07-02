@@ -31,7 +31,7 @@ export class CompanyAdminListComponent implements OnInit {
   private pageIndex: number;
   length: number;
   tableLoading: boolean = true;
-  title = "company admin list";
+  title = "school admin list";
   dataSource: any[] = [];
   displayedColumns: any[] = [];
   expandedElement: any;

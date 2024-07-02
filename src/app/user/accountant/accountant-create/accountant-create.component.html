@@ -99,11 +99,11 @@
                 </div>
               </form>
             </mat-step>
-            <mat-step [stepControl]="companyForm" errorMessage="Company info is required." state="company">
+            <mat-step [stepControl]="companyForm" errorMessage="school info is required." state="company">
               <form [formGroup]="companyForm" class="row theme-form mega-form">
                 <ng-template matStepLabel>
                   <div class="col-12">
-                    <h6>Company Information</h6>
+                    <h6>school Information</h6>
                   </div>
                 </ng-template>
 
@@ -111,16 +111,16 @@
                 <ng-container *ngIf="isSid">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label class="col-form-label">Company Name</label>
+                      <label class="col-form-label">School Name</label>
                       <select formControlName="company" class="form-control digits" placeholder="Department">
-                        <option value=null>Please select a company</option>
+                        <option value=null>Please select a school</option>
                         <option *ngFor="let company of companyList" [value]="company.id">
                           {{company.name}}
                         </option>
                       </select>
                       <div *ngIf="companyForm.controls.company.touched && companyForm.controls.company.errors?.required"
                         class="text text-danger">
-                        Company is required.
+                        School is required.
                       </div>
                     </div>
                   </div>
@@ -145,11 +145,11 @@
                   </div>
                 </div> -->
 
-                <!-- Staff level -->
+                <!-- Student level -->
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label class="col-form-label">Staff level</label>
-                    <select formControlName="staff_level" class="form-control digits" placeholder="Staff level">
+                    <label class="col-form-label">Student level</label>
+                    <select formControlName="staff_level" class="form-control digits" placeholder="Student level">
                       <option value=null>No level</option>
                       <option *ngFor="let level of staffLevelList" [value]="level.id">
                         {{level.name}}
@@ -158,19 +158,19 @@
                     <div
                       *ngIf="companyForm.controls.staff_level.touched && companyForm.controls.staff_level.errors?.required"
                       class="text text-danger">
-                      Staff Level is required.
+                      Student Level is required.
                     </div>
                   </div>
                 </div>
 
-                <!-- Staff ID -->
+                <!-- Student ID -->
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label class="col-form-label">Staff ID</label>
-                    <input formControlName="staff_id" class="form-control" type="text" placeholder="Staff ID" required>
+                    <label class="col-form-label">Student ID</label>
+                    <input formControlName="staff_id" class="form-control" type="text" placeholder="Student ID" required>
                     <div *ngIf="companyForm.controls.staff_id.touched && companyForm.controls.staff_id.errors?.required"
                       class="text text-danger">
-                      Staff id is required.
+                      Student id is required.
                     </div>
                   </div>
                 </div>
@@ -203,7 +203,7 @@
                   </div>
                 </div>
 
-                <!-- Staff ID -->
+                <!-- Student ID -->
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="col-form-label">Date of birth.</label>

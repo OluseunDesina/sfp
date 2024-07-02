@@ -28,7 +28,7 @@ export class CompanyAdminCreateComponent implements OnInit {
       id: "female",
     },
   ];
-  title = "create company admin";
+  title = "create school admin";
 
   contactForm: FormGroup = new FormGroup({});
   companyForm: FormGroup = new FormGroup({});

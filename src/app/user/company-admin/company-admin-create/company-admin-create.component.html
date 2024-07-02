@@ -117,11 +117,11 @@
                 </div>
               </form>
             </mat-step>
-            <mat-step [stepControl]="companyForm" errorMessage="Company info is required." state="company">
+            <mat-step [stepControl]="companyForm" errorMessage="School info is required." state="company">
               <form [formGroup]="companyForm" class="row theme-form mega-form">
                 <ng-template matStepLabel>
                   <div class="col-12">
-                    <h6>Company Information</h6>
+                    <h6>School Information</h6>
                   </div>
                 </ng-template>
 
@@ -129,66 +129,29 @@
                 <ng-container *ngIf="isSid">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label class="col-form-label">Company Name</label>
+                      <label class="col-form-label">School Name</label>
                       <select formControlName="company" class="form-control digits" placeholder="Department">
-                        <option value=null>Please select a company</option>
+                        <option value=null>Please select a school</option>
                         <option *ngFor="let company of companyList" [value]="company.id">
                           {{company.name}}
                         </option>
                       </select>
                       <div *ngIf="companyForm.controls.company.touched && companyForm.controls.company.errors?.required"
                         class="text text-danger">
-                        Company is required.
+                        School is required.
                       </div>
                     </div>
                   </div>
                 </ng-container>
 
-
-                <!-- Department -->
-                <!-- <div class="col-md-6">
-                  <div class="form-group">
-                    <label class="col-form-label">Department</label>
-                    <select formControlName="department" class="form-control digits" placeholder="Department">
-                      <option value=null>Please select a department</option>
-                      <option *ngFor="let department of departmentList" [value]="department.id">
-                        {{department.name}}
-                      </option>
-                    </select>
-                    <div
-                      *ngIf="companyForm.controls.department.touched && companyForm.controls.department.errors?.required"
-                      class="text text-danger">
-                      Department is required.
-                    </div>
-                  </div>
-                </div> -->
-
-                <!-- Staff level -->
-                <!-- <div class="col-md-6">
-                  <div class="form-group">
-                    <label class="col-form-label">Staff level</label>
-                    <select formControlName="staff_level" class="form-control digits" placeholder="Staff level">
-                      <option value=null>No level</option>
-                      <option *ngFor="let level of staffLevelList" [value]="level.id">
-                        {{level.name}}
-                      </option>
-                    </select>
-                    <div
-                      *ngIf="companyForm.controls.staff_level.touched && companyForm.controls.staff_level.errors?.required"
-                      class="text text-danger">
-                      Staff Level is required.
-                    </div>
-                  </div>
-                </div> -->
-
-                <!-- Staff ID -->
+                <!-- Student ID -->
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label class="col-form-label">Staff ID</label>
+                    <label class="col-form-label">Student ID</label>
                     <input formControlName="staff_id" class="form-control" type="text" placeholder="Staff ID" required>
                     <div *ngIf="companyForm.controls.staff_id.touched && companyForm.controls.staff_id.errors?.required"
                       class="text text-danger">
-                      Staff id is required.
+                      Student id is required.
                     </div>
                   </div>
                 </div>
@@ -221,16 +184,6 @@
                   </div>
                 </div>
 
-                <!-- Date of birth -->
-                <!-- <div class="col-md-6">
-                  <div class="form-group">
-                    <label class="col-form-label">Date of birth.</label>
-                    <input disabled (click)="picker.open()" [matDatepicker]="picker" formControlName="date_of_birth" class="form-control d-inline-block" type="text" placeholder="Date of birth" required>
-                    <mat-datepicker-toggle class="custom-dp" matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker disabled="false"></mat-datepicker>
-                  </div>
-                </div> -->
-
                 <div class="col-md-12">
                   <button mat-button matStepperPrevious>Back</button>
                   <button [disabled]="isLoading == true" class="btn btn-primary" (click)="onSave(stepper)" mat-button
@@ -254,10 +207,6 @@
             </ng-template>
           </mat-vertical-stepper>
         </div>
-        <!-- <div class="card-footer">
-          <button class="mr-1 btn btn-primary">Submit</button>
-          <button class="btn btn-secondary">Cancel</button>
-        </div> -->
       </div>
     </div>
   </div>

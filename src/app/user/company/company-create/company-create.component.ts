@@ -25,7 +25,7 @@ import { FindValueSubscriber } from "rxjs/internal/operators/find";
   styleUrls: ["./company-create.component.scss"],
 })
 export class CompanyCreateComponent implements OnInit {
-  title = "company create";
+  title = "create school";
   contactForm: FormGroup = new FormGroup({});
   companyForm: FormGroup = new FormGroup({});
   billingForm: FormGroup = new FormGroup({});
