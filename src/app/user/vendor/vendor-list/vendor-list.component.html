@@ -1,0 +1,168 @@
+<div class="container-fluid">
+  <!-- <div class="row">
+    <div class="mx-auto col-12"> -->
+  <div class="card">
+    <div class="card-header">
+      <h5>{{title | titlecase}}</h5>
+    </div>
+    <div class="card-body">
+      <app-table-functions [hideDownload]="true"
+                           [downloading]="downloading"
+                           [companyArray]="companyArray"
+                           (companyChange)="companyChange($event)"></app-table-functions>
+      <div class="mat-elevation-z8">
+        <!-- spinner to show when loading data -->
+        <div class="example-loading-shade"
+             *ngIf="tableLoading">
+          <mat-spinner *ngIf="tableLoading"></mat-spinner>
+        </div>
+
+        <table mat-table
+               [dataSource]="dataSource"
+               multiTemplateDataRows>
+          <!-- Position Column -->
+          <!-- <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+          </ng-container> -->
+
+          <!-- Contact Name Column -->
+          <ng-container *ngIf="isSid"
+                        matColumnDef="company">
+            <th mat-header-cell
+                *matHeaderCellDef>Company </th>
+            <td mat-cell
+                *matCellDef="let element"> {{element?.company_full?.name || 'N/A'}} </td>
+          </ng-container>
+
+          <!-- Contact Name Column -->
+          <ng-container matColumnDef="vendor_name">
+            <th mat-header-cell
+                *matHeaderCellDef> Name </th>
+            <td mat-cell
+                *matCellDef="let element"> {{element.bussiness_name || 'N/A'}}</td>
+          </ng-container>
+
+          <!-- Contact Email Column -->
+          <ng-container matColumnDef="email">
+            <th mat-header-cell
+                *matHeaderCellDef> Email </th>
+            <td mat-cell
+                *matCellDef="let element"> {{element.user.email || 'N/A'}} </td>
+          </ng-container>
+
+          <!-- Company Name Column -->
+          <ng-container matColumnDef="account_info">
+            <th mat-header-cell
+                *matHeaderCellDef> Account Info </th>
+            <td mat-cell
+                *matCellDef="let element"> {{element?.account_number || 'N/A'}} </td>
+          </ng-container>
+
+          <!-- Balance Column -->
+          <ng-container matColumnDef="balance">
+            <th mat-header-cell
+                *matHeaderCellDef> Balance </th>
+            <td mat-cell
+                *matCellDef="let element"> {{element.user.balance }} </td>
+          </ng-container>
+
+          <!-- Balance Column -->
+          <ng-container matColumnDef="company_place">
+            <th mat-header-cell
+                *matHeaderCellDef> Company Vendor </th>
+            <td mat-cell
+                *matCellDef="let element"> {{element.is_company }} </td>
+          </ng-container>
+
+          <!-- Balance Column -->
+          <ng-container matColumnDef="market_place">
+            <th mat-header-cell
+                *matHeaderCellDef> Market Place </th>
+            <td mat-cell
+                *matCellDef="let element"> {{element.is_market_space }} </td>
+          </ng-container>
+
+          <!-- Balance Column -->
+          <ng-container matColumnDef="last_login">
+            <th mat-header-cell
+                *matHeaderCellDef> Last Login </th>
+            <td mat-cell
+                *matCellDef="let element"> {{element?.user?.last_login | date : 'medium' }} </td>
+          </ng-container>
+
+          <!-- Action Column -->
+          <ng-container *ngIf="isSid || isComp"
+                        matColumnDef="any_day_scan">
+            <th mat-header-cell
+                *matHeaderCellDef>Any Day Scan</th>
+            <td mat-cell
+                *matCellDef="let element">
+              <div class="custom-control custom-switch">
+                <input (change)="onToggleScan(element)"
+                       [checked]="element.is_allow_any_day_ticket_scan"
+                       type="checkbox"
+                       [id]="element.id"
+                       class="custom-control-input">
+                <label class="custom-control-label"
+                       [for]="element.id">
+                </label>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Star Column -->
+          <ng-container matColumnDef="star">
+            <th mat-header-cell
+                *matHeaderCellDef></th>
+            <td mat-cell
+                *matCellDef="let element">
+              <button mat-button
+                      [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item
+                        (click)="onToggleCashHold(element)">
+                  <mat-icon>
+                    {{element.cash_hold ? 'play_arrow' : 'pause'}}
+                  </mat-icon>
+                  <span>
+                    {{element.cash_hold ? 'Unfreeze cash out' : 'Freeze cash out'}}
+                  </span>
+                </button>
+                <button mat-menu-item
+                        (click)="openEditDialog(element)">
+                  <mat-icon>
+                    edit_note
+                  </mat-icon>
+                  <span>
+                    Edit Account Details
+                  </span>
+                </button>
+                <button mat-menu-item
+                        (click)="openRatings(element)">
+                  <mat-icon>star_outlined</mat-icon>
+                  <span>Vendor Ratings</span>
+                </button>
+              </mat-menu>
+
+            </td>
+          </ng-container>
+
+
+          <tr mat-header-row
+              *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row
+              *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+        <app-paginator [length]=length
+                       (pageEvent)=pageChange($event)></app-paginator>
+      </div>
+
+    </div>
+  </div>
+  <!-- </div>
+  </div> -->
+</div>

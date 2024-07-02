@@ -1,0 +1,40 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="mx-auto col-8">
+      <div class="card">
+        <div class="card-header">
+          <h5>{{title | titlecase}}</h5>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="levelForm" (ngSubmit)="onSave()" class="row theme-form mega-form">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="col-form-label">Level name</label>
+                <input formControlName="name" class="form-control" type="text" placeholder="Level Name">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Daily Limit</label>
+                <input formControlName="daily_limit" class="form-control" type="text" placeholder="E:G 3000">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Company Allocation</label>
+                <input formControlName="company_paid" class="form-control" type="text" placeholder="E:G 500">
+              </div>
+            </div>
+
+          </form>
+        </div>
+        <div class="card-footer">
+          <button [disabled]="isLoading == true" (click)="onSave()" class="mr-1 btn btn-primary">
+            <i *ngIf="isLoading" class="fa fa-spin fa-spinner mr-2"></i>
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

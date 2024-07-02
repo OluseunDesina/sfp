@@ -1,0 +1,73 @@
+<h2 mat-dialog-title>{{title | titlecase}}</h2>
+<mat-dialog-content class="mat-typography">
+
+  <div class="example-loading-shade" *ngIf="isLoading">
+    <div class="loader-box">
+      <div class="loader">
+        <div class="line bg-primary"></div>
+        <div class="line bg-primary"></div>
+        <div class="line bg-primary"></div>
+        <div class="line bg-primary"></div>
+      </div>
+    </div>
+    <!-- <mat-spinner *ngIf="tableLoading"></mat-spinner> -->
+  </div>
+
+  <form [formGroup]="foodForm" class="row align-items-center theme-form mega-form">
+
+    <div class="mb-3 image-preview col-12" *ngIf="imagePreview !== '' && imagePreview && imageForm.get('image').valid">
+      <img class="mx-auto rounded d-block img-fluid" [src]="imagePreview" [alt]="foodForm.value.name">
+    </div>
+
+    <div class="col-auto">
+      <input #imageInput type="file" accept="image/*" (change)="onImagePicked($event)">
+      <div *ngIf="image.hasError('invalidMimeType')">Selected file is not of supported format</div>
+      <button (click)="imageInput.click()" class="btn btn-primary" type="button">Select food image</button>
+    </div>
+
+
+    <mat-form-field class="col" appearance="outline">
+      <mat-label>Food Name</mat-label>
+      <input formControlName="name" matInput>
+      <mat-error *ngIf="foodName.invalid && (foodName.dirty || foodName.touched)">Food name is a required field
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="col" appearance="outline">
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="category">
+        <mat-option [value]="null">Please select a category</mat-option>
+        <mat-option *ngFor="let category of categoryList" [value]="category.id">{{ category.name }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="category.invalid && (category.dirty || category.touched)">Please select a valid food category
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="col" appearance="outline">
+      <mat-label>Amount</mat-label>
+      <input formControlName="unit_price" matInput type="number" class="example-right-align">
+      <span matPrefix>
+        ₦
+      </span>
+      <span matSuffix>.00</span>
+      <mat-error *ngIf="unit_price.invalid && (unit_price.dirty || unit_price.touched)">Enter a valid amount for food
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="col-12" appearance="outline">
+      <mat-label>Food Description</mat-label>
+      <textarea formControlName="description" matInput
+        placeholder="Tell users what they need to know about the food."></textarea>
+      <mat-error *ngIf="description.invalid && (description.dirty || description.touched)">Food name is a required field
+      </mat-error>
+    </mat-form-field>
+  </form>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button color="primary" mat-button (click)="onSave()" cdkFocusInitial>
+    <i *ngIf="isLoading" class="fa fa-spin fa-spinner"></i>
+    {{title | titlecase}}
+  </button>
+</mat-dialog-actions>

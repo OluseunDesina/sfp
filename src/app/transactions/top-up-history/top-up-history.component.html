@@ -1,0 +1,81 @@
+<div class="container-fluid">
+  <!-- <div class="row">
+    <div class="mx-auto col-12"> -->
+  <div class="card">
+    <div class="card-header">
+      <div class="d-flex justify-content-between">
+        <h5>{{title | titlecase}}</h5>
+
+      </div>
+    </div>
+    <div class="card-body">
+
+      <app-table-functions (exportExcel)="onExportExcel()" [downloading]="downloading" [companyArray]="companyArray"
+        (companyChange)="companyChange($event)" (setEndDate)="setEndDate($event)" (setStartDate)="setStartDate($event)"
+        [rangePicker]="true"></app-table-functions>
+      <div class="mat-elevation-z8">
+
+        <div class="example-loading-shade" *ngIf="tableLoading">
+          <div class="loader-box">
+            <div class="loader">
+              <div class="line bg-primary"></div>
+              <div class="line bg-primary"></div>
+              <div class="line bg-primary"></div>
+              <div class="line bg-primary"></div>
+            </div>
+          </div>
+          <!-- <mat-spinner *ngIf="tableLoading"></mat-spinner> -->
+        </div>
+
+        <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
+
+          <!-- Contact Name Column -->
+          <ng-container matColumnDef="user">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.user || 'N/A'}}</td>
+          </ng-container>
+
+          <!-- Amount Column -->
+          <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef> Amount </th>
+            <td mat-cell *matCellDef="let element"> {{element.amount | currency:"NGN" : "₦" : '1.0-0'}} </td>
+          </ng-container>
+
+          <!-- Contact Email Column -->
+          <ng-container matColumnDef="updated_status">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let element"> {{element.status || 'N/A'}} </td>
+          </ng-container>
+
+          <!-- Balance Column -->
+          <ng-container matColumnDef="reference_no">
+            <th mat-header-cell *matHeaderCellDef>Reference </th>
+            <td mat-cell *matCellDef="let element"> {{element.reference_no || 'N/A'}} </td>
+          </ng-container>
+
+          <!-- Company Column -->
+          <ng-container matColumnDef="company">
+            <th mat-header-cell *matHeaderCellDef> Company </th>
+            <td mat-cell *matCellDef="let element"> {{element.company || 'N/A' }} </td>
+          </ng-container>
+
+          <!-- Date Column -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef> Date </th>
+            <td mat-cell *matCellDef="let element"> {{element | dateTime : element.date_created: element.time_created }}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let element; columns: displayedColumns;">
+          </tr>
+        </table>
+        <app-paginator [length]=length (pageEvent)=pageChange($event)></app-paginator>
+      </div>
+
+
+    </div>
+  </div>
+  <!-- </div>
+  </div> -->
+</div>

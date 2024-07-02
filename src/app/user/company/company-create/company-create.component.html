@@ -1,0 +1,739 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="mx-auto col-8">
+      <div class="card">
+        <div class="card-header">
+          <h5>{{ title | titlecase }}</h5>
+        </div>
+        <div class="card-body">
+          <mat-vertical-stepper [linear]="true" #stepper>
+            <mat-step [stepControl]="contactForm" errorMessage="Conatct info is required." state="contact">
+              <form [formGroup]="contactForm" class="row theme-form mega-form">
+                <ng-template matStepLabel>
+                  <h6 class="col-12">Contact Information</h6>
+                </ng-template>
+                <!-- firstname -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label">First Name</label>
+                    <input formControlName="contact_first_name" class="form-control" type="text" placeholder="your Name"
+                      required />
+                    <div *ngIf="
+                        contactForm.controls.contact_first_name.touched &&
+                        contactForm.controls.contact_first_name.errors?.required
+                      " class="text text-danger">
+                      First Name is required.
+                    </div>
+                    <div *ngIf="
+                        contactForm.controls.contact_first_name.touched &&
+                        contactForm.controls.contact_first_name.errors?.pattern
+                      " class="text text-danger">
+                      First Name must be an alphabates.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- lastname -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Last Name</label>
+                    <input formControlName="contact_last_name" class="form-control" type="text"
+                      placeholder="your Name" />
+                    <div *ngIf="
+                        contactForm.controls.contact_last_name.touched &&
+                        contactForm.controls.contact_last_name.errors?.required
+                      " class="text text-danger">
+                      Last Name is required.
+                    </div>
+                    <div *ngIf="
+                        contactForm.controls.contact_last_name.touched &&
+                        contactForm.controls.contact_last_name.errors?.pattern
+                      " class="text text-danger">
+                      Last Name must be an alphabates.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Email -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Email Address</label>
+                    <input formControlName="contact_email" class="form-control" type="email"
+                      placeholder="Enter email" />
+                    <div *ngIf="
+                        contactForm.controls.contact_email.touched &&
+                        contactForm.controls.contact_email.errors?.required
+                      " class="text text-danger">
+                      Email is required.
+                    </div>
+                    <div *ngIf="
+                        contactForm.controls.contact_email.touched &&
+                        contactForm.controls.contact_email.errors?.pattern
+                      " class="text text-danger">
+                      Email must be Valid.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Phone -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-12">Contact Number</label>
+                    <ngx-intl-tel-input class="col-12" [cssClass]="'form-control'"
+                      [preferredCountries]="[CountryISO.UnitedStates, CountryISO.UnitedKingdom]"
+                      [enableAutoCountrySelect]="false" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                      [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                      [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.Nigeria" [maxLength]="11"
+                      [phoneValidation]="true" name="phone" formControlName="contact_phone_number"></ngx-intl-tel-input>
+                  </div>
+                </div>
+                <div>
+                  <button [disabled]="isLoading" class="btn btn-primary" (click)="validateForm(contactForm)" mat-button
+                    matStepperNext>
+                    <i *ngIf="isLoading" class="fa fa-spin fa-spinner"></i>
+                    Next
+                  </button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step [stepControl]="companyForm" errorMessage="School info is required." state="company">
+              <form [formGroup]="companyForm" class="row theme-form mega-form">
+                <ng-template matStepLabel>
+                  <div class="col-12">
+                    <h6>School Information</h6>
+                  </div>
+                </ng-template>
+
+                <!-- Name -->
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="col-form-label">School Name</label>
+                    <input formControlName="name" class="form-control" type="text" placeholder="Company Name" />
+                    <div *ngIf="
+                        companyForm.controls.name.touched &&
+                        companyForm.controls.name.errors?.required
+                      " class="text text-danger">
+                      Name is required.
+                    </div>
+                    <div *ngIf="
+                        companyForm.controls.name.touched &&
+                        companyForm.controls.name.errors?.pattern
+                      " class="text text-danger">
+                      Name can only be alphabets.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- description -->
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="col-form-label">Description</label>
+                    <textarea formControlName="description" class="form-control" placeholder="Website">
+                    </textarea>
+                    <div *ngIf="
+                        companyForm.controls.description.touched &&
+                        companyForm.controls.description.errors?.required
+                      " class="text text-danger">
+                      School description is required.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- private key -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Private Key</label>
+                    <input formControlName="private_key" class="form-control" type="text" placeholder="private_key" />
+                    <div *ngIf="
+                        companyForm.controls.private_key.touched &&
+                        companyForm.controls.private_key.errors?.required
+                      " class="text text-danger">
+                      private key is required.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- public key -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Public key</label>
+                    <input formControlName="public_key" class="form-control" type="text" placeholder="public_key" />
+                    <div *ngIf="
+                        companyForm.controls.public_key.touched &&
+                        companyForm.controls.public_key.errors?.required
+                      " class="text text-danger">
+                      public key is required.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- sector -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Sector</label>
+                    <input formControlName="sector" class="form-control" type="text" placeholder="Sector" />
+                    <div *ngIf="
+                        companyForm.controls.sector.touched &&
+                        companyForm.controls.sector.errors?.required
+                      " class="text text-danger">
+                      Sector is required.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <button [disabled]="isLoading" mat-button matStepperPrevious>Back</button>
+                  <button [disabled]="isLoading" class="btn btn-primary" (click)="validateForm(companyForm)" mat-button
+                    matStepperNext>
+                    <i *ngIf="isLoading" class="fa fa-spin fa-spinner"></i>
+                    Next
+                  </button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step [stepControl]="billingForm" errorMessage="Billing info is required." state="billing">
+              <form [formGroup]="billingForm" class="mt-4 row theme-form mega-form">
+                <ng-template matStepLabel>
+                  <div class="col-12">
+                    <h6>Billing Information</h6>
+                  </div>
+                </ng-template>
+
+                <div class="col-4">
+                  <div class="form-group">
+                    <label for="">Account Number</label>
+                    <input minlength="10" maxlength="10" formControlName="account_number" class="form-control"
+                      type="text" placeholder="Account Number" required />
+                    <div *ngIf="
+                        billingForm.controls.account_number.touched &&
+                        billingForm.controls.account_number.errors?.required
+                      " class="text text-danger">
+                      Account Number is required.
+                    </div>
+                    <div *ngIf="
+                        billingForm.controls.account_number.touched &&
+                        billingForm.controls.account_number.errors?.pattern
+                      " class="text text-danger">
+                      Account Number can only be numeric.
+                    </div>
+                    <div *ngIf="
+                        billingForm.controls.account_number.touched &&
+                        (billingForm
+                          .get('account_number')
+                          .hasError('minlength') ||
+                          billingForm
+                            .get('account_number')
+                            .hasError('maxlength'))
+                      " class="text text-danger">
+                      Account Number can only be 10 digits.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label for="">Bank</label>
+                    <select formControlName="bank_code" class="form-control digits" placeholder="Bank name">
+                      <option value="null">Please Select a Bank</option>
+                      <option *ngFor="let bank of bankList" [value]="bank.code">
+                        {{ bank.name }}
+                      </option>
+                    </select>
+                    <div *ngIf="
+                        billingForm.controls.bank_code.touched &&
+                        billingForm.controls.bank_code.errors?.required
+                      " class="text text-danger">
+                      Bank is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label for="">Topup type</label>
+                    <select formControlName="top_up_type" class="form-control" placeholder="Top Up Type">
+                      <option value=null> Select Topup type</option>
+                      <option *ngFor="let topUpType of topUpTypeArray" [value]="topUpType">
+                        {{topUpType | titlecase}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <input formControlName="service_fee" class="form-control" type="text" placeholder="Service Fee" />
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <button [disabled]="isLoading" mat-button matStepperPrevious>Back</button>
+                  <button [disabled]="isLoading" (click)="validateForm(billingForm)" mat-button matStepperNext>
+                    <i *ngIf="isLoading" class="fa fa-spin fa-spinner"></i>
+                    Next
+                  </button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step [stepControl]="othersForm" errorMessage="Configuartion info is required." state="others">
+              <form [formGroup]="othersForm" class="mt-3 row theme-form mega-form">
+                <ng-template matStepLabel>
+                  <div class="col-12">
+                    <h6>Other Information</h6>
+                  </div>
+                </ng-template>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="col-form-label">Biometric Type</label>
+                    <select formControlName="biometric_type" class="form-control digits" placeholder="Bank name">
+                      <option *ngFor="let biometricType of biometricTypeArray" [value]="biometricType">
+                        {{biometricType | titlecase}}
+                      </option>
+                    </select>
+                    <div *ngIf="
+                        othersForm.controls.biometric_type.touched &&
+                        othersForm.controls.biometric_type.errors?.required
+                      " class="text text-danger">
+                      Biometric Type is required.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="col-form-label">vendor cash out time</label>
+                    <input formControlName="cash_out_time" class="form-control" type="time"
+                      placeholder="vendor cash out time" />
+                    <div *ngIf="
+                        othersForm.controls.cash_out_time.touched &&
+                        othersForm.controls.cash_out_time.errors?.required
+                      " class="text text-danger">
+                      vendor cash out time is required.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="col-form-label">cancelling grace period in hours</label>
+                    <input formControlName="cancelling_grace_period_in_hours" class="form-control" type="text"
+                      placeholder="vendor cash out time" />
+                    <div *ngIf="
+                        othersForm.controls.cancelling_grace_period_in_hours.touched &&
+                        othersForm.controls.cancelling_grace_period_in_hours.errors?.required
+                      " class="text text-danger">
+                      cancelling grace period in hours is required"
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="col-form-label">Number of Booking days</label>
+                    <input formControlName="allowed_booking_day" class="form-control" type="text"
+                      placeholder="Number of Booking days" />
+                    <div *ngIf="
+                        othersForm.controls.allowed_booking_day.touched &&
+                        othersForm.controls.allowed_booking_day.errors?.required
+                      " class="text text-danger">
+                      Number of allowed booking days is required.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-auto">
+                  <div class="mb-0 form-group">
+                    <div class="mb-0 ml-1 form-group m-checkbox-inline">
+                      <div class="checkbox checkbox-primary">
+                        <input formControlName="use_card" id="use_card" type="checkbox" />
+                        <label class="mb-0" for="use_card">Use Card</label>
+                        <div *ngIf="
+                            othersForm.controls.use_card.touched &&
+                            othersForm.controls.use_card.errors?.required
+                          " class="text text-danger">
+                          This is required.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-auto">
+                  <div class="mb-0 form-group">
+                    <div class="mb-0 ml-1 form-group m-checkbox-inline">
+                      <div class="checkbox checkbox-primary">
+                        <input formControlName="use_biometric" id="use_biometric" type="checkbox" />
+                        <label class="mb-0" for="use_biometric">Use Biometric</label>
+                        <div *ngIf="
+                            othersForm.controls.use_biometric.touched &&
+                            othersForm.controls.use_biometric.errors?.required
+                          " class="text text-danger">
+                          This is required.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-auto">
+                  <div class="mb-0 form-group">
+                    <div class="mb-0 ml-1 form-group m-checkbox-inline">
+                      <div class="checkbox checkbox-primary">
+                        <input formControlName="use_transaction_code" id="use_barcode" type="checkbox" />
+                        <label class="mb-0" for="use_barcode">Use Barcode</label>
+                        <div *ngIf="
+                            othersForm.controls.use_transaction_code.touched &&
+                            othersForm.controls.use_transaction_code.errors
+                              ?.required
+                          " class="text text-danger">
+                          This is required.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-auto">
+                  <div class="mb-0 form-group">
+                    <div class="mb-0 ml-1 form-group m-checkbox-inline">
+                      <div class="checkbox checkbox-primary">
+                        <input formControlName="allow_same_day_delivery" id="same_day" type="checkbox" />
+                        <label class="mb-0" for="same_day">Allow sameday delivery</label>
+                        <div *ngIf="
+                            othersForm.controls.allow_same_day_delivery
+                              .touched &&
+                            othersForm.controls.allow_same_day_delivery.errors
+                              ?.required
+                          " class="text text-danger">
+                          This is required.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-auto">
+                  <div class="mb-0 form-group">
+                    <div class="mb-0 ml-1 form-group m-checkbox-inline">
+                      <div class="checkbox checkbox-primary">
+                        <input formControlName="is_comp_allow_txn_mix" id="txn_mix" type="checkbox" />
+                        <label class="mb-0" for="txn_mix">Allow Transaction Mix</label>
+                        <div *ngIf="
+                            othersForm.controls.is_comp_allow_txn_mix.touched &&
+                            othersForm.controls.is_comp_allow_txn_mix.errors
+                              ?.required
+                          " class="text text-danger">
+                          This is required.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <button [disabled]="isLoading" mat-button matStepperPrevious> <i *ngIf="isLoading"
+                      class="fa fa-spin fa-spinner"></i> Back</button>
+                  <button [disabled]="isLoading" (click)="validateForm(othersForm)" mat-button matStepperNext>
+                    <i *ngIf="isLoading" class="fa fa-spin fa-spinner"></i>
+                    Next
+                  </button>
+                </div>
+              </form>
+            </mat-step>
+
+            <mat-step [stepControl]="passwordForm" errorMessage="Setup your security." state="password">
+              <ng-template matStepLabel>
+                <div class="col-12">
+                  <h6>Security</h6>
+                </div>
+              </ng-template>
+              <p>Almost Done, Set a password for user</p>
+              <form [formGroup]="passwordForm" class="row theme-form mega-form">
+                <!-- password -->
+                <div class="col-md">
+                  <div class="form-group">
+                    <label class="col-form-label">Password</label>
+                    <div class="row">
+                      <input formControlName="password" class="form-control col" [type]="hide ? 'password' : 'text'"
+                        placeholder="Password" />
+                      <div class="col-auto">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                          [attr.aria-pressed]="hide">
+                          <mat-icon>{{
+                            hide ? "visibility_off" : "visibility"
+                            }}</mat-icon>
+                        </button>
+                      </div>
+                    </div>
+                    <div *ngIf="
+                        passwordForm.controls.password.touched &&
+                        passwordForm.controls.password.errors?.required
+                      " class="text text-danger">
+                      Password is required.
+                    </div>
+                    <div *ngIf="
+                        passwordForm.controls.password.touched &&
+                        passwordForm.controls.password.errors?.pattern
+                      " class="text text-danger">
+                      Password must be an alphanumeric.
+                    </div>
+                    <div *ngIf="
+                        passwordForm.controls.password.touched &&
+                        passwordForm.controls.password.errors?.minLength
+                      " class="text text-danger">
+                      Password must be atleast 8 characters long.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- confirm password -->
+                <div class="col-md">
+                  <div class="form-group">
+                    <label class="col-form-label">Confirm Password</label>
+                    <div class="row">
+                      <input formControlName="confirmPassword" class="form-control col"
+                        [type]="hide ? 'password' : 'text'" placeholder="Retype Password" />
+                      <div class="col-auto">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                          [attr.aria-pressed]="hide">
+                          <mat-icon>{{
+                            hide ? "visibility_off" : "visibility"
+                            }}</mat-icon>
+                        </button>
+                      </div>
+                    </div>
+                    <div *ngIf="
+                        passwordForm.hasError('passwordMatch') &&
+                        passwordForm.get('password').touched &&
+                        passwordForm.get('confirmPassword').touched
+                      " class="text text-danger">
+                      Password mismatch.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <button [disabled]="isLoading" mat-button matStepperPrevious> <i *ngIf="isLoading"
+                      class="fa fa-spin fa-spinner"></i>Back</button>
+                  <button [disabled]="isLoading" mat-button (click)="onSave(stepper)">
+                    <i *ngIf="isLoading" class="fa fa-spin fa-spinner"></i> Next
+                  </button>
+                </div>
+              </form>
+              <!-- <div>
+                <button mat-button (click)="stepper.reset()">Reset</button>
+              </div> -->
+            </mat-step>
+
+            <!-- Icon overrides. -->
+            <ng-template matStepperIcon="contact">
+              <mat-icon>contacts</mat-icon>
+            </ng-template>
+            <ng-template matStepperIcon="company">
+              <mat-icon>apartment</mat-icon>
+            </ng-template>
+            <ng-template matStepperIcon="billing">
+              <mat-icon>payments</mat-icon>
+            </ng-template>
+            <ng-template matStepperIcon="others">
+              <mat-icon>settings_input_composite</mat-icon>
+            </ng-template>
+            <ng-template matStepperIcon="password">
+              <mat-icon>lock</mat-icon>
+            </ng-template>
+          </mat-vertical-stepper>
+
+          <!-- <form [formGroup]="form" (submit)="onSave()" class="row theme-form mega-form">
+            <h6 class="col-12">Contact Information</h6>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">First Name</label>
+                <input formControlName="contact_first_name" class="form-control" type="text" placeholder="your Name">
+                <div
+                  *ngIf="form.controls.contact_first_name.touched && form.controls.contact_first_name.errors?.required"
+                  class="text text-danger">
+                  First Name is required.
+                </div>
+                <div
+                  *ngIf="form.controls.contact_first_name.touched && form.controls.contact_first_name.errors?.pattern"
+                  class="text text-danger">
+                  First Name must be an alphabates.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Last Name</label>
+                <input formControlName="contact_last_name" class="form-control" type="text" placeholder="your Name">
+                <div *ngIf="form.controls.contact_last_name.touched && form.controls.contact_last_name.errors?.required"
+                  class="text text-danger">
+                  First Name is required.
+                </div>
+                <div *ngIf="form.controls.contact_last_name.touched && form.controls.contact_last_name.errors?.pattern"
+                  class="text text-danger">
+                  First Name must be an alphabates.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Email Address</label>
+                <input formControlName="contact_email" class="form-control" type="email" placeholder="Enter email">
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label class="col-form-label">Contact Number</label>
+                <input class="form-control" type="text" placeholder="Enter contact number">
+              </div>
+            </div>
+
+            <div class="col-12">
+              <hr class="mt-4 mb-4 d-block">
+              <h6>Company Information</h6>
+            </div>
+
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="col-form-label">Company Name</label>
+                <input formControlName="name" class="form-control" type="text" placeholder="Company Name">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="col-form-label">Description</label>
+                <textarea formControlName="description" class="form-control" placeholder="Website">
+
+                </textarea>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Sector</label>
+                <input formControlName="sector" class="form-control" type="text" placeholder="Sector">
+              </div>
+            </div>
+
+            <div class="col-12">
+              <hr class="mt-4 mb-4">
+              <h6 class="pb-4">Billing Information</h6>
+            </div>
+
+            <div class="col-4">
+              <div class="form-group">
+                <input formControlName="account_number" class="form-control" type="text" placeholder="Account Number">
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <select formControlName="bank_code" class="form-control digits" placeholder="Bank name">
+                  <option value=null>Please Select a Bank</option>
+                  <option *ngFor="let bank of bankList" [value]="bank.code">
+                    {{bank.name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <select formControlName="top_up_type" class="form-control" placeholder="Top Up Type">
+                  <option value=null> Select Topup type</option>
+                  <option *ngFor="let bank of bankList" [value]="bank.code">
+                    {{bank.name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <input formControlName="service_fee" class="form-control" type="text" placeholder="Service Fee">
+              </div>
+            </div>
+
+            <div class="col-12">
+              <hr class="mt-4 mb-4">
+              <h6 class="pb-4">Other Information</h6>
+            </div>
+
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Biometric Type</label>
+                <select formControlName="biometric_type" class="form-control digits" placeholder="Bank name">
+                  <option>1</option>
+                  <option *ngFor="let bank of bankList" [value]="bank.code">
+                    {{bank.name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Number of Booking days</label>
+                <input formControlName="allowed_booking_day" class="form-control" type="text"
+                  placeholder="Number of Booking days">
+              </div>
+            </div>
+
+            <div class="col-auto">
+              <div class="mb-0 form-group">
+                <div class="mb-0 ml-1 form-group m-checkbox-inline">
+                  <div class="checkbox checkbox-primary">
+                    <input formControlName="use_card" id="use_card" type="checkbox">
+                    <label class="mb-0" for="use_card">Use Card</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-auto">
+              <div class="mb-0 form-group">
+                <div class="mb-0 ml-1 form-group m-checkbox-inline">
+                  <div class="checkbox checkbox-primary">
+                    <input formControlName="use_biometric" id="use_biometric" type="checkbox">
+                    <label class="mb-0" for="use_biometric">Use Biometric</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-auto">
+              <div class="mb-0 form-group">
+                <div class="mb-0 ml-1 form-group m-checkbox-inline">
+                  <div class="checkbox checkbox-primary">
+                    <input formControlName="use_transaction_code" id="use_barcode" type="checkbox">
+                    <label class="mb-0" for="use_barcode">Use Barcode</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-auto">
+              <div class="mb-0 form-group">
+                <div class="mb-0 ml-1 form-group m-checkbox-inline">
+                  <div class="checkbox checkbox-primary">
+                    <input formControlName="allow_same_day_delivery" id="same_day" type="checkbox">
+                    <label class="mb-0" for="same_day">Allow sameday delivery</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-auto">
+              <div class="mb-0 form-group">
+                <div class="mb-0 ml-1 form-group m-checkbox-inline">
+                  <div class="checkbox checkbox-primary">
+                    <input formControlName="is_comp_allow_txn_mix" id="txn_mix" type="checkbox">
+                    <label class="mb-0" for="txn_mix">Allow Transaction Mix</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </form> -->
+        </div>
+        <!-- <div class="card-footer">
+          <button (click)="onSave()" class="mr-1 btn btn-primary">Submit</button>
+          <button mat-button (click)="stepper.reset()" class="btn">Reset</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

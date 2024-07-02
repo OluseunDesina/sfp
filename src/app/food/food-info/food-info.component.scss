@@ -1,0 +1,84 @@
+$height: 20vh;
+
+.food-details-card {
+  border: 6px solid #ffffff;
+  // height: $height;
+}
+.food-name {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 140%;
+  /* identical to box height, or 34px */
+  color: #27AE60;
+}
+
+.dish {
+  margin-right: -15%;
+  width: $height;
+  height: $height;
+}
+
+// .h6 {
+//   font-family: Avenir;
+//   font-style: normal;
+//   font-weight: 800;
+//   font-size: 9px;
+//   line-height: 12px;
+//   text-align: right;
+//   color: #0f0c0c;
+// }
+
+.hr {
+  width: 60%;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: 0;
+  border-top: 1px solid #5d5959;
+  transform: matrix(1, -0.01, 0.01, 1, 0, 0);
+}
+
+// .name {
+//   font-family: Avenir;
+//   font-style: normal;
+//   font-weight: 900;
+//   font-size: 6px;
+//   line-height: 8px;
+//   text-align: right;
+
+//   color: #0f0c0c;
+// }
+
+.review {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 21px;
+  text-align: right;
+
+  color: #0f0c0c;
+}
+
+// .time {
+//   font-family: Poppins;
+//   font-style: normal;
+//   font-weight: normal;
+//   font-size: 5px;
+//   line-height: 7px;
+//   text-align: right;
+
+//   color: #0f0c0c;
+// }
+
+.amount {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 140%;
+  /* or 67px */
+
+  color: #27AE60;
+}

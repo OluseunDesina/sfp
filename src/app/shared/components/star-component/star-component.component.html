@@ -1,0 +1,12 @@
+<button type="button"
+        mat-icon-button>
+  <mat-icon *ngFor="let icon of maxRatingArr; let index=index"
+            (mouseenter)="handleMouseEnter(index)"
+            (mouseleave)="handleMouseLeave()"
+            (click)="Rating(index)"
+            [ngClass]="{checked:SelectedStar>index}">{{
+    SelectedStar>index
+    ? 'star'
+    : 'star_outlined'
+    }}</mat-icon>
+</button>

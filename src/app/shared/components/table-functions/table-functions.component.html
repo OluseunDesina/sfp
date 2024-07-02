@@ -1,0 +1,99 @@
+<div class="mb-2 d-flex align-items-center">
+  <div *ngIf="!hideDownload" class="mr-auto">
+    <button (click)="onExportExcel()" class="mr-2" mat-raised-button>
+      <ng-container *ngIf="!downloading; else downloadingTemplate">
+        <mat-icon ngif class="mr-2">download</mat-icon>
+      </ng-container>
+      <ng-template #downloadingTemplate>
+        <mat-icon ngif class="mr-2">downloading</mat-icon>
+      </ng-template>
+      Download xls
+    </button>
+  </div>
+
+  <!-- Search Filter -->
+  <mat-form-field *ngIf="showSearch" class="mr-2 col-md" appearance="outline">
+    <mat-label>{{searchPlaceHolder}}</mat-label>
+    <button (click)="onSearch()" *ngIf="searchText" matPrefix mat-icon-button aria-label="search">
+      <mat-icon>search</mat-icon>
+    </button>
+    <!-- (ngModelChange)="onSearchTextChange()"  -->
+    <input (keyup)="onTextChange()" [placeholder]="searchPlaceHolder" [(ngModel)]="searchText" type="text" matInput>
+    <button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="searchText=''; onSearch()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <!-- Company Array -->
+  <mat-form-field *ngIf="companyArray" class="mr-2" appearance="outline">
+    <mat-label>Company</mat-label>
+    <mat-select (valueChange)="onCompanyChange($event)">
+      <mat-option *ngFor="let company of companyArray" [value]="company.id">
+        {{company.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Vendor Array -->
+  <mat-form-field *ngIf="vendorArray" class="mr-2" appearance="outline">
+    <mat-label>Vendor</mat-label>
+    <mat-select (valueChange)="onVendorChange($event)">
+      <mat-option *ngFor="let vendor of vendorArray" [value]="vendor.id">
+        {{vendor.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- meal type Array -->
+  <mat-form-field *ngIf="mealTypeArray" class="mr-2" appearance="outline">
+    <mat-label>meal type</mat-label>
+    <mat-select (valueChange)="onMealTypeChange($event)">
+      <mat-option *ngFor="let mealType of mealTypeArray" [value]="mealType.id">
+        {{mealType.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Status Array -->
+  <mat-form-field *ngIf="statusArray" class="mr-2" appearance="outline">
+    <mat-label>Status</mat-label>
+    <mat-select (valueChange)="onStatusChange($event)">
+      <mat-option *ngFor="let status of statusArray" [value]="status.code">
+        {{status.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Range Picker -->
+  <mat-form-field *ngIf="rangePicker==true" class="mr-2" appearance="outline">
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input (click)="picker.open()" [formGroup]="range" [rangePicker]="picker">
+      <input readonly (dateInput)="onSetStartDate($event)" formControlName="start" matStartDate
+        placeholder="Start date">
+      <input readonly (dateInput)="onSetEndDate($event)" formControlName="end" matEndDate placeholder="End date">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker disabled="false" #picker></mat-date-range-picker>
+    <mat-hint>Pick start and end dates</mat-hint>
+
+    <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+    <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+  </mat-form-field>
+
+  <!-- Date Picker -->
+  <mat-form-field *ngIf="datePicker == true" class="mr-2" appearance="outline">
+    <mat-label>Choose a date</mat-label>
+    <input matInput readonly (click)="picker.open()" (dateInput)="onSetDate($event)" [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker disabled="false" #picker></mat-datepicker>
+  </mat-form-field>
+
+  <!-- <mat-form-field appearance="fill">
+    <mat-label>Choose a date</mat-label>
+    <input matInput [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field> -->
+
+
+</div>

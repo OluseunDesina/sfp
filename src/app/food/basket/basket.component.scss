@@ -1,0 +1,104 @@
+:host {
+  position: fixed;
+  right: 0px;
+  top: 120px;
+  width: 33%;
+  @media (max-width: 800px) {
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: fit-content;
+    .cart-card {
+      z-index: 999999;
+    }
+  }
+}
+
+table {
+  td {
+    color: #ffffff;
+    padding: 4px 8px;
+    vertical-align: middle;
+  }
+
+  thead {
+    tr {
+      border-bottom: 1px solid #f2f2f2 !important;
+    }
+  }
+}
+
+.media {
+  img {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.food-name {
+  font-family: Barlow;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 130%;
+  color: #ffffff;
+}
+
+.food-price {
+  font-family: Barlow;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 140%;
+  color: #ffffff;
+}
+
+input {
+  border: 1px solid #f2f2f2;
+  box-sizing: border-box;
+  border-radius: 8px;
+  font-family: Barlow;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 140%;
+  color: #5c5c5c;
+  padding: 14px;
+  width: 100%;
+}
+
+input[placeholder] {
+  font-family: Barlow;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 140%;
+  color: #5c5c5c;
+  padding: 14px;
+}
+
+.qty {
+  padding: 14px 14px 12px !important;
+  background: #f2f2f2;
+  border: 1px solid #f2f2f2;
+  box-sizing: border-box;
+  border-radius: 8px;
+  font-family: Barlow;
+  font-style: normal;
+  font-weight: 500 !important;
+  font-size: 16px !important;
+  line-height: 140% !important;
+  color: #27AE60 !important;
+  width: 80px !important;
+}
+
+.basket-items {
+  max-height: 40vh;
+  height: auto;
+  overflow: scroll;
+}
+
+tbody::before {
+  content: "";
+  display: block;
+  height: 15px;
+}

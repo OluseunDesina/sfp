@@ -1,0 +1,89 @@
+<div class="container-fluid">
+  <div class="d-flex justify-content-end">
+    <button (click)="hideCart()" class="btn">
+      <i class="fa fa-close"></i>
+    </button>
+  </div>
+  <div class="row px-0">
+    <div class="col-12 px-0">
+      <div class="card cart-card bg-primary">
+        <div class="card-body">
+
+          <div class="basket-items table-responsive mt-5">
+
+            <table class="table table-borderless table-sm ">
+              <thead>
+                <tr>
+                  <td class="">
+                    item
+                  </td>
+                  <td class="text-center">
+                    Qty
+                  </td>
+                  <td class="text-center">
+                    Price
+                  </td>
+                </tr>
+              </thead>
+              <tbody class="" *ngFor="let item of cart">
+                <tr>
+                  <td>
+                    <div class="media">
+                      <img class="rounded-circle image-radius m-r-5" [src]="item.image" alt="">
+                      <div class="media-body">
+                        <span class="d-block b-0 food-name">{{ (item.name.length>23)? (item.name |
+                          slice:0:20)+'...':(item.name) }}</span>
+                        <span class="d-block">{{item.unit_price | currency:'NGN' : "₦" : '1.0-0'}}</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    <input class="qty" type="number" min="1" [(ngModel)]="item.quantity"
+                      (ngModelChange)="onUpdateBasket(item)" placeholder="qty">
+                  </td>
+                  <td class="text-center">
+                    {{item.qty * item.unit_price | currency:'NGN' : "₦" : '1.0-0'}}
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <input type="text" [value]="" [(ngModel)]="item.comment" (ngModelChange)="onUpdateBasket(item)"
+                      placeholder="Order Note...">
+                  </td>
+                  <td class="text-center">
+                    <button (click)="onRemoveFromCart(item)" class="my-auto btn btn-outline-light px-1">
+                      <img class="mx-1 " src="../../../assets/svg/Delete.svg" alt="">
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+          <hr>
+          <div class="d-flex justify-content-between">
+            <p>Sub total</p>
+            <p>{{cartTotal | currency:'NGN' : "₦" : '1.0-0'}}</p>
+          </div>
+
+          <button [disabled]="isLoading == true" (click)="onConfirmOrder()" class="btn btn-white btn-block mt-5">
+            <i *ngIf="isLoading == true" class="fa fa-spin fa-spinner mr-2"></i>
+            Confirm Order
+          </button>
+
+          <p class="text-center mb-2 small mt-3">
+            Amount exceeds Company Wallet?
+          </p>
+          <div class="row mb-5">
+            <div class="col-auto mx-auto">
+              <button class="btn text-white btn-outline-light">
+                Click Here
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

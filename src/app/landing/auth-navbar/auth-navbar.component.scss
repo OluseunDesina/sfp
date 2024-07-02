@@ -1,0 +1,35 @@
+.nav-item {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 36px;
+  text-align: center;
+
+  color: #191919;
+}
+
+.fixed-top {
+  position: absolute;
+  z-index: 1;
+}
+
+.auth-links {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 36px;
+  /* identical to box height */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #ffffff !important;
+}
+
+.bucca-logo {
+  max-height: 8vh;
+  width: auto;
+}

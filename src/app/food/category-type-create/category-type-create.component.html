@@ -1,0 +1,40 @@
+<div class="container-fluid">
+  <mat-toolbar class="d-flex justify-content-between">
+    <div>
+      <h2>{{title | titlecase}}</h2>
+    </div>
+    <div>
+      <mat-icon mat-button mat-dialog-close>
+        close
+      </mat-icon>
+    </div>
+  </mat-toolbar>
+  <div class="mt-2">
+
+    <div class="card-body">
+      <form [formGroup]="form" class="row theme-form mega-form">
+        <!-- Name -->
+        <mat-form-field>
+          <mat-label>Category Type</mat-label>
+          <input matInput formControlName="name" type="text">
+        </mat-form-field>
+        <!-- <div class="col-md-12">
+              <div class="form-group">
+                <label class="col-form-label">Category Name</label>
+                <input formControlName="name" class="form-control" type="text" placeholder="Company Name">
+                <div *ngIf="form.controls.name.touched && form.controls.name.errors?.required" class="text text-danger">
+                  Name is required.
+                </div>
+                <div *ngIf="form.controls.name.touched && form.controls.name.errors?.pattern" class="text text-danger">
+                  Name can only be alphabets.
+                </div>
+              </div>
+            </div> -->
+        <div class="mx-auto col-8">
+          <button class="btn btn-primary btn-block" (click)="onSave()" mat-button>Save</button>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

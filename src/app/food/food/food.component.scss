@@ -1,0 +1,9 @@
+$image-height: 100px;
+$margin: calc($image-height / 2);
+
+.food-img {
+  margin-top: -$image-height/2;
+  height: $image-height;
+  width: $image-height;
+  border-radius: calc($image-height/2);
+}

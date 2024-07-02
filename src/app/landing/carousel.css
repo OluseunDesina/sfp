@@ -1,0 +1,16 @@
+.owl-theme .owl-nav {
+  background: transparent !important;
+  float: right;
+}
+
+.owl-theme .owl-nav [class*='owl-'] {
+  background: transparent !important;
+}
+
+.owl-prev {
+  background: transparent !important;
+}
+
+.owl-next {
+  background: transparent !important;
+}

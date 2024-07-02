@@ -1,0 +1,44 @@
+<div class="px-5">
+  <div class="row">
+    <div class="col-12">
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container-fluid">
+          <a [routerLink]="['/']" routerLinkActive="router-link-active" class="mr-5 navbar-brand">
+            <img src="../../../assets/images/NHGSFP.png" class="bucca-logo img-fluid" alt="Bucca Logo">
+          </a>
+          <button *ngIf="showNav" class="navbar-toggler" type="button" [matMenuTriggerFor]="menu">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>What we do</button>
+            <button mat-menu-item>Be a Food Partner</button>
+            <button mat-menu-item>Contact Us</button>
+            <a mat-button (click)="openDialog()" class="btn btn-primary nav-link auth-links">Login</a>
+          </mat-menu>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul *ngIf="showNav" class="navbar-nav navbar-nav-scroll">
+              <li class="mr-3 nav-item">
+                <a class="">Today Special Offers</a>
+              </li>
+              <li class="mr-3 nav-item">
+                <a class="">Why FoodHut</a>
+              </li>
+              <li class="mr-3 nav-item">
+                <a class="">Our Menu</a>
+              </li>
+              <li class="mr-3 nav-item">
+                <a class="">Our Popular Food</a>
+              </li>
+            </ul>
+            <div *ngIf="showNav" class="ml-auto d-flex">
+              <button (click)="openDialog()" class="btn btn-primary">
+                Login
+              </button>
+              <!-- <a mat-button (click)="openDialog()" class="btn btn-primary nav-link auth-links">Login</a> -->
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>

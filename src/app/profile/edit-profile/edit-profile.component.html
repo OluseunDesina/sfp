@@ -1,0 +1,174 @@
+<!-- Container-fluid starts-->
+<div class="mb-5 container-fluid">
+  <div class="edit-profile">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="mb-0 card-title">My Profile</h4>
+            <div class="card-options"><a class="card-options-collapse" [routerLink]="" data-toggle="card-collapse"><i
+                  class="fe fe-chevron-up"></i></a><a class="card-options-remove" [routerLink]=""
+                data-toggle="card-remove"><i class="fe fe-x"></i></a></div>
+          </div>
+          <div class="card-body">
+            <form *ngIf="userInfo">
+              <div class="mb-2 row">
+                <div class="col-auto profile-pic">
+                  <img class="img-60 rounded-circle" [src]="userInfo?.image" [alt]="userInfo.first_name">
+                  <!-- <img class="img-60 rounded-circle" [src]="'/assets/images/user/1.jpg'" alt="#"> -->
+                  <i [ngClass]="{'icofont icofont-pencil-alt-5': isLoading == false, 'fa fa-spin fa-cog': isLoading == true}"
+                    class="edit">
+                    <input multiple=true class="upload" type="file" (change)="readUrl($event)" />
+                  </i>
+                </div>
+                <div class="col">
+                  <h3 class="mb-1">{{userInfo?.first_name | titlecase}} {{userInfo?.last_name | titlecase}}</h3>
+                  <p class="mb-4">{{userInfo?.staff_level | titlecase}} {{userInfo?.department | uppercase}}</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email-Address</label>
+                <input disabled class="form-control" [value]="userInfo?.email | lowercase"
+                  placeholder="your-email@domain.com">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Wallet Balance</label>
+                <input disabled class="form-control"
+                  [value]="userInfo?.personal_balance | currency:'NGN' : '₦' : '1.0-0'">
+              </div>
+              <div *ngIf="isVend" class="form-group">
+                <label class="form-label">Enter Amount to cashout</label>
+                <input name="cash_out_amount" class="form-control" [(ngModel)]="cash_out_amount"
+                  [value]="((cash_out_amount.replace('₦', '').replace(',', '')) | currency:'NGN' : '₦' : '1.0-0')">
+                  <p class="small">Available for cashout: {{(userInfo?.personal_balance > paytackBalance ? paytackBalance : userInfo?.personal_balance) | currency:'NGN' : '₦' : '1.0-0' }}</p>
+                </div>
+              <div *ngIf="isStaff" class="form-group">
+                <label class="form-label">Daily Limit Left</label>
+                <input disabled class="form-control"
+                  [value]="userInfo?.today_daily_limit_left | currency:'NGN' : '₦' : '1.0-0'">
+              </div>
+
+              <div class="form-footer">
+                <ng-container *ngIf="isStaff">
+                  <button [routerLink]="['/transactions/topup-personal']" routerLinkActive="router-link-active"
+                    class="btn btn-primary btn-block">Top up</button>
+                </ng-container>
+                <ng-container *ngIf="isVend">
+                  <button [disabled]="getDisable(userInfo)" type="button" (click)="onCashout(userInfo)" class="btn btn-primary btn-block">
+                    <i *ngIf="cashingOut" class="fa fa-spin fa-spinner"></i>
+                    Cash out
+                  </button>
+                </ng-container>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="col-lg-12">
+          <form *ngIf="userInfo" (submit)="updateUser()" [formGroup]="userForm" class="card">
+            <div class="card-header">
+              <h4 class="mb-0 card-title">Edit Profile</h4>
+              <div class="card-options"><a class="card-options-collapse" [routerLink]="" data-toggle="card-collapse"><i
+                    class="fe fe-chevron-up"></i></a><a class="card-options-remove" [routerLink]=""
+                  data-toggle="card-remove"><i class="fe fe-x"></i></a></div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+
+                <div class="col-sm-6 col-md-6">
+                  <div class="form-group">
+                    <label class="form-label">First Name</label>
+                    <input formControlName="first_name" class="form-control" type="text" placeholder="Company">
+                    <div *ngIf="first_name.touched && first_name.errors?.required" class="text text-danger">
+                      First Name is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                  <div class="form-group">
+                    <label class="form-label">Last Name</label>
+                    <input formControlName="last_name" class="form-control" type="text" placeholder="Last Name">
+                    <div *ngIf="last_name.touched && last_name.errors?.required" class="text text-danger">
+                      Last Name is required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="text-right card-footer">
+              <button [disabled]="isLoading == true || isStaff == true" class="btn btn-primary" type="submit">
+                <i *ngIf="isLoading" class="mr-2 fa fa-spin fa-spinner"></i>
+                Update Profile
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="mb-5 col-lg-12">
+          <form *ngIf="userInfo" (submit)="changePassword()" [formGroup]="passwordForm" class="card">
+            <div class="card-header">
+              <h4 class="mb-0 card-title">Change Password</h4>
+              <div class="card-options"><a class="card-options-collapse" [routerLink]="" data-toggle="card-collapse"><i
+                    class="fe fe-chevron-up"></i></a><a class="card-options-remove" [routerLink]=""
+                  data-toggle="card-remove"><i class="fe fe-x"></i></a></div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+
+                <div class="col-sm-12 col-md-8">
+                  <div class="form-group">
+                    <label class="form-label">Old Password</label>
+                    <input formControlName="old_password" class="form-control" type="password"
+                      placeholder="Old Password">
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-8">
+                  <div class="form-group">
+                    <label class="form-label">New Password</label>
+                    <input formControlName="new_password" class="form-control" type="password"
+                      placeholder="New Password">
+                    <div *ngIf="new_password.invalid && (new_password.dirty || new_password.touched)">
+                      <div *ngIf="new_password.hasError('required')">
+                        <small class="form-text text-danger">
+                          Password is a required field
+                        </small>
+                      </div>
+                      <small *ngIf="!new_password.hasError('minlength') && new_password.hasError('pattern')"
+                        class="form-text text-danger">
+                        password must be alphanumeric
+                      </small>
+                      <small *ngIf="new_password.hasError('minlength')" class="form-text text-danger">
+                        Password must be minimum 8 characters and alphanumeric
+                      </small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-8">
+                  <div class="form-group">
+                    <label class="form-label">Confirm Password</label>
+                    <input formControlName="confirm_password" class="form-control" type="password"
+                      placeholder="Confirm Password">
+                    <div
+                      *ngIf="passwordForm.hasError('passwordMatch') && passwordForm.get('new_password').touched && passwordForm.get('confirm_password').touched"
+                      class="text text-danger">
+                      Passwords Don't Match.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="text-right card-footer">
+              <button [disabled]="isLoading == true" class="btn btn-primary" type="submit">
+                <i *ngIf="isLoading" class="mr-2 fa fa-spin fa-spinner"></i>
+                Change Password
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Container-fluid Ends-->

@@ -1,0 +1,25 @@
+<!-- <p>food works!</p> -->
+<div [matTooltip]="food.name" class="mt-5 card bg-primary mx-1">
+  <div class="card-body">
+    <img class="rounded-circle image-radius mx-auto img-fluid food-img d-block" [src]="food?.image" [alt]="food?.name">
+    <p class="text-center mb-1 mt-3">
+      {{ (food?.name.length>23)? (food.name | slice:0:16)+'...':(food.name)}}
+    </p>
+    <p class="text-center">
+      {{food?.unit_price| currency:"NGN" : "₦" : '1.0-0'}}
+    </p>
+
+    <!-- <div class="example-button-container"> -->
+      <div class="d-flex justify-content-between">
+        <button (click)="onAddToCart(food)" class="d-block btn-sm mx-auto btn add-to-cart-button" >
+          <mat-icon>shopping_cart</mat-icon>
+        </button>
+
+        <!-- <button (click)="onAddToCart(food)" class="d-block btn-sm mx-auto btn add-to-cart-button" >
+          <mat-icon>info</mat-icon>
+        </button> -->
+
+      </div>
+    <!-- </div> -->
+  </div>
+</div>

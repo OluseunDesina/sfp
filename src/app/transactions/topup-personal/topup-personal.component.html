@@ -1,0 +1,34 @@
+<!-- EMI Starts-->
+<div class="row">
+  <div class="mx-auto col-lg-6">
+    <div class="card">
+      <div class="card-header">
+        <h5>EMI</h5>
+      </div>
+      <div class="card-body">
+        <form class="theme-form row">
+          <div class="form-group col-12 p-r-0">
+            <label for="">Amount</label>
+            <input [(ngModel)]="amount" name="amount" class="form-control" type="text" placeholder="Amount to top up">
+          </div>
+          <div class="form-group col-auto mx-auto">
+            <ul class="payment-opt">
+              <li><img src="assets/images/ecommerce/mastercard.png" alt=""></li>
+              <li><img src="assets/images/ecommerce/visa.png" alt=""></li>
+              <li><img src="assets/images/ecommerce/paypal.png" alt=""></li>
+            </ul>
+          </div>
+          <div class="col-12">
+            <button #paystackButton class="paystack-button" angular4-paystack [paystackOptions]="options" (paymentInit)="paymentInit()"
+              (onClose)="paymentCancel()" (callback)="paymentDone($event)" type="button">
+              Pay with Paystack
+            </button>
+            <button type="submit" (click)="initiateTopUp()" class="btn btn-primary-gradien btn-block">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- EMI Ends-->

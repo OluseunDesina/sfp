@@ -1,0 +1,73 @@
+<!-- Page Header Start-->
+<div class="page-main-header" [ngClass]="{'open' : navServices.collapseSidebar}" id="page-main-header">
+  <div class="main-header-right row">
+    <div class="main-header-left d-lg-none">
+      <div class="logo-wrapper">
+        <a href="javascript::void(0)">
+          <img src="assets/images/NHGSFP.png" alt="">
+        </a>
+      </div>
+    </div>
+    <div class="mobile-sidebar">
+      <div class="text-right media-body switch-sm">
+        <label class="switch">
+          <a href="javascript:void(0)" (click)="collapseSidebar()">
+            <app-feather-icons id="sidebar-toggle" [icon]="'align-left'"></app-feather-icons>
+          </a>
+        </label>
+      </div>
+    </div>
+
+    <div class="nav-right col">
+      <ul class="nav-menus pull-right" [ngClass]="{'open' : openNav}">
+        <li>
+          <a class="text-dark" toggleFullscreen (click)="toggleFullScreen()">
+            <app-feather-icons [icon]="'maximize'"></app-feather-icons>
+          </a>
+        </li>
+        <li class="onhover-dropdown">
+          <div class="media align-items-center">
+            <img class="align-self-center pull-right profile-picture img-50 rounded-circle"
+              [src]="userInfo.image || 'assets/images/dashboard/user.png'" alt="header-user">
+            <div class="dotted-animation"><span class="animate-circle"></span><span class="main-circle"></span></div>
+          </div>
+          <ul class="p-20 profile-dropdown onhover-show-div">
+            <li>
+              <a [routerLink]="['/profile/edit']" routerLinkActive="router-link-active">
+                <app-feather-icons [icon]="'user'"></app-feather-icons>Profile
+              </a>
+            </li>
+            <!-- <li><a href="javascript:void(0)">
+                <app-feather-icons [icon]="'mail'"></app-feather-icons>Inbox
+              </a></li>
+            <li><a href="javascript:void(0)">
+                <app-feather-icons [icon]="'lock'"></app-feather-icons>Lock Screen
+              </a></li>
+            <li><a href="javascript:void(0)">
+                <app-feather-icons [icon]="'settings'"></app-feather-icons>Settings
+              </a></li> -->
+            <li>
+              <a (click)="onLogout()">
+                <app-feather-icons [icon]="'log-out'"></app-feather-icons>Logout
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <div class="mobile-toggle pull-right">
+        <button (click)="onToggleCart()" *ngIf="cart.length > 0" class="btn mr-1 position-relative">
+          <i class="fa fa-shopping-basket text-primary"></i>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            {{cart.length}}
+          </span>
+        </button>
+
+        <div class="d-lg-none mobile-toggle pull-right" (click)="openMobileNav()">
+          <app-feather-icons [icon]="'more-horizontal'"></app-feather-icons>
+        </div>
+        <!-- <app-feather-icons [icon]="'more-horizontal'"></app-feather-icons> -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page Header Ends -->

@@ -1,0 +1,97 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="d-flex align-items-center justify-content-between">
+            <h5>{{title | titlecase}}</h5>
+            <!-- accept=".xlsx, .xml, .xls, .csv" -->
+            <input (change)="onFileSelected($event)" #excelInput  type="file">
+
+            <button (click)="excelInput.click()" class="btn btn-primary">
+              <i class="fa fa-plus mr-2"></i>
+              Select File
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+
+          Preview
+
+          <div *ngIf="htmlWorkbookJSON?.length > 0" @ifFadeSlideInOut class="col-12 upload-table">
+            <!-- Show upload progress -->
+            <!-- <div>
+              <div class="fill-progress">
+                Queue progress:
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                </div>
+              </div>
+              <button type="button" class="btn btn-success btn-s mr-1" (click)="uploader.uploadAll()"
+                [disabled]="!uploader.getNotUploadedItems().length">
+                <span class="fa fa-upload"></span> Upload all
+              </button>
+              <button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()"
+                [disabled]="!htmlWorkbookJSON.length">
+                <span class="fa fa-trash"></span> Remove all
+              </button>
+            </div> -->
+
+            <button (click)="uploadStaffsInfo()" class="btn btn-primary">Upload all</button>
+            <p>Queue length: {{ htmlWorkbookJSON?.length }}</p>
+            <form [formGroup]="form" autocomplete="off">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Firstname</th>
+                      <th>Lastname</th>
+                      <th>Email</th>
+                      <th>Phone</th>
+                      <th>Actions</th>
+                      <th>Comment</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr @forFadeSlideInOut formArrayName="employees"
+                      *ngFor="let item of htmlWorkbookJSON; let i = index">
+                      <!-- <tr formArrayName="employees" *ngFor="let item of employees.controls; let i = index"> -->
+                      <td>
+                        <!-- <mat-form-field floatLabel="never">
+                          <mat-form-field floatLabel="never">
+                            <input matInput placeholder="Firstname" formControlName="first_name" required>
+                          </mat-form-field>
+                        </mat-form-field> -->
+                        <strong>{{ item?.first_name }}</strong>
+                      </td>
+                      <td><strong>{{ item?.last_name }}</strong></td>
+                      <td><strong>{{ item?.email }}</strong></td>
+                      <td><strong>{{ item?.phone_number }}</strong></td>
+                      <!-- <td >
+                        <div class="progress mb-0">
+                          <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': 80 + '%' }"></div>
+                        </div>
+                      </td> -->
+                      <td nowrap>
+                        <!-- [disabled]="item.isReady || item.isUploading || item.isSuccess"> -->
+                        <!-- <button type="button" class="btn btn-success btn-xs mr-1"
+                        >
+                        <span class="fa fa-upload"></span> Upload
+                      </button> -->
+                        <button (click)="removeStaff(i)" type="button" class="btn btn-danger btn-xs">
+                          <span class="fa fa-trash"></span> Remove
+                        </button>
+                      </td>
+                      <td><strong>{{ item?.comment || 'No comment' }}</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

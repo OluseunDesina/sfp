@@ -1,0 +1,40 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="row align-items-center justify-content-between">
+        <img [src]="'../../../assets/svg/restaurant.svg'" class="img-fluid vendor-logo" alt="">
+
+        <div class="col-auto my-auto">
+          <p class="mb-0 f-w-700">
+            Select Date
+          </p>
+          <img src="../../../assets/svg/date_range_light.svg" alt="">
+        </div>
+      </div>
+
+      <app-food-info></app-food-info>
+
+      <div class="mt-5 d-flex justify-content-between">
+        <div class="mr-5">
+          <h5>
+            Similar Food Types
+          </h5>
+        </div>
+      </div>
+
+      <div class="container-fluid">
+        <div class="row">
+
+          <div *ngFor="let food of foodList" class="col-3">
+            <app-food></app-food>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-0 mx-0 col-3 basket-container">
+      <app-basket></app-basket>
+    </div>
+  </div>
+
+</div>

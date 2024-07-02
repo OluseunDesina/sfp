@@ -1,0 +1,35 @@
+export class Company {
+  id: number;
+  name: string;
+  image: string;
+  sector: string;
+  app_key: string;
+  ref_code: string;
+  contact_first_name: string;
+  contact_last_name: string;
+  contact_email: string;
+  expiry_date?: any;
+  bank_code: string;
+  account_number: string;
+  authorization_code?: any;
+  transfer_recipient: string;
+  balance: number;
+  actual_balance: number;
+  pending_balance: number;
+  top_up_type?: any;
+  use_card: boolean;
+  biometric_type?: any;
+  use_biometric: boolean;
+  use_transaction_code: boolean;
+  allow_same_day_delivery: boolean;
+  allowed_booking_day: number;
+  is_comp_allow_txn_mix?: any;
+  status: boolean;
+  description: string;
+  service_fee?: any;
+  sid_balance: number;
+  sid_pending_balance: number;
+  time_created: string;
+  date_created: string;
+  last_modified: Date;
+}

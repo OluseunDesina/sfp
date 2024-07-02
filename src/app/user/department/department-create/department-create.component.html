@@ -1,0 +1,28 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="mx-auto col-8">
+      <div class="card">
+        <div class="card-header">
+          <h5>{{title | titlecase}}</h5>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="departmentForm" (ngSubmit)="onSave()" class="row theme-form mega-form">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="col-form-label">Department name</label>
+                <input formControlName="name" class="form-control" type="text" placeholder="Department Name">
+              </div>
+            </div>
+
+          </form>
+        </div>
+        <div class="card-footer">
+          <button [disabled]="isLoading == true" (click)="onSave()" class="mr-1 btn btn-primary">
+            <i *ngIf="isLoading" class="fa fa-spin fa-spinner mr-2"></i>
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

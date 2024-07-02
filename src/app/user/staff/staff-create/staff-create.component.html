@@ -1,0 +1,126 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="d-flex align-items-center justify-content-between">
+            <h5>{{title | titlecase}}</h5>
+          </div>
+        </div>
+        <div class="card-body">
+
+          <div id="errorDiv" *ngIf="disable_edit" class="mb-4 text-center">
+            <small>User's fingerprint not yet added using self service device. Kindly advice staff to complete
+              registration before proceeding to editing data</small>
+          </div>
+
+          <form [formGroup]="form" class="row theme-form mega-form">
+            <!-- firstname -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">First Name</label>
+                <input formControlName="first_name" class="form-control" type="text" placeholder="your Name"
+                  required>
+                <div *ngIf="form.controls.first_name.touched && form.controls.first_name.errors?.required"
+                  class="text text-danger">
+                  First Name is required.
+                </div>
+                <div *ngIf="form.controls.first_name.touched && form.controls.first_name.errors?.pattern"
+                  class="text text-danger">
+                  First Name must be an alphabates.
+                </div>
+              </div>
+            </div>
+
+            <!-- lastname -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Last Name</label>
+                <input formControlName="last_name" class="form-control" type="text" placeholder="your Name">
+                <div *ngIf="form.controls.last_name.touched && form.controls.last_name.errors?.required"
+                  class="text text-danger">
+                  Last Name is required.
+                </div>
+                <div *ngIf="form.controls.last_name.touched && form.controls.last_name.errors?.pattern"
+                  class="text text-danger">
+                  Last Name must be an alphabates.
+                </div>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Email Address</label>
+                <input formControlName="email" class="form-control" type="email" placeholder="Enter email">
+                <div *ngIf="form.controls.email.touched && form.controls.email.errors?.required"
+                  class="text text-danger">
+                  Email is required.
+                </div>
+                <div *ngIf="form.controls.email.touched && form.controls.email.errors?.pattern"
+                  class="text text-danger">
+                  Email must be Valid.
+                </div>
+              </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-12">Phone Number</label>
+                <input formControlName="phone_number" class="form-control" type="tel" placeholder="Enter phone number">
+                <div *ngIf="form.controls.phone_number.touched && form.controls.phone_number.errors?.required"
+                  class="text text-danger">
+                  Phone is required.
+                </div>
+                <div *ngIf="form.controls.phone_number.touched && form.controls.phone_number.errors"
+                  class="text text-danger">
+                  Phone must be Valid.
+                </div>
+              </div>
+            </div>
+
+            <!-- Department -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Department</label>
+                <select formControlName="department" class="form-control digits" placeholder="Department">
+                  <option value=null>Please select a department</option>
+                  <option *ngFor="let department of departmentList" [value]="department.id">
+                    {{department.name}}
+                  </option>
+                </select>
+                <div *ngIf="form.controls.department.touched && form.controls.department.errors?.required"
+                  class="text text-danger">
+                  Department is required.
+                </div>
+              </div>
+            </div>
+
+            <!-- Staff level -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Staff level</label>
+                <select formControlName="staff_level" class="form-control digits" placeholder="Staff level">
+                  <option value=null>No level</option>
+                  <option *ngFor="let level of staffLevelList" [value]="level.id">
+                    {{level.name}}
+                  </option>
+                </select>
+                <div *ngIf="form.controls.staff_level.touched && form.controls.staff_level.errors?.required"
+                  class="text text-danger">
+                  Staff Level is required.
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer">
+          <button [disabled]="isloading || disable_edit" (click)="onSave()" class="mr-1 btn btn-primary">Submit</button>
+          <button type="button" [disabled]="isloading " (click)="onClose()"
+            class="btn btn-outline-primary">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

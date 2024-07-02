@@ -1,0 +1,180 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <div class="card ratings">
+        <div class="card-body">
+          <h6 class="text-uppercase">All Time Ratings</h6>
+          <p>
+            {{ allTimeRatings?.alltime_rating | number:'0.2-2' }} Stars <span>of</span> {{ allTimeRatings?.alltime_count }} <span>Ratings</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div *ngIf="startDate && endDate"
+           class="card ratings">
+        <div class="card-body">
+          <h6 class="text-uppercase">Filtered Ratings</h6>
+          <p>
+            {{ allTimeRatings?.sliced_rating | number:'0.2-2' }} Stars <span>of</span> {{ allTimeRatings?.sliced_count }} <span>Ratings</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5>{{ title | titlecase}} Reviews</h5>
+
+      <!-- back button -->
+      <button mat-button
+              (click)="goBack()">
+        <mat-icon>
+          arrow_back
+        </mat-icon>
+        Back
+      </button>
+    </div>
+
+    <div class="card-body">
+      <!-- actions allowed on table -->
+      <div class="d-flex justify-content-end">
+        <!-- when backend resolves the meal type change feature, this should be added to the table-functions.                           
+        [mealTypeArray]="mealTypes"
+        (mealTypeChange)="onMealTypeChange($event)" -->
+        <app-table-functions (exportExcel)="onDownload()"
+                             [hideDownload]="false"
+                             (setEndDate)="setEndDate($event)"
+                             (setStartDate)="setStartDate($event)"
+                             [rangePicker]="true">
+        </app-table-functions>
+      </div>
+
+      <div class="mat-elevation-z8">
+        <!-- spinner for when loading data -->
+        <div class="example-loading-shade"
+             *ngIf="tableLoading">
+          <mat-spinner *ngIf="tableLoading"></mat-spinner>
+        </div>
+
+        <!-- table displaying data -->
+        <div class="table-responsive">
+          <table mat-table
+                 matSort
+                 [dataSource]="dataSource"
+                 multiTemplateDataRows>
+            <!-- food name column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell
+                  *matHeaderCellDef
+                  mat-sort-header> Food </th>
+              <td mat-cell
+                  *matCellDef="let element"> {{element.food.name}} </td>
+            </ng-container>
+
+            <!-- review column -->
+            <ng-container matColumnDef="review">
+              <th mat-header-cell
+                  *matHeaderCellDef
+                  mat-sort-header> Review </th>
+              <td mat-cell
+                  *matCellDef="let element">{{ (element.review.length > 35)? (element.review | slice:0:32)+'...':(element.review) }}</td>
+            </ng-container>
+
+            <!-- rating column -->
+            <ng-container matColumnDef="rating">
+              <th mat-header-cell
+                  *matHeaderCellDef
+                  mat-sort-header> Rating </th>
+              <td mat-cell
+                  *matCellDef="let element"> {{element.rating}} </td>
+            </ng-container>
+
+            <!-- date review is created column -->
+            <ng-container matColumnDef="created_at">
+              <th mat-header-cell
+                  *matHeaderCellDef
+                  mat-sort-header> created </th>
+              <td mat-cell
+                  *matCellDef="let element"> {{element.created_at | date:'medium'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="expand">
+              <th mat-header-cell
+                  *matHeaderCellDef
+                  aria-label="row actions"
+                  mat-sort-header>&nbsp;</th>
+              <td mat-cell
+                  *matCellDef="let element">
+                <button mat-icon-button
+                        aria-label="expand row"
+                        (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+                  <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
+                  <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="expandedDetail">
+              <td mat-cell
+                  *matCellDef="let element"
+                  [attr.colspan]="columnsToDisplayWithExpand.length">
+                <div class="example-element-detail card"
+                     [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+
+                  <div>
+                    <p class="example-element-description card-body bg-secondary text-gray-1">{{element.review}}</p>
+                  </div>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container *ngIf="(tableLoading === false) && (dataSource.length === 0)"
+                          matColumnDef="disclaimer">
+              <td class="text-center"
+                  mat-footer-cell
+                  *matFooterCellDef
+                  colspan="5">
+                <span>{{ errorMessage || "No data was found for the date selection entered, please enter valid date range." }}</span>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row
+                *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+            <tr mat-row
+                *matRowDef="let element; columns: columnsToDisplayWithExpand;"
+                class="example-element-row"
+                [class.example-expanded-row]="expandedElement === element"
+                (click)="expandedElement = expandedElement === element ? null : element">
+            </tr>
+            <tr mat-row
+                *matRowDef="let row; columns: ['expandedDetail']"
+                class="example-detail-row"></tr>
+
+            <tr mat-footer-row
+                *matFooterRowDef="noDataColumns"></tr>
+          </table>
+
+          <tr mat-header-row
+              *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+          <tr mat-row
+              *matRowDef="let element; columns: columnsToDisplayWithExpand;"
+              class="example-element-row"
+              [class.example-expanded-row]="expandedElement === element"
+              (click)="expandedElement = expandedElement === element ? null : element">
+          </tr>
+          <tr mat-row
+              *matRowDef="let row; columns: ['expandedDetail']"
+              class="example-detail-row"></tr>
+        </div>
+
+        <!-- pagination -->
+        <app-paginator [length]="length"
+                       (pageEvent)=pageChange($event)></app-paginator>
+      </div>
+    </div>
+  </div>
+</div>

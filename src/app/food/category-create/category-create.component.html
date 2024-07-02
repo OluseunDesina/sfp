@@ -1,0 +1,82 @@
+<div class="container-fluid">
+  <mat-toolbar class="d-flex justify-content-between">
+    <!-- <div class="d-flex justify-content-center"> -->
+      <div>
+        <h2>{{title | titlecase}}</h2>
+      </div>
+      <div>
+        <mat-icon mat-button mat-dialog-close>
+          close
+        </mat-icon>
+      </div>
+    <!-- </div> -->
+  </mat-toolbar>
+  <div class="row">
+    <div class="mx-auto col-8">
+      <div class="mt-2 card bg-color1">
+        <!-- <div class="card-header">
+          <h5>{{title | titlecase}}</h5>
+        </div> -->
+        <div class="card-body">
+          <form [formGroup]="form" class="row theme-form mega-form">
+            <ng-template matStepLabel>
+              <div class="col-12">
+                <h6>Company Information</h6>
+              </div>
+            </ng-template>
+
+            <!-- Name -->
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="col-form-label">Category Name</label>
+                <input formControlName="name" class="form-control" type="text" placeholder="Company Name">
+                <div *ngIf="form.controls.name.touched && form.controls.name.errors?.required" class="text text-danger">
+                  Name is required.
+                </div>
+                <div *ngIf="form.controls.name.touched && form.controls.name.errors?.pattern" class="text text-danger">
+                  Name can only be alphabets.
+                </div>
+              </div>
+            </div>
+
+            <!-- description -->
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="col-form-label">Description</label>
+                <textarea formControlName="description" class="form-control" placeholder="Description">
+
+                    </textarea>
+                <div *ngIf="form.controls.description.touched && form.controls.description.errors?.required"
+                  class="text text-danger">
+                  Category description is required.
+                </div>
+              </div>
+            </div>
+
+            <!-- sector -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Category Type</label>
+                <select formControlName="category_type" class="form-control">
+                  <option value="">--none--</option>
+                  <option *ngFor="let type of categoryTypes" [value]="type.id">{{type.name}}</option>
+                </select>
+                <!-- <input formControlName="category_type" class="form-control" type="text" placeholder="category type"> -->
+                <div *ngIf="form.controls.category_type.touched && form.controls.category_type.errors?.required"
+                  class="text text-danger">
+                  Please Select a category type.
+                </div>
+              </div>
+            </div>
+            <div class="mx-auto col-8">
+              <button [disabled]="isLoading ==true" class="btn btn-primary btn-block" (click)="onSave()" mat-button >
+                <i *ngIf="isLoading == true" class="fa fa-spin fa-spinner mr-2"></i>
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

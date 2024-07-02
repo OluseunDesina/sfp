@@ -1,0 +1,264 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="mx-auto col-8">
+      <div class="card">
+        <div class="card-header">
+          <h5>{{title | titlecase}}</h5>
+        </div>
+        <div class="card-body">
+
+          <div id="errorDiv" *ngIf="errorMessage" class="mb-4 text-center">
+            <small>{{ errorMessage }}</small>
+          </div>
+
+          <mat-vertical-stepper [linear]="true" #stepper>
+            <mat-step [stepControl]="contactForm" errorMessage="Conatct info is required." state="contact">
+              <form [formGroup]="contactForm" class="row theme-form mega-form">
+                <ng-template matStepLabel>
+                  <h6 class="col-12">Contact Information</h6>
+                </ng-template>
+                <!-- firstname -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label">First Name</label>
+                    <input formControlName="first_name" class="form-control" type="text" placeholder="your Name"
+                      required>
+                    <div
+                      *ngIf="contactForm.controls.first_name.touched && contactForm.controls.first_name.errors?.required"
+                      class="text text-danger">
+                      First Name is required.
+                    </div>
+                    <div
+                      *ngIf="contactForm.controls.first_name.touched && contactForm.controls.first_name.errors?.pattern"
+                      class="text text-danger">
+                      First Name must be an alphabates.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- lastname -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Last Name</label>
+                    <input formControlName="last_name" class="form-control" type="text" placeholder="your Name">
+                    <div
+                      *ngIf="contactForm.controls.last_name.touched && contactForm.controls.last_name.errors?.required"
+                      class="text text-danger">
+                      Last Name is required.
+                    </div>
+                    <div
+                      *ngIf="contactForm.controls.last_name.touched && contactForm.controls.last_name.errors?.pattern"
+                      class="text text-danger">
+                      Last Name must be an alphabates.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Email -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Email Address</label>
+                    <input formControlName="email" class="form-control" type="email" placeholder="Enter email">
+                    <div
+                      *ngIf="contactForm.controls.email.touched && contactForm.controls.email.errors?.required"
+                      class="text text-danger">
+                      Email is required.
+                    </div>
+                    <div
+                      *ngIf="contactForm.controls.email.touched && contactForm.controls.email.errors?.pattern"
+                      class="text text-danger">
+                      Email must be Valid.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- username -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Userame</label>
+                    <input formControlName="username" class="form-control" type="text" placeholder="your Name">
+                    <div
+                      *ngIf="contactForm.controls.username.touched && contactForm.controls.username.errors?.required"
+                      class="text text-danger">
+                      Username is required.
+                    </div>
+                    <div
+                      *ngIf="contactForm.controls.username.touched && contactForm.controls.username.errors?.pattern"
+                      class="text text-danger">
+                      Username must be an alphabates.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Phone -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-12">Contact Number</label>
+                    <ngx-intl-tel-input class="col-12" [cssClass]="'form-control'"
+                      [preferredCountries]="[CountryISO.UnitedStates, CountryISO.UnitedKingdom]"
+                      [enableAutoCountrySelect]="false" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                      [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                      [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.Nigeria" [maxLength]="11"
+                      [phoneValidation]="true" name="phone" formControlName="phone_number"></ngx-intl-tel-input>
+                    <div
+                      *ngIf="contactForm.controls.phone_number.touched && contactForm.controls.phone_number.errors?.required"
+                      class="text text-danger">
+                      Phone is required.
+                    </div>
+                    <div *ngIf="contactForm.controls.phone_number.touched && contactForm.controls.phone_number.errors"
+                      class="text text-danger">
+                      Phone must be Valid.
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <button class="btn btn-primary" (click)="validateForm(contactForm)" mat-button
+                    matStepperNext>Next</button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step [stepControl]="companyForm" errorMessage="Company info is required." state="company">
+              <form [formGroup]="companyForm" class="row theme-form mega-form">
+                <ng-template matStepLabel>
+                  <div class="col-12">
+                    <h6>Company Information</h6>
+                  </div>
+                </ng-template>
+
+                <!-- Company -->
+                <ng-container *ngIf="isSid">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="col-form-label">Company Name</label>
+                      <select formControlName="company" class="form-control digits" placeholder="Department">
+                        <option value=null>Please select a company</option>
+                        <option *ngFor="let company of companyList" [value]="company.id">
+                          {{company.name}}
+                        </option>
+                      </select>
+                      <div *ngIf="companyForm.controls.company.touched && companyForm.controls.company.errors?.required"
+                        class="text text-danger">
+                        Company is required.
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+
+
+                <!-- Department -->
+                <!-- <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Department</label>
+                    <select formControlName="department" class="form-control digits" placeholder="Department">
+                      <option value=null>Please select a department</option>
+                      <option *ngFor="let department of departmentList" [value]="department.id">
+                        {{department.name}}
+                      </option>
+                    </select>
+                    <div
+                      *ngIf="companyForm.controls.department.touched && companyForm.controls.department.errors?.required"
+                      class="text text-danger">
+                      Department is required.
+                    </div>
+                  </div>
+                </div> -->
+
+                <!-- Staff level -->
+                <!-- <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Staff level</label>
+                    <select formControlName="staff_level" class="form-control digits" placeholder="Staff level">
+                      <option value=null>No level</option>
+                      <option *ngFor="let level of staffLevelList" [value]="level.id">
+                        {{level.name}}
+                      </option>
+                    </select>
+                    <div
+                      *ngIf="companyForm.controls.staff_level.touched && companyForm.controls.staff_level.errors?.required"
+                      class="text text-danger">
+                      Staff Level is required.
+                    </div>
+                  </div>
+                </div> -->
+
+                <!-- Staff ID -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Staff ID</label>
+                    <input formControlName="staff_id" class="form-control" type="text" placeholder="Staff ID" required>
+                    <div *ngIf="companyForm.controls.staff_id.touched && companyForm.controls.staff_id.errors?.required"
+                      class="text text-danger">
+                      Staff id is required.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button class="btn btn-primary" (click)="validateForm(companyForm)" mat-button
+                    matStepperNext>Next</button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step [stepControl]="othersForm" errorMessage="Other info is required." state="others">
+              <form [formGroup]="othersForm" class="row theme-form mega-form">
+                <ng-template matStepLabel>
+                  <div class="col-12">
+                    <h6>Other Information</h6>
+                  </div>
+                </ng-template>
+
+                <!-- Sex -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Sex</label>
+                    <select formControlName="sex" class="form-control" placeholder="Sex">
+                      <option value=null>Please select a sex</option>
+                      <option *ngFor="let sex of sexArray" [value]="sex.id">
+                        {{sex.name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Date of birth -->
+                <!-- <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Date of birth.</label>
+                    <input disabled (click)="picker.open()" [matDatepicker]="picker" formControlName="date_of_birth" class="form-control d-inline-block" type="text" placeholder="Date of birth" required>
+                    <mat-datepicker-toggle class="custom-dp" matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker disabled="false"></mat-datepicker>
+                  </div>
+                </div> -->
+
+                <div class="col-md-12">
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button [disabled]="isLoading == true" class="btn btn-primary" (click)="onSave(stepper)" mat-button
+                    matStepperNext>
+                    <i *ngIf="isLoading" class="fa fa-spin fa-spinner"></i>
+                    Next
+                  </button>
+                </div>
+              </form>
+            </mat-step>
+
+            <!-- Icon overrides. -->
+            <ng-template matStepperIcon="contact">
+              <mat-icon>contacts</mat-icon>
+            </ng-template>
+            <ng-template matStepperIcon="company">
+              <mat-icon>apartment</mat-icon>
+            </ng-template>
+            <ng-template matStepperIcon="others">
+              <mat-icon>family_restroom</mat-icon>
+            </ng-template>
+          </mat-vertical-stepper>
+        </div>
+        <!-- <div class="card-footer">
+          <button class="mr-1 btn btn-primary">Submit</button>
+          <button class="btn btn-secondary">Cancel</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

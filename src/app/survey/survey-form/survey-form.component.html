@@ -1,0 +1,91 @@
+<div class="col-md-10 mx-auto">
+  <div class="card action-card">
+    <div class="card-cody p-4 d-flex">
+      <button [routerLink]="['/survey/survey-list']" routerLinkActive="router-link-active"  mat-icon-button class="mr-auto">
+        <mat-icon class="mr-2">arrow_back</mat-icon>
+        Back to survey questions
+      </button>
+
+      <button class="btn btn-primary mr-2" (click)="onSubmit()">
+        Submit
+      </button>
+
+      <button class="btn btn-primary d-flex align-items-center" (click)="addQuestion()">
+        <mat-icon>add</mat-icon>
+        Add new question
+      </button>
+    </div>
+  </div>
+  <form cdkDropList (cdkDropListDropped)="drop($event)" [formGroup]="form">
+    <div cdkDrag formArrayName="questions" *ngFor="let question of questions.controls; let questionIndex=index"
+      class="card">
+      <ng-container [formGroupName]="questionIndex">
+        <div class="card-body">
+          <div class="col-12">
+
+            <div class="d-flex justify-content-between align-items-center">
+              <mat-icon class="mr-2">drag_indicator</mat-icon>
+              <p class="mr-auto mb-0">
+                drag and drop to reaarange questions</p>
+
+              <p class="mb-0">
+                position {{questionIndex +1}}
+              </p>
+            </div>
+          </div>
+
+          <div class="conatiner">
+            <div class="row align-items-end">
+              <div class="col-md-8">
+                <mat-form-field>
+                  <input formControlName="title" matInput placeholder=" Question {{questionIndex + 1}}">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field appearance="outline">
+                  <mat-select formControlName="type" placeholder="Multiple choice">
+                    <mat-option [selcted]="i==0" *ngFor="let type of questionTypes; let i=index" [value]="type.value">
+                      {{type.viewValue}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-12">
+
+                <div class="d-flex align-items-center"
+                  *ngFor="let option of options(questionIndex).controls; let optionIndex=index">
+                  <mat-icon class="mr-2">radio_button_unchecked</mat-icon>
+                  <mat-form-field class="mr-4" formArrayName="options">
+                    <ng-container [formGroupName]="optionIndex">
+                      <input (input)="setKey(questionIndex, optionIndex)" matInput formControlName="value" placeholder="Option {{optionIndex + 1}}">
+                    </ng-container>
+
+                  </mat-form-field>
+                  <button *ngIf="options(questionIndex).length > 1" (click)="removeOption(questionIndex, optionIndex)"
+                    mat-icon-button>
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </div>
+                <button class="btn " (click)="addOption(questionIndex)">add options</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="d-flex justify-content-end align-items-center">
+            <div>
+              <button *ngIf="questions.length > 1" (click)="removeQuestion(questionIndex)" mat-icon-button>
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+
+            <div class="border-left p-2">
+              <mat-slide-toggle formControlName="required">required</mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </form>
+
+</div>

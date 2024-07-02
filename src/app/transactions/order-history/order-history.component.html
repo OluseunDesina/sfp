@@ -1,0 +1,315 @@
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-header">
+      <h5>{{title | titlecase}}</h5>
+    </div>
+    <div class="card-body">
+
+      <app-table-functions (search)="onSearch($event)" [searchPlaceHolder]="searchPlaceHolder"
+
+        [showSearch]="allowSearch" (exportExcel)="onExportExcel()" [downloading]="downloading"
+        [vendorArray]="vendorArray" [statusArray]="statusArray" [companyArray]="companyArray" [mealTypeArray]="mealTypes"
+        (vendorChange)="vendorChange($event)" (companyChange)="companyChange($event)" (mealTypeChange)="onMealTypeChange($event)"
+        (statusChange)="statusChange($event)" (setEndDate)="setEndDate($event)" (setStartDate)="setStartDate($event)"
+        [rangePicker]="true"></app-table-functions>
+
+      <div class="mat-elevation-z8">
+        <div class="example-loading-shade" *ngIf="tableLoading === true">
+          <mat-spinner></mat-spinner>
+        </div>
+
+        <div class="table-responsive">
+
+          <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows>
+            <!-- position Column -->
+            <!-- <ng-container matColumnDef="position" sticky>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+              <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+            </ng-container> -->
+
+            <!-- ID -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Ticket Number </th>
+              <td mat-cell *matCellDef="let element">
+                {{element?.receipt_no}}
+              </td>
+            </ng-container>
+
+            <!-- User Column -->
+            <ng-container *ngIf="isVend || isComp || isAcct || isSid" matColumnDef="user">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+              <td mat-cell *matCellDef="let element">
+                {{element?.user| titlecase}}
+              </td>
+            </ng-container>
+
+            <!-- Company Column -->
+            <ng-container *ngIf="isVend || isSid" matColumnDef="company">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Company </th>
+              <td mat-cell *matCellDef="let element">
+                {{element?.company| titlecase}}
+              </td>
+            </ng-container>
+
+            <!-- Vendor Column -->
+            <ng-container *ngIf="isComp || isAcct || isSid" matColumnDef="vendor">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Vendor </th>
+              <td mat-cell *matCellDef="let element">
+                {{element?.vendor_user_id| titlecase}}
+              </td>
+            </ng-container>
+
+            <!-- Food Column -->
+            <ng-container *ngIf="isStaff" matColumnDef="food">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Food </th>
+              <td mat-cell *matCellDef="let element">
+                <img class="rounded-circle image-radius m-r-5" [src]="element?.food?.image" [alt]="element?.food?.name">
+                {{element?.food?.name || 'N/A' | titlecase}}
+              </td>
+            </ng-container>
+
+            <ng-container *ngIf="isVend || isComp || isAcct || isSid" matColumnDef="food">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Food </th>
+              <td mat-cell *matCellDef="let element">
+                {{element?.food || 'N/A' | titlecase}}
+              </td>
+            </ng-container>
+
+
+            <!-- Quantity Ordered Column -->
+            <ng-container matColumnDef="quantity">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
+              <td mat-cell *matCellDef="let element"> {{element?.quantity }} </td>
+            </ng-container>
+
+            <!-- Platform Column -->
+            <ng-container matColumnDef="platform">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Platform </th>
+              <td mat-cell *matCellDef="let element"> {{element?.platform | platform }} </td>
+            </ng-container>
+
+            <ng-container *ngIf="isStaff" matColumnDef="vendor_user_id">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Vendor </th>
+              <td mat-cell *matCellDef="let element"> {{element?.vendor_user_id_full?.bussiness_name }} </td>
+            </ng-container>
+
+            <ng-container *ngIf="isVend || isComp || isAcct || isSid" matColumnDef="comment">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Note </th>
+              <td [title]="element?.comment" mat-cell *matCellDef="let element"> {{element?.comment | slice : 0 : 25 }}
+              </td>
+            </ng-container>
+
+            <!-- <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+              <td
+                [ngClass]="{'text-success': element?.status?.toLowerCase() == 'del', 'text-primary': element?.status?.toLowerCase() == 'pend', 'text-danger': element?.status?.toLowerCase() != 'del' || element?.status?.toLowerCase() != 'pend'}"
+                mat-cell *matCellDef="let element"> {{element?.status | transactionStatus | titlecase }} </td>
+            </ng-container> -->
+
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+              <td
+                [ngClass]="{'text-success': element?.status?.toLowerCase() == 'delivered', 'text-primary': element?.status?.toLowerCase() == 'pending', 'text-danger': element?.status?.toLowerCase() != 'delivered' || element?.status?.toLowerCase() != 'pending'}"
+                mat-cell *matCellDef="let element"> {{element?.status | titlecase }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="service_fee">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Service Fee </th>
+              <td
+                mat-cell *matCellDef="let element"> {{element?.service_fee | currency:"NGN" : "₦" : '1.0-0' }} </td>
+            </ng-container>
+
+            <!-- Meal Type -->
+            <ng-container matColumnDef="meal_type">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Meal Type </th>
+              <td [title]="element?.meal_type" mat-cell *matCellDef="let element"> {{element?.meal_type }}
+              </td>
+            </ng-container>
+
+            <!-- Star Column -->
+            <ng-container matColumnDef="star" stickyEnd>
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let element">
+                <button (click)="expandedElement = expandedElement === element ? null : element" mat-icon-button
+                  class="btn btn-outline-primary">
+                  <mat-icon>expand_more</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+
+            <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+            <ng-container matColumnDef="expandedDetail">
+              <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                <div class="example-element-detail"
+                  [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                  <div class="mt-3 card bg-secondary text-gray-1">
+                    <div class="card-body ">
+                      <div class="d-flex">
+                        <ng-container *ngIf="isStaff">
+                          <div class="col-2">
+                            <img [src]="element?.food?.image" class="img-thumbnail" [alt]="element?.food?.name">
+                            <br>
+                          </div>
+                        </ng-container>
+
+                        <div class="row" [ngClass]="{'col-10': isStaff ===true, 'col-12': isVend ===true}">
+                          <div class="col-7">
+                            <div class="row">
+                              <p class="mb-0 col-12">
+                                Name
+                              </p>
+                              <ng-container *ngIf="isStaff">
+                                <h6 class="col-12">
+                                  {{element?.food?.name | titlecase}}
+                                </h6>
+                                <p class="text-justify col-12">
+                                  {{element?.food?.description }}
+                                </p>
+                              </ng-container>
+                              <ng-container *ngIf="isVend || isComp || isAcct || isSid">
+                                <h6 class="col-12">
+                                  {{element?.food | titlecase}}
+                                </h6>
+                              </ng-container>
+
+                              <ng-container *ngIf="isStaff">
+                                <!-- <div class="col-6">
+                                  <p class="mb-0">Category</p>
+                                  <h6>
+                                    {{element?.food?.category_full?.name }}
+                                  </h6>
+                                </div> -->
+                                <div class="col-6">
+                                  <p class="mb-0">Vendor</p>
+                                  <h6>
+                                    {{element?.vendor_user_id_full?.bussiness_name }}
+                                  </h6>
+                                </div>
+                              </ng-container>
+
+                            </div>
+
+                            <mat-form-field class="mt-3 comment" appearance="outline">
+                              <mat-label>Order note</mat-label>
+                              <textarea readonly [value]="element?.comment" matInput></textarea>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-5">
+                            <div class="row">
+                              <div class="col-12 d-flex justify-content-between">
+                                <div class="">
+                                  <p class="mb-0">Unit Price</p>
+                                  <h6>
+                                    {{element?.food.unit_price || element?.unit_price | currency:"NGN" : "₦" : '1.0-0'}}
+                                  </h6>
+                                </div>
+                                <div class="">
+                                  <p class="mb-0 text-right">Quantity</p>
+                                  <h6 class="text-right">
+                                    {{element?.quantity | number}}
+                                  </h6>
+                                </div>
+                              </div>
+                              <hr>
+                              <div class="col-12 d-flex justify-content-between">
+                                <p class="mb-0">
+                                  Total
+                                </p>
+                                <h6 class="">
+                                  {{element?.total | currency:"NGN" : "₦" : '1.0-0'}}
+                                </h6>
+                              </div>
+                              <hr>
+                              <ng-container *ngIf="isStaff">
+                                <div class="col-12 d-flex justify-content-between">
+
+                                  <div class="">
+                                    <p class="mb-0">From Company Wallet</p>
+                                    <h6>
+                                      {{element?.company_amount | currency:"NGN" : "₦" : '1.0-0'}}
+                                    </h6>
+                                  </div>
+                                  <div class="text-right">
+                                    <p class="mb-0">From Personal Wallet</p>
+                                    <h6>
+                                      {{element?.personal_amount | currency:"NGN" : "₦" : '1.0-0'}}
+                                    </h6>
+                                  </div>
+                                </div>
+                              </ng-container>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="d-flex justify-content-between">
+                        <div *ngIf="element?.date_created">
+                          ordered date: {{element?.date_created}}
+                        </div>
+
+                        <div class="text-success" *ngIf="element?.delivered_date">
+                          delivered date: {{element?.delivered_date}}
+                        </div>
+
+                        <div *ngIf="element?.delivery_date">
+                          delivery date: {{element?.delivery_date}}
+                        </div>
+                      </div>
+
+                    </div>
+                    <div *ngIf="isStaff || isComp" class="card-footer">
+                      <div class="d-flex justify-content-end">
+                        <button class="mr-2" [disabled]="prepareForCancel(element)" (click)="onCancelOrder(element)" mat-button
+                          color="warn">Cancel Order</button>
+
+                          <button (click)="onTakeSurvey(element)" mat-button
+                          color="primary">Take Survey</button>
+                      </div>
+                    </div>
+
+                    <div *ngIf="isStaff" class="card-footer">
+                      <div class="d-flex justify-content-end">
+
+                        <!-- <button mat-raised-button color="primary">Update</button> -->
+                      </div>
+                    </div>
+
+                    <div *ngIf="isComp || isAcct" class="card-footer">
+                      <div class="d-flex justify-content-end">
+                        <button class="mr-2" [disabled]="element.status !== 'pending' || isDeliverying"
+                          (click)="onDeliver(element.id)" mat-raised-button color="primary">
+                          <i *ngIf="isDeliverying" class="fa fa-spin fa-spinner"></i>
+                          Delivery
+                        </button>
+
+                        <button
+                          [disabled]="(element.status !== 'delivered' && element.status !== 'force-delivered') || isVoiding"
+                          (click)="onVoidTransaction(element.id)" mat-raised-button color="primary">
+                          <i *ngIf="isVoiding" class="fa fa-spin fa-spinner"></i>
+                          Void
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="example-element-row"
+              [class.example-expanded-row]="expandedElement === element">
+            </tr>
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+            <tr class="mat-row" *matNoDataRow>
+              <td class="text-center mat-cell" [attr.colspan]="displayedColumns.length">No data to display</td>
+            </tr>
+          </table>
+          <app-paginator [length]=length (pageEvent)=pageChange($event)></app-paginator>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<h1 class="text-primary text-center" mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+  <p class="text-center">{{data.message}}</p>
+  <!-- <mat-form-field>
+    <mat-label>Favorite Animal</mat-label>
+    <input matInput [(ngModel)]="data.animal">
+  </mat-form-field> -->
+</div>
+<div class="d-flex justify-content-between" mat-dialog-actions>
+  <button class="btn btn-outline-primary" mat-button (click)="closeDialog(true)">Yes, delete it</button>
+  <button class="btn" mat-button [mat-dialog-close]="false" cdkFocusInitial>Cancel</button>
+</div>

@@ -1,0 +1,47 @@
+<div class="px-0 mx-0 container-fluid">
+  <app-auth-navbar></app-auth-navbar>
+  <div class="row min-vh-100">
+    <div class="col-lg-6 bg-color1 d-flex justify-content-center align-items-center">
+      <div class="container">
+        <div class="px-4 row">
+          <h1 class="mb-4 heading-1 col-12">
+            EMAIL SENT
+          </h1>
+          <p class="my-5 text-gray col-12">
+            We’ve sent you an email to
+            <span class="text-primary">
+              {{emailPayload?.email}}
+            </span>
+            for verification.
+            Check your email for the verification link.
+          </p>
+          <!-- <div class="text-center col-12">
+
+          </div> -->
+
+
+          <div class="col-auto mx-auto mb-5">
+            <ng-otp-input  (onInputChange)="onOtpChange($event)"  [config]="{length:6}"></ng-otp-input>
+            <button class="mt-2 btn btn-block btn-primary">
+              <i *ngIf="isLoading" class="fa fa-spin fa-spinner"></i>
+              Verify OTP
+            </button>
+          </div>
+
+          <h3 class="text-center col-12 text-gray">
+            Did not receive the email yet?
+            <a (click)="onResend()" class="text-primary">
+              Resend
+            </a>
+          </h3>
+
+        </div>
+      </div>
+    </div>
+    <div class="px-5 col-6 bg-primary d-none d-lg-flex justify-content-center align-items-center">
+      <img class="img-fluid" src="../../../../assets/svg/mail_sent.svg" alt="">
+      <!-- <div class="text-center">
+      </div> -->
+    </div>
+  </div>
+</div>

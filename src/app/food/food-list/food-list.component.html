@@ -1,0 +1,240 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div *ngIf="isStaff" class="d-flex justify-content-end align-items-center">
+        <img class="mr-2" src="../../../assets/images/Wallet.svg" alt="" srcset="">
+        <span>
+          company {{dailyLimit | currency:"NGN" : "₦" : '1.0-0'}} (left)
+          <!-- company {{this.user?.daily_limit | currency:"NGN" : "₦" : '1.0-0'}} (daily) -->
+          <!-- {{this.user?.today_daily_limit_left | currency:"NGN" : "₦" : '1.0-0'}} (left today) -->
+        </span>
+
+        <span class="mx-2">
+          |
+        </span>
+        personal {{this.user?.personal_balance | currency:"NGN" : "₦" : '1.0-0'}}
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="row justify-content-between">
+        <div [ngClass]="{'col-lg-9': showCart == true, 'col-lg-12': showCart == false}" class="px-0 mx-0">
+          <div>
+            <div class="px-3 row align-items-center justify-content-between">
+              <div class="d-none d-md-block col-auto">
+
+                <div class="card banner-card bg-primary">
+                  <div class="card-body">
+                    <ul class="pl-3 mb-4 mr-5">
+                      <li>
+                        <h6>
+                          SELECT VENDOR & MENU
+                        </h6>
+                      </li>
+                      <li>
+                        <h6>
+                          SELECT DAY OF THE WEEK
+                        </h6>
+                      </li>
+                      <li>
+                        <h6>
+                          SELECT ORDERS
+                        </h6>
+                      </li>
+                      <li>
+                        <h6>
+                          REPEAT & CHECKOUT
+                        </h6>
+                      </li>
+                    </ul>
+                    <img class="banner-calendar" src="../../../assets/svg/banner-card-calendar.svg" alt="">
+                    <img class="banner-thumb" src="../../../assets/svg/banner-card-thumb.svg" alt="">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 vendors">
+                <!-- Vendor List -->
+                <nav mat-align-tabs="center" mat-tab-nav-bar animationDuration="2000ms">
+                  <!-- <nav mat-tab-nav-bar [backgroundColor]="background"> -->
+                  <a mat-tab-link *ngFor="let vendor of vendors" (click)="getCategories(vendor)"
+                    [active]="selectedVendor == vendor">
+                    <div class="d-flex flex-column">
+                      <img [src]="vendor.user.image || '../../../assets/svg/restaurant.svg'"
+                        class="img-fluid vendor-logo mx-auto" alt="">
+                      <p class="small">{{ vendor.bussiness_name }}</p>
+                    </div>
+                  </a>
+                </nav>
+              </div>
+
+              <div class="d-block d-md-none col-auto">
+
+                <div class="card banner-card bg-primary">
+                  <div class="card-body">
+                    <ul class="pl-3 mb-4">
+                      <li>
+                        <h6>
+                          SELECT VENDOR & MENU
+                        </h6>
+                      </li>
+                      <li>
+                        <h6>
+                          SELECT DAY OF THE WEEK
+                        </h6>
+                      </li>
+                      <li>
+                        <h6>
+                          SELECT ORDERS
+                        </h6>
+                      </li>
+                      <li>
+                        <h6>
+                          REPEAT & CHECKOUT
+                        </h6>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-auto text-right my-auto">
+                <p class="mb-0 f-w-700">
+                  Select Date
+                </p>
+                <input [matDatepickerFilter]="dateFilter" (dateInput)="setDeliveryDate($event.value)" #dateInput
+                  class="invisible-input" [value]="delivery_date" [matDatepicker]="picker">
+                <mat-datepicker #picker></mat-datepicker>
+                <img class="img-fluid" (click)="picker.open()" src="../../../assets/svg/date_range_light.svg" alt="">
+
+
+              </div>
+            </div>
+            <p class="mb-0 text-center f-w-400">
+              {{ dateInput.value | date: 'fullDate' }}
+            </p>
+          </div>
+
+          <div class="container-fluid">
+            <div class="mt-5 row justify-content-between">
+              <div class="d-none d-md-block col-auto">
+                <h5>
+                  Select Meal
+                </h5>
+              </div>
+              <div class="col-md-6">
+                <!-- <nav *ngIf="categories.length > 0" mat-tab-nav-bar animationDuration="2000ms">
+                  <a mat-tab-link *ngFor="let category of categories" (click)="selectedCategory = category; getFoods()"
+                    [active]="selectedCategory === category">
+                    {{ category.name }}
+                  </a>
+                </nav> -->
+                <nav mat-tab-nav-bar animationDuration="2000ms">
+                  <a mat-tab-link *ngFor="let mealType of mealTypes"
+                    (click)="selectedmealType = mealType.id; getFoods()" [active]="selectedmealType.id === mealType.id">
+                    {{ mealType.name }}
+                  </a>
+                </nav>
+              </div>
+              <div class="d-none d-md-block col-auto">
+                <!-- <p> -->
+                <mat-form-field *ngIf="foodList.length > 0" appearance="outline">
+                  <mat-label>Search</mat-label>
+                  <input matInput placeholder="Placeholder">
+                  <mat-icon matPrefix>search</mat-icon>
+                </mat-form-field>
+                <!-- </p> -->
+
+              </div>
+
+            </div>
+          </div>
+
+
+          <div class="container-fluid cat-foods">
+            <div class="row">
+              <ng-container class="food-list" *ngIf="foodLoading == false && foodList?.length > 0">
+                <!-- List of Food -->
+                <!-- <div class="food-list"> -->
+                <div *ngFor="let food of foodList"
+                  [ngClass]="{'col-md-3': cart.length > 0, 'col-md-2': cart.length === 0}">
+                  <app-food (addToCart)="addToCart($event)" [food]=food></app-food>
+                </div>
+                <!-- </div> -->
+              </ng-container>
+
+              <!-- Data Loading -->
+              <ng-container *ngIf="(foodLoading == true )&& (foodList.length == 0)">
+                <div class="example-loading-shade">
+                  <div class="mx-auto my-auto loader-box">
+                    <div class="loader">
+                      <div class="line bg-primary"></div>
+                      <div class="line bg-primary"></div>
+                      <div class="line bg-primary"></div>
+                      <div class="line bg-primary"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mx-auto my-auto loader-box">
+                  <div class="loader">
+                    <div class="line bg-primary"></div>
+                    <div class="line bg-primary"></div>
+                    <div class="line bg-primary"></div>
+                    <div class="line bg-primary"></div>
+                  </div>
+                </div>
+              </ng-container>
+
+
+              <!-- No Data -->
+              <ng-container *ngIf="foodLoading == false && foodList.length == 0">
+                <div class="empty-cart col-12">
+                  <div class="mt-4 text-center">
+                    <img class="empty-cart-image" src="../../../assets/svg/empty_cart.svg" alt="no data">
+                  </div>
+                  <h1 class="mt-4 text-center">
+                    No data
+                  </h1>
+                  <p class="text-center">
+                    No data, please try again
+                  </p>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+
+          <!-- <div class="mt-5 d-flex justify-content-between">
+            <div class="mr-5">
+              <h5>
+                Recomended Foods
+              </h5>
+            </div>
+          </div>
+
+          <div class="container-fluid recomended-food">
+            <div class="row">
+
+              <ng-container *ngIf="recomendedFoods?.length > 0; else noRecFoodTemplate">
+                <div *ngFor="let recomendedFood of recomendedFoods"
+                  [ngClass]="{'col-md-3': cart?.length > 0, 'col-md-2': cart?.length === 0}">
+                  <app-food (addToCart)="addToCart($event)" [food]=recomendedFood></app-food>
+                </div>
+              </ng-container>
+              <ng-template #noRecFoodTemplate>
+                <h1 class="mb-4 text-center">
+                  No recomended foods for you.
+                </h1>
+              </ng-template>
+            </div>
+          </div> -->
+        </div>
+
+        <div *ngIf="(cart.length > 0) && showCart" class="px-0 mx-0 col-md-3 basket-container">
+          <app-basket (confirmOrder)="onConfirmOrder()" (updateCart)="onUpdateBasket($event)"
+            (removeFromCart)="onRemoveFromCart($event)" [isLoading]="isLoading" [cart]="cart" [cartTotal]="cartTotal">
+          </app-basket>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

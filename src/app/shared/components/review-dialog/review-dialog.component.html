@@ -1,0 +1,21 @@
+<h1 class="text-primary text-center"
+    mat-dialog-title>Leave a Review</h1>
+<div mat-dialog-content>
+  <p>How was your last meal, <strong>{{data.food.name | titlecase }}</strong> from {{data.vendor.bussiness_name}} vendor?</p>
+  <textarea [(ngModel)]="review"
+            name="review"
+            rows="3"></textarea>
+  <div>
+    <app-star-component (onRating)="handleRating($event)"></app-star-component>
+  </div>
+</div>
+<div class="d-flex justify-content-between"
+     mat-dialog-actions>
+  <button class="btn"
+          mat-button
+          (click)="closeDialog(true)">Not Now</button>
+  <button class="btn btn-outline-primary"
+          mat-button
+          (click)="onSubmit()"
+          cdkFocusInitial>Submit</button>
+</div>

@@ -1,0 +1,190 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="mx-auto col-8">
+      <div class="card">
+        <div class="card-header">
+          <h5>{{title | titlecase}}</h5>
+        </div>
+        <div class="card-body">
+
+          <div id="errorDiv" *ngIf="errorMessage" class="mb-4 text-center">
+            <small>{{ errorMessage }}</small>
+          </div>
+
+          <mat-vertical-stepper [linear]="true" #stepper>
+            <mat-step [stepControl]="contactForm" errorMessage="Conatct info is required." state="contact">
+              <form [formGroup]="contactForm" class="row theme-form mega-form">
+                <ng-template matStepLabel>
+                  <h6 class="col-12">Contact Information</h6>
+                </ng-template>
+                <!-- firstname -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label">First Name</label>
+                    <input formControlName="first_name" class="form-control" type="text" placeholder="your Name"
+                      required>
+                    <div
+                      *ngIf="contactForm.controls.first_name.touched && contactForm.controls.first_name.errors?.required"
+                      class="text text-danger">
+                      First Name is required.
+                    </div>
+                    <div
+                      *ngIf="contactForm.controls.first_name.touched && contactForm.controls.first_name.errors?.pattern"
+                      class="text text-danger">
+                      First Name must be an alphabates.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- lastname -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Last Name</label>
+                    <input formControlName="last_name" class="form-control" type="text" placeholder="your Name">
+                    <div
+                      *ngIf="contactForm.controls.last_name.touched && contactForm.controls.last_name.errors?.required"
+                      class="text text-danger">
+                      Last Name is required.
+                    </div>
+                    <div
+                      *ngIf="contactForm.controls.last_name.touched && contactForm.controls.last_name.errors?.pattern"
+                      class="text text-danger">
+                      Last Name must be an alphabates.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Email -->
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="col-form-label">Email Address</label>
+                    <input formControlName="email" class="form-control" type="email" placeholder="Enter email">
+                    <div
+                      *ngIf="contactForm.controls.email.touched && contactForm.controls.email.errors?.required"
+                      class="text text-danger">
+                      Email is required.
+                    </div>
+                    <div
+                      *ngIf="contactForm.controls.email.touched && contactForm.controls.email.errors?.pattern"
+                      class="text text-danger">
+                      Email must be Valid.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Phone -->
+                <!-- <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-12">Contact Number</label>
+                    <ngx-intl-tel-input class="col-12" [cssClass]="'form-control'"
+                      [preferredCountries]="[CountryISO.UnitedStates, CountryISO.UnitedKingdom]"
+                      [enableAutoCountrySelect]="false" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                      [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                      [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.Nigeria" [maxLength]="11"
+                      [phoneValidation]="true" name="phone" formControlName="contact_phone"></ngx-intl-tel-input>
+                  </div>
+                </div> -->
+                <div class="col-md-12">
+                  <button class="btn btn-primary" (click)="validateForm(contactForm)" mat-button
+                    matStepperNext>Next</button>
+                </div>
+              </form>
+            </mat-step>
+
+            <mat-step [stepControl]="passwordForm" errorMessage="Setup your security." state="password">
+              <ng-template matStepLabel>
+                <div class="col-12">
+                  <h6>Security</h6>
+                </div>
+              </ng-template>
+              <p>Almost Done, Set a password for user</p>
+              <form [formGroup]="passwordForm" class="row theme-form mega-form">
+                <!-- password -->
+                <div class="col-md">
+                  <div class="form-group">
+                    <label class="col-form-label">Password</label>
+                    <div class="row">
+                      <input formControlName="password" class="form-control col" [type]="hide ? 'password' : 'text'"
+                        placeholder="Password">
+                      <div class="col-auto">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                          [attr.aria-pressed]="hide">
+                          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="passwordForm.controls.password.touched && passwordForm.controls.password.errors?.required"
+                      class="text text-danger">
+                      Password is required.
+                    </div>
+                    <div
+                      *ngIf="passwordForm.controls.password.touched && passwordForm.controls.password.errors?.pattern"
+                      class="text text-danger">
+                      Password must be an alphanumeric.
+                    </div>
+                    <div
+                      *ngIf="passwordForm.controls.password.touched && passwordForm.controls.password.errors?.minLength"
+                      class="text text-danger">
+                      Password must be atleast 8 characters long.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- confirm password -->
+                <div class="col-md ">
+                  <div class="form-group ">
+                    <label class="col-form-label">Confirm Password</label>
+                    <div class="row">
+                      <input formControlName="confirmPassword" class="form-control col"
+                        [type]="hide ? 'password' : 'text'" placeholder="Retype Password">
+                      <div class="col-auto">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                          [attr.aria-pressed]="hide">
+                          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="passwordForm.hasError('passwordMatch') && passwordForm.get('password').touched && passwordForm.get('confirmPassword').touched"
+                      class="text text-danger">
+                      Password mismatch.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button class="btn btn-primary" [disabled]="isLoading == true" mat-button (click)="onSave(stepper);">
+                    <i *ngIf="isLoading == true" class="fa fa-spin fa-spinner"></i>
+                    Next
+                  </button>
+                </div>
+              </form>
+              <!-- <div>
+                <button mat-button (click)="stepper.reset()">Reset</button>
+              </div> -->
+            </mat-step>
+
+            <!-- Icon overrides -->
+            <ng-template matStepperIcon="contact">
+              <mat-icon>contacts</mat-icon>
+            </ng-template>
+            <ng-template matStepperIcon="company">
+              <mat-icon>room_service</mat-icon>
+            </ng-template>
+            <ng-template matStepperIcon="billing">
+              <mat-icon>payments</mat-icon>
+            </ng-template>
+            <ng-template matStepperIcon="others">
+              <mat-icon>settings_input_composite</mat-icon>
+            </ng-template>
+          </mat-vertical-stepper>
+        </div>
+        <!-- <div class="card-footer">
+          <button (click)="onSave(stepper)" class="mr-1 btn btn-primary">Submit</button>
+          <button (click)="stepper.reset()" mat-button class="btn">Cancel</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

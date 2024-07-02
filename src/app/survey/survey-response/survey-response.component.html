@@ -1,0 +1,51 @@
+<div class="p-4">
+  <h2 mat-dialog-title>Take Survey</h2>
+  <mat-dialog-content class="mat-typography">
+    <form [formGroup]="form">
+      <div formArrayName="responses" *ngFor="let question of questions.controls; let questionIndex=index" class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <h4>
+                {{question?.value?.title}}
+              </h4>
+            </div>
+            <ng-container [formGroupName]="questionIndex">
+              <mat-radio-group formControlName="selected_options">
+                <mat-radio-button *ngFor="let option of question.value.options;" class="d-block" [value]="option.id">
+                  {{option.value}}
+                </mat-radio-button>
+              </mat-radio-group>
+            </ng-container>
+
+
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <form>
+      <div class="card">
+        <div class="card-body">
+          <p>Any other comments (review)</p>
+          <textarea [(ngModel)]="review" name="review" rows="3"></textarea>
+
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <p>Ratings</p>
+          <div>
+            <app-star-component (onRating)="handleRating($event)"></app-star-component>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+    <button mat-button (click)="onSubmit()" cdkFocusInitial>Submit</button>
+  </mat-dialog-actions>
+
+</div>

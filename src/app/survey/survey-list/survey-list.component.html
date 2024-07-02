@@ -1,0 +1,65 @@
+<div class="col-md-10 mx-auto">
+  <div class="card action-card">
+    <div class="card-cody p-4 d-flex justify-content-between">
+
+
+      <button class="btn btn-primary d-flex align-items-center" [routerLink]="['/survey/survey-form']"
+        routerLinkActive="router-link-active">
+        <mat-icon>add</mat-icon>
+        Add new question
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading == true" class="col-auto mx-auto">
+    <mat-spinner class="mx-auto"></mat-spinner>
+  </div>
+  <div *ngIf="isLoading == false && this.surveyList.length > 0" class="">
+
+    <div *ngFor="let question of surveyList; let i=index" class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-8">
+            <h4>
+              {{question.position}}.
+              {{question.title}}
+            </h4>
+          </div>
+          <div class="col-md-4">
+            <p>
+              {{question.type}}
+            </p>
+          </div>
+
+          <div class="col-md-12">
+            <h5>Options</h5>
+            <p *ngFor="let option of question.options; let i=index">
+              {{option.value}}
+            </p>
+
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="d-flex justify-content-end align-items-center">
+          <div>
+            <button (click)="deleteQuestion(question)" mat-icon-button>
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+
+          <div class="border-left p-2">
+            <mat-slide-toggle [checked]="question.required" disabled>required</mat-slide-toggle>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div *ngIf="isLoading == false && this.surveyList.length == 0">
+    <p class="text-center">
+      No data to display
+    </p>
+  </div>
+</div>

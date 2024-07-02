@@ -1,0 +1,85 @@
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-header">
+      <div class="d-flex justify-content-between">
+        <h5>Device List</h5>
+        <button (click)="openCreateCategoryDialog()" class="btn btn-primary">
+          Add new device
+        </button>
+      </div>
+    </div>
+    <div class="card-body">
+
+      <div class="mat-elevation-z8">
+
+        <div class="example-loading-shade" *ngIf="tableLoading">
+          <div class="loader-box">
+            <div class="loader">
+              <div class="line bg-primary"></div>
+              <div class="line bg-primary"></div>
+              <div class="line bg-primary"></div>
+              <div class="line bg-primary"></div>
+            </div>
+          </div>
+          <!-- <mat-spinner *ngIf="tableLoading"></mat-spinner> -->
+        </div>
+        <table mat-table [dataSource]="deviceList" multiTemplateDataRows>
+          <!-- Position Column -->
+          <!-- <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+          </ng-container> -->
+
+          <!-- Device Name Column -->
+          <ng-container matColumnDef="device_name">
+            <th mat-header-cell *matHeaderCellDef> Device Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+
+          <!-- Device ID Column -->
+          <ng-container matColumnDef="device_id">
+            <th mat-header-cell *matHeaderCellDef> Device ID </th>
+            <td mat-cell *matCellDef="let element"> {{element.device_id}}</td>
+          </ng-container>
+
+          <!-- Device Code Column -->
+          <ng-container matColumnDef="device_code">
+            <th mat-header-cell *matHeaderCellDef> Device Code </th>
+            <td mat-cell *matCellDef="let element"> {{element.device_code}} </td>
+          </ng-container>
+
+          <!-- location Column -->
+          <ng-container matColumnDef="location">
+            <th mat-header-cell *matHeaderCellDef> Location </th>
+            <td mat-cell *matCellDef="let element"> {{element.location}} </td>
+          </ng-container>
+
+          <!-- is_active Column -->
+          <ng-container matColumnDef="is_active">
+            <th mat-header-cell *matHeaderCellDef> Active </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-slide-toggle (change)="onActivateDevice(element)" [(ngModel)]="element.is_active">
+              </mat-slide-toggle>
+
+            </td>
+          </ng-container>
+
+          <!-- Action Column -->
+          <!-- <ng-container matColumnDef="star">
+            <th mat-header-cell *matHeaderCellDef> Withdraw </th>
+            <td mat-cell *matCellDef="let element">
+              <button [disabled]="element.sid_balance <= 250" class="btn btn-primary" (click)="onCashout(element)">Withdraw</button>
+            </td>
+          </ng-container> -->
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+        <app-paginator [length]=length (pageEvent)=pageChange($event)></app-paginator>
+      </div>
+
+
+    </div>
+  </div>
+</div>

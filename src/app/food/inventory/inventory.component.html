@@ -1,0 +1,53 @@
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-header">
+      <div class="d-flex justify-content-between">
+        <h5>{{title | titlecase}}</h5>
+
+        <button *ngIf="isVen" (click)="openDialog()" class="btn btn-sm btn-primary">
+          <i class="mr-2 fa fa-plus"></i>
+          Add Menu
+        </button>
+      </div>
+    </div>
+    <div class="card-body">
+
+      <app-table-functions [datePicker]="true" [hideDownload]="hideDownload" [downloading]="downloading"
+        [vendorArray]="vendorArray" (vendorChange)="vendorChange($event)" (exportExcel)="onExportExcel()"
+        [rangePicker]="false" (setDate)="setDeliveryDate($event)"></app-table-functions>
+
+      <!-- <mat-tab-group>
+        <mat-tab label="Current Inventory">
+          <app-current-inventory (updateInventory)="onUpdateInventory($event)" [vendor]="vendor" [isVen]="isVen"
+            [deliveryDate]="deliveryDate"></app-current-inventory>
+        </mat-tab>
+        <mat-tab label="Other Foods">
+          <app-other-foods (updateInventory)="onUpdateInventory($event)" [vendor]="vendor" [isVen]="isVen"
+            [deliveryDate]="deliveryDate"></app-other-foods>
+        </mat-tab>
+      </mat-tab-group> -->
+
+      <ul class="nav nav-tabs ">
+        <li class="nav-item">
+          <a [ngClass]="{'active': view === 'inventory'}" (click)="toggleView('inventory')" class="nav-link">Current
+            Inventory</a>
+        </li>
+        <li class="nav-item">
+          <a [ngClass]="{'active': view === 'food'}" (click)="toggleView('food')" class="nav-link">Other
+            Foods</a>
+        </li>
+      </ul>
+      <ng-container *ngIf="view == 'inventory';">
+        <app-current-inventory (updateInventory)="onUpdateInventory($event)" [mealTypes]="mealTypes" [vendor]="vendor"
+          [isVen]="isVen" [deliveryDate]="deliveryDate"></app-current-inventory>
+      </ng-container>
+      <ng-container *ngIf="view == 'food';">
+        <app-other-foods (updateInventory)="onUpdateInventory($event)" [mealTypes]="mealTypes" [vendor]="vendor"
+          [isVen]="isVen" [deliveryDate]="deliveryDate"></app-other-foods>
+      </ng-container>
+
+
+
+    </div>
+  </div>
+</div>

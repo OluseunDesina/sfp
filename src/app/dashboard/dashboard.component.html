@@ -1,0 +1,199 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xl-7 xl-100 px-0 mx-0">
+      <ng-container *ngIf="isComp || isSid || isAcct">
+        <div class="container">
+          <owl-carousel-o [options]="customOptions">
+            <ng-template carouselSlide
+                         [id]="i + 1"
+                         *ngFor="let slide of slidesStore; let i=index">
+              <div class="item">
+                <div class="card">
+                  <div class="card-body ecommerce-icons text-center">
+                    <div><span>{{slide.title | uppercase}}</span></div>
+                    <h4 class="font-primary mb-0 counter"
+                        [CountTo]=slide.count
+                        [from]="0"
+                        [duration]="0.5"></h4>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </owl-carousel-o>
+        </div>
+      </ng-container>
+
+      <ng-container>
+        <div class="row mx-0 px-0">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header pb-1">
+                <div class="d-flex justify-content-between">
+                  <h5 class="mb-0">Bar Chart</h5>
+                  <div>
+                    <button (click)="barChartData[0].data = dataset2"
+                            class="btn btn-outline-primary mr-2">
+                      Value
+                    </button>
+                    <button (click)="barChartData[0].data = dataset1"
+                            class="btn btn-outline-primary">
+                      Count
+                    </button>
+                  </div>
+
+                  <!-- <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                    <mat-button-toggle (click)="barChartData[0].data = dataset2" value="bold">Value</mat-button-toggle>
+                    <mat-button-toggle (click)="barChartData[0].data = dataset1" value="italic">Count</mat-button-toggle>
+                  </mat-button-toggle-group> -->
+                </div>
+              </div>
+              <div class="card-body charts-box">
+                <canvas height="100px"
+                        baseChart
+                        class="chart flot-chart-placeholder"
+                        [datasets]="barChartData"
+                        [labels]="barChartLabels"
+                        [options]="barChartOptions"
+                        [colors]="barChartColors"
+                        [legend]="barChartLegend"
+                        [chartType]="barChartType"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)"></canvas>
+              </div>
+            </div>
+            <!-- <div class="card">
+              <div class="card-header">
+                <h5>Total Sale</h5>
+              </div>
+              <div class="card-body charts-box">
+                <div class="flot-chart-container">
+                  <canvas baseChart class="chart flot-chart-placeholder" id="graph123" [legend]="saleChartLegend"
+                    [data]="saleChartData" [labels]="saleChartLabels" [options]="saleChartOptions"
+                    [chartType]="saleChartType" [colors]="saleChartColors" height="80px"></canvas>
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </ng-container>
+
+
+    </div>
+
+    <div class="col-xl-5 xl-100">
+      <div class="card">
+        <div class="card-header">
+          <h5>Today Orders</h5>
+        </div>
+        <div class="card-body">
+          <div *ngIf="orderLoading == true"
+               class="col-auto mx-auto">
+            <mat-spinner class="mx-auto"></mat-spinner>
+          </div>
+          <div *ngIf="orderLoading == false && this.orderHistory.length > 0"
+               class="table-responsive sellers">
+            <table class="table table-bordernone">
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Food</th>
+                  <th scope="col">Qty.</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let order of orderHistory">
+                  <td *ngIf="!isStaff">
+                    <div class="d-inline-block align-middle">
+                      <div class="d-inline-block">
+                        <p>{{order.user}}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td *ngIf="isStaff">
+                    <div class="d-inline-block align-middle">
+                      <div class="d-inline-block">
+                        <p>{{order?.user_full?.first_name}} {{order?.user_full?.last_name}}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td *ngIf="!isStaff">
+                    <p>{{order.food | titlecase}}</p>
+                  </td>
+                  <td *ngIf="isStaff">
+                    <p>{{order?.food?.name | titlecase}}</p>
+                  </td>
+                  <td>
+                    <p>{{order.quantity}}</p>
+                  </td>
+                  <td>
+                    <p>{{order.status | titlecase}}</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div *ngIf="orderLoading == false && this.orderHistory.length == 0">
+            <p class="text-center">
+              No data to display
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div [ngClass]="{'col-12': vendorReport?.length > 2, 'col-md-6': vendorReport?.length <=2}"
+         class="row">
+      <div *ngFor="let vendor of vendorReport"
+           class="mr-2 col xl-50">
+        <div class="card social-widget-card">
+          <div class="card-body">
+            <h5 class="text-primary b-b-light">{{vendor.vendor_name}}</h5>
+            <div class="row">
+              <div class="col text-center b-r-light"><span>Count</span>
+                <h4 class="counter mb-0"
+                    [CountTo]="vendor.count"
+                    [from]="0"
+                    [duration]="1"></h4>
+              </div>
+              <div class="col text-center"><span>Value</span>
+                <h4 class="counter mb-0"
+                    [CountTo]="vendor.total"
+                    [from]="0"
+                    [duration]="1"></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-auto row">
+      <ng-container *ngIf="isSid || isComp || isAcct">
+        <div *ngFor="let ratio of ratioArray"
+             class="col">
+          <div class="card">
+            <div class="card-body">
+              <div class="number-widgets">
+                <div class="media">
+                  <div class="media-body align-self-center">
+                    <h6 class="mb-0">{{ratio.title}}</h6>
+                  </div>
+                  <div class="radial-bar radial-bar-100 radial-bar-primary"
+                       [attr.data-label]="ratio.percentage"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+
+
+  </div>
+</div>
+<!-- Container-fluid Ends-->

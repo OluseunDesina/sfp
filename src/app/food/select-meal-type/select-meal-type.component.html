@@ -1,0 +1,19 @@
+<div class="d-flex justify-content-end">
+  <button mat-icon-button mat-dialog-close>
+    <mat-icon>close</mat-icon>
+  </button>
+
+</div>
+<div class="container my-5">
+  <h3 class="mb-4 text-center text-primary">
+    Please select meal type.
+  </h3>
+  <div class="row">
+    <div class="col-auto mx-auto">
+      <mat-button-toggle-group class="mx-auto" (change)="onChange($event)" appearance="">
+        <mat-button-toggle *ngFor="let mealType of mealTypes" [value]="mealType">{{mealType.name}}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </div>
+</div>

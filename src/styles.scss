@@ -1,0 +1,262 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./assets/scss/theme/variables";
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+$color1: #fff5ec;
+$gray-1: #404040;
+$navbar-height: 98px;
+
+@font-face {
+  font-family: "Poppins";
+  src: url(./assets/fonts/Poppins/Poppins-Regular.ttf);
+}
+
+@font-face {
+  font-family: "Bebas Neue";
+  src: url(./assets/fonts/Bebas_Neue/BebasNeue-Regular.ttf);
+}
+
+body {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  color: #191919;
+}
+
+img {
+  width: auto;
+  height: auto;
+}
+
+.profile-picture {
+  max-width: 50px !important;
+  max-height: 50px !important;
+}
+
+.bg-burgundy {
+  background-color: $burgundy;
+}
+
+.bg-secondary-2 {
+  background-color: $secondary-2;
+}
+
+.bg-color1 {
+  background-color: $color1 !important;
+}
+
+.text-primary {
+  color: $primary-color !important;
+}
+
+.text-secondary-2 {
+  color: $secondary-2 !important;
+}
+
+.text-gray {
+  color: $gray !important;
+}
+
+.text-gray-1 {
+  color: $gray-1 !important;
+}
+
+.heading-1 {
+  font-family: Bebas Neue !important;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px !important;
+  line-height: 43px;
+  color: #2d2d2d;
+}
+
+.btn-white {
+  background-color: #ffffff;
+  color: $primary-color;
+}
+
+.min-vh-100 {
+  min-height: calc(80vh);
+}
+
+#errorDiv {
+  background: #f6b2b5;
+  width: 100%;
+  height: 50px;
+  text-align: center;
+}
+
+#errorDiv > small {
+  top: 50%;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  position: relative;
+  float: left;
+}
+
+.hero-text {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 50px;
+  line-height: 90px;
+  /* or 125% */
+
+  display: flex;
+  align-items: center;
+  text-transform: capitalize;
+
+  color: $burgundy;
+}
+
+@media only screen and (min-height: 600px) {
+  .hero-text {
+    margin-top: 12rem !important;
+  }
+}
+
+.navbar-brand {
+  width: 275px;
+  height: $navbar-height;
+}
+
+.hero-section {
+  // min-height: calc(100vh - #{$navbar-height});
+  min-height: calc(80vh);
+}
+
+.login-dialog {
+  mat-dialog-container {
+    background: #fff5ec;
+    box-shadow: -5px 10px 100px rgba(0, 0, 0, 0.1);
+    padding: 0;
+  }
+}
+
+.mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: $primary-color;
+}
+
+.basket-container {
+  position: fixed;
+  right: 0px;
+  top: 150px;
+}
+
+.add-to-cart-button {
+  color: $primary-color;
+  background-color: white;
+}
+
+.custom-dp {
+  position: absolute;
+  right: 15px;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-table-sticky-border-elem-right {
+  border-left: 1px solid #e0e0e0;
+  z-index: 0 !important;
+}
+
+.mat-table-sticky-border-elem-left {
+  z-index: 0 !important;
+  // border-right: 1px solid #e0e0e0;
+}
+
+.mat-tab-body.mat-tab-body-active {
+  z-index: 0 !important;
+}
+
+td.mat-column-star {
+  width: 20px;
+  // padding-right: 8px;
+}
+
+th.mat-column-position,
+td.mat-column-position {
+  width: 20px;
+  z-index: 0 !important;
+  // padding-left: 8px;
+}
+
+// Loadidng spinner for tables
+.example-loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mat-tab-label-container {
+  z-index: 0 !important;
+}
+
+.mat-tab-header-pagination {
+  z-index: 0 !important;
+}
+
+.table-img {
+  height: 35px;
+  width: 35px;
+}
+
+.sidebar-logo {
+  max-width: 6rem !important;
+  // max-width: 12rem !important;
+}
+
+.mat-calendar-body-selected {
+  background-color: $burgundy;
+}
+
+.owl-carousel {
+  z-index: 0 !important;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+  background-color: $primary-color !important;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+  background-color: $primary-color !important;
+}
+
+.mat-tab-link-container {
+  z-index: 0 !important;
+}
+
+.extra-padding {
+  padding: 6rem 0;
+}
+
+.copy {
+  cursor: pointer;
+}
+
+
+.response-dialog {
+  .mat-dialog-container {
+    background-color: rgba(0,0,0, 0.7) !important;
+    box-shadow: -5px 10px 100px rgba(0, 0, 0, 0.1);
+    // padding: 0;
+  }
+}

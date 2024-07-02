@@ -1,0 +1,51 @@
+.banner-card {
+  ul {
+    list-style-type: disc;
+  }
+}
+
+.banner-calendar {
+  position: absolute;
+  left: -40px;
+  bottom: -40px;
+}
+
+.banner-thumb {
+  position: absolute;
+  right: -80px;
+  bottom: -40px;
+}
+
+.vendors {
+  .mat-tab-link {
+    height: auto !important;
+  }
+
+  .vendor-logo {
+    width: 80px;
+    height: auto;
+  }
+}
+
+.invisible-input {
+  visibility: hidden;
+  height: 0;
+  width: 0;
+}
+
+.cat-foods {
+  min-height: 12rem;
+  // overflow: scroll;
+}
+
+.food-list {
+  height: 12rem;
+}
+
+.empty-cart-image {
+  height: 8rem;
+}
+
+.recomended-food {
+  margin-bottom: 5rem !important;
+}

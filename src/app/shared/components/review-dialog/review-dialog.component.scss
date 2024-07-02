@@ -1,0 +1,13 @@
+@import "src/assets/scss/theme/_variables";
+
+textarea {
+  width: 100%;
+
+  &:focus {
+    background: $secondary-2;
+  }
+}
+
+.star-rating {
+  padding: 0 35%;
+}

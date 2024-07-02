@@ -1,0 +1,70 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="mx-auto col">
+      <div class="card">
+        <div class="card-header">
+          <div class="d-flex justify-content-between align-items-center">
+            <h5>{{title | titlecase}}</h5>
+            <button mat-button [mat-dialog-close]=false>
+              <mat-icon>
+                close
+              </mat-icon>
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+
+          <div id="errorDiv" *ngIf="errorMessage" class="mb-4 text-center">
+            <small>{{ errorMessage }}</small>
+          </div>
+
+          <form [formGroup]="acctInfoForm" (ngSubmit)="onSave()" class="row theme-form mega-form">
+            <div class="col-md">
+              <div class="form-group">
+                <label class="col-form-label">Bank name</label>
+                <select placeholder="Bank name" formControlName="bank_code" class="form-control">
+                  <option value="">Please pick a bank</option>
+                  <option *ngFor="let bank of bankList" [value]="bank.code">{{bank.name}}</option>
+                </select>
+              </div>
+              <div *ngIf="bank_code.invalid && (bank_code.dirty || bank_code.touched)"
+                class="text-danger">
+                Bank cannot be empty
+              </div>
+            </div>
+
+            <div class="col-md">
+              <div class="form-group">
+                <label class="col-form-label">Account number</label>
+                <input formControlName="account_number" class="form-control" type="text" placeholder="Account number">
+              </div>
+              <div *ngIf="account_number.invalid && (account_number.dirty || account_number.touched)"
+                class="text-danger">
+                <div *ngIf="account_number.hasError('pattern')"
+                  class="text-danger">
+                  account number can only be digits
+                </div>
+                <div *ngIf="account_number.hasError('minLength')"
+                  class="text-danger">
+                  account number must be 10 digits long
+                </div>
+                <div *ngIf="account_number.hasError('required')"
+                  class="text-danger">
+                  account number must be 10 digits long
+                </div>
+              </div>
+            </div>
+
+          </form>
+        </div>
+        <div class="card-footer py-0">
+          <button [disabled]="isLoading == true" (click)="onSave()"
+            class="mr-1 btn col-6 btn-block mx-auto btn-primary">
+            <i *ngIf="isLoading" class="fa fa-spin fa-spinner mr-2"></i>
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
