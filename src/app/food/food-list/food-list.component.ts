@@ -36,6 +36,7 @@ export class FoodListComponent implements OnInit {
     end_date = new Date(this.user.end_booking_date);
     today = new Date();
     today.setHours(0, 0, 0, 0);
+    return true
     return allow
       ? start_date <= d && d >= today && d <= end_date
       : start_date <= d && d > today && d <= end_date;
