@@ -34,7 +34,7 @@ export class HelperService {
   formatDate(value) {
     let date = new Date(value);
     let startDate = `${date.getFullYear()}-${date.getMonth() + 1
-      }-${date.getDate()}`;
+      }-${date.getDate() - 1}`;
     return startDate;
   }
 

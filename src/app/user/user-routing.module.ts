@@ -21,6 +21,14 @@ import { StaffLevelCreateComponent } from "./staff/staff-level-create/staff-leve
 import { StaffLevelListComponent } from "./staff/staff-level-list/staff-level-list.component";
 import { VendorRatingListComponent } from "./vendor/vendor-rating-list/vendor-rating-list.component";
 import { StaffCreateComponent } from "./staff/staff-create/staff-create.component";
+import { BulkStudentUploadComponent } from "./bulk-student-upload/bulk-student-upload.component";
+import { StudentListComponent } from "./student-list/student-list.component";
+import { SchoolListComponent } from "./school-list/school-list.component";
+import { BulkSchoolUploadComponent } from "./bulk-school-upload/bulk-school-upload.component";
+import { FarmerListComponent } from "./farmer-list/farmer-list.component";
+import { CartererListComponent } from "./carterer-list/carterer-list.component";
+import { BulkFarmerUploadComponent } from "./bulk-farmer-upload/bulk-farmer-upload.component";
+import { BulkCartererUploadComponent } from "./bulk-carterer-upload/bulk-carterer-upload.component";
 
 const routes: Routes = [
   {
@@ -51,6 +59,38 @@ const routes: Routes = [
   //   path: "staff-single-create",
   //   component: StaffCreateComponent,
   // },
+  {
+    path: "farmer-list",
+    component: FarmerListComponent,
+  },
+  {
+    path: "bulk-farmer-create",
+    component: BulkFarmerUploadComponent,
+  },
+  {
+    path: "caterer-list",
+    component: CartererListComponent,
+  },
+  {
+    path: "bulk-caterer-create",
+    component: BulkCartererUploadComponent,
+  },
+  {
+    path: "school-list",
+    component: SchoolListComponent,
+  },
+  {
+    path: "bulk-school-create",
+    component: BulkSchoolUploadComponent,
+  },
+  {
+    path: "student-list",
+    component: StudentListComponent,
+  },
+  {
+    path: "bulk-student-create",
+    component: BulkStudentUploadComponent,
+  },
   {
     path: "staff-create",
     component: StaffCreateComponent,

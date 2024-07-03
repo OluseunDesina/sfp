@@ -35,6 +35,14 @@ import { MatMenuModule } from "@angular/material/menu";
 import { EditAccountDetailsComponent } from './vendor/edit-account-details/edit-account-details.component';
 import { MatDialogModule } from "@angular/material/dialog";
 import { VendorRatingListComponent } from './vendor/vendor-rating-list/vendor-rating-list.component';
+import { BulkStudentUploadComponent } from './bulk-student-upload/bulk-student-upload.component';
+import { StudentListComponent } from './student-list/student-list.component';
+import { SchoolListComponent } from './school-list/school-list.component';
+import { BulkSchoolUploadComponent } from './bulk-school-upload/bulk-school-upload.component';
+import { CartererListComponent } from './carterer-list/carterer-list.component';
+import { FarmerListComponent } from './farmer-list/farmer-list.component';
+import { BulkFarmerUploadComponent } from './bulk-farmer-upload/bulk-farmer-upload.component';
+import { BulkCartererUploadComponent } from './bulk-carterer-upload/bulk-carterer-upload.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +68,14 @@ import { VendorRatingListComponent } from './vendor/vendor-rating-list/vendor-ra
     StaffLevelListComponent,
     EditAccountDetailsComponent,
     VendorRatingListComponent,
+    BulkStudentUploadComponent,
+    StudentListComponent,
+    SchoolListComponent,
+    BulkSchoolUploadComponent,
+    CartererListComponent,
+    FarmerListComponent,
+    BulkFarmerUploadComponent,
+    BulkCartererUploadComponent,
   ],
   imports: [
     CommonModule,

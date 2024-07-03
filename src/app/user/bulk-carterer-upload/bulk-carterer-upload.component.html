@@ -1,0 +1,91 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="d-flex align-items-center justify-content-between">
+            <h5>{{title | titlecase}}</h5>
+            <!-- accept=".xlsx, .xml, .xls, .csv" -->
+            <input (change)="onFileSelected($event)" #excelInput type="file">
+
+            <button (click)="excelInput.click()" class="btn btn-primary">
+              <i class="fa fa-plus mr-2"></i>
+              Select File
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+
+          Preview
+
+          <div *ngIf="htmlWorkbookJSON?.length > 0" @ifFadeSlideInOut class="col-12 upload-table">
+            <!-- Show upload progress -->
+            <!-- <div>
+              <div class="fill-progress">
+                Queue progress:
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                </div>
+              </div>
+              <button type="button" class="btn btn-success btn-s mr-1" (click)="uploader.uploadAll()"
+                [disabled]="!uploader.getNotUploadedItems().length">
+                <span class="fa fa-upload"></span> Upload all
+              </button>
+              <button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()"
+                [disabled]="!htmlWorkbookJSON.length">
+                <span class="fa fa-trash"></span> Remove all
+              </button>
+            </div> -->
+
+            <button (click)="uploadStaffsInfo()" class="btn btn-primary">Verify NIN and Save</button>
+            <p>Queue length: {{ htmlWorkbookJSON?.length }}</p>
+            <form [formGroup]="form" autocomplete="off">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Firstname</th>
+                      <th>Lastname</th>
+                      <th>Middlename</th>
+                      <th>NIN</th>
+                      <th>State</th>
+                      <th>City</th>
+                      <th>LGA</th>
+                      <th>Ward</th>
+                      <th>Address</th>
+                      <th>Actions</th>
+                      <th>Comment</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr @forFadeSlideInOut *ngFor="let item of htmlWorkbookJSON; let i = index">
+                      <td>
+                        <strong>{{ item["CATERER FIRST NAME"] || 'N/A' }}</strong>
+                      </td>
+                      <td><strong>{{ item["CATERER LAST NAME"] || 'N/A' }}</strong></td>
+                      <td><strong>{{ item['CATERER MIDDLE NAME'] || 'N/A' }}</strong></td>
+                      <td><strong>{{ item['CATERER NIN'] || 'N/A' }}</strong></td>
+                      <td><strong>{{ item['STATE'] || 'N/A' }}</strong></td>
+                      <td><strong>{{ item['TOWN'] || 'N/A' }}</strong></td>
+                      <td><strong>{{ item['LG'] || 'N/A' }}</strong></td>
+                      <td><strong>{{ item['WARD'] || 'N/A' }}</strong></td>
+                      <td><strong>{{ item["CATERER ADDRESS"] || 'N/A' }}</strong></td>
+                      <td nowrap>
+
+                        <button (click)="removeStaff(i)" type="button" class="btn btn-danger btn-xs">
+                          <span class="fa fa-trash"></span> Remove
+                        </button>
+                      </td>
+                      <td><strong>{{ item?.comment || 'No comment' }}</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

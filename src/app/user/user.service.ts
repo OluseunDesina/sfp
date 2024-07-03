@@ -38,6 +38,10 @@ export class UserService {
   private deactivatingListener = new Subject<boolean>();
   private ratingsListener = new Subject<PaginatedResponse>();
   private ratings: PaginatedResponse = new PaginatedResponse();
+  private students!: PaginatedResponse;
+  private studentsListener = new Subject<PaginatedResponse>();
+  private schools!: PaginatedResponse;
+  private schoolsListener = new Subject<PaginatedResponse>();
 
 
   constructor(
@@ -331,6 +335,166 @@ export class UserService {
           this.staffsListener.next({ ...this.staffs });
         },
         (err) => { }
+      );
+  }
+
+  getFarmerList(pageSize: number = 10, pageIndex: number = 1) {
+    const query = `?limit=${pageSize}&offset=${pageIndex}`;
+    this.http
+      .get<PaginatedResponse>(`${this.apiUrl}auth/fgn_schools/${query}`)
+      // .get<PaginatedResponse>(`${this.apiUrl}auth/fgn_students`)
+      .subscribe(
+        (res) => {
+          this.schools = res;
+          this.schoolsListener.next({ ...this.schools });
+        },
+        (err) => {
+          this.schoolsListener.next(new PaginatedResponse())
+        }
+      );
+
+      return this.schoolsListener.asObservable()
+  }
+
+  uploadFarmer(employees) {
+    this.http
+      .post(`${this.apiUrl}auth/bulk_fgn_users/`, {...employees, sector: 'farmer'})
+      .pipe(shareReplay())
+      .subscribe(
+        (response) => {
+          this.isLoadingListener.next(false);
+          this.notificationService.success(
+            `Successful`,
+            `Carterer(s) created`
+          );
+          this.router.navigate(["/user/farmer-list"]);
+        },
+        (err) => {
+          this.staffsCreateErrorListener.next(err.error);
+          // this.notificationService.danger(`Error`, `An unknown error occured`);
+          this.isLoadingListener.next(false);
+          this.errorService.handleError(err.error.message || err.error.details);
+        }
+      );
+  }
+
+  getCatererList(pageSize: number = 10, pageIndex: number = 1) {
+    const query = `?limit=${pageSize}&offset=${pageIndex}`;
+    this.http
+      .get<PaginatedResponse>(`${this.apiUrl}auth/fgn_caterers/${query}`)
+      // .get<PaginatedResponse>(`${this.apiUrl}auth/fgn_students`)
+      .subscribe(
+        (res) => {
+          this.schools = res;
+          this.schoolsListener.next({ ...this.schools });
+        },
+        (err) => {
+          this.schoolsListener.next(new PaginatedResponse())
+        }
+      );
+
+      return this.schoolsListener.asObservable()
+  }
+
+  uploadCarterer(employees) {
+    this.http
+      .post(`${this.apiUrl}auth/bulk_fgn_users/`, {...employees, sector: 'caterer'})
+      .pipe(shareReplay())
+      .subscribe(
+        (response) => {
+          this.isLoadingListener.next(false);
+          this.notificationService.success(
+            `Successful`,
+            `Carterer(s) created`
+          );
+          this.router.navigate(["/user/caterer-list"]);
+        },
+        (err) => {
+          this.staffsCreateErrorListener.next(err.error);
+          // this.notificationService.danger(`Error`, `An unknown error occured`);
+          this.isLoadingListener.next(false);
+          this.errorService.handleError(err.error.message || err.error.details);
+        }
+      );
+  }
+
+  getSchoolList(pageSize: number = 10, pageIndex: number = 1) {
+    const query = `?limit=${pageSize}&offset=${pageIndex}`;
+    this.http
+      .get<PaginatedResponse>(`${this.apiUrl}auth/fgn_schools/${query}`)
+      // .get<PaginatedResponse>(`${this.apiUrl}auth/fgn_students`)
+      .subscribe(
+        (res) => {
+          this.schools = res;
+          this.schoolsListener.next({ ...this.schools });
+        },
+        (err) => {
+          this.schoolsListener.next(new PaginatedResponse())
+        }
+      );
+
+      return this.schoolsListener.asObservable()
+  }
+
+  uploadSchools(employees) {
+    this.http
+      .post(`${this.apiUrl}auth/bulk_fgn_users/`, {...employees, sector: 'school'})
+      .pipe(shareReplay())
+      .subscribe(
+        (response) => {
+          this.isLoadingListener.next(false);
+          this.notificationService.success(
+            `Successful`,
+            `School(s) created`
+          );
+          this.router.navigate(["/user/school-list"]);
+        },
+        (err) => {
+          this.staffsCreateErrorListener.next(err.error);
+          // this.notificationService.danger(`Error`, `An unknown error occured`);
+          this.isLoadingListener.next(false);
+          this.errorService.handleError(err.error.message || err.error.details);
+        }
+      );
+  }
+
+  getStudentList(pageSize: number = 10, pageIndex: number = 1) {
+    const query = `?limit=${pageSize}&offset=${pageIndex}`;
+    this.http
+      .get<PaginatedResponse>(`${this.apiUrl}auth/fgn_students/${query}`)
+      // .get<PaginatedResponse>(`${this.apiUrl}auth/fgn_students`)
+      .subscribe(
+        (res) => {
+          this.students = res;
+          this.studentsListener.next({ ...this.students });
+        },
+        (err) => {
+          this.studentsListener.next(new PaginatedResponse())
+        }
+      );
+
+      return this.studentsListener.asObservable()
+  }
+
+  uploadStudent(employees) {
+    this.http
+      .post(`${this.apiUrl}auth/bulk_fgn_users/`, {...employees, sector: 'student'})
+      .pipe(shareReplay())
+      .subscribe(
+        (response) => {
+          this.isLoadingListener.next(false);
+          this.notificationService.success(
+            `Successful`,
+            `User(s) account created`
+          );
+          this.router.navigate(["/user/student-list"]);
+        },
+        (err) => {
+          this.staffsCreateErrorListener.next(err.error);
+          // this.notificationService.danger(`Error`, `An unknown error occured`);
+          this.isLoadingListener.next(false);
+          this.errorService.handleError(err.error.message || err.error.details);
+        }
       );
   }
 

@@ -117,6 +117,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     stagePadding: 50,
   };
   slidesStore = [];
+  studentsByLGA = [];
+  studentsBySchool = [];
+  caterersByLGA = [];
+  farmersByLGA = [];
   vendorReport: any[];
   dataset1: any[];
   dataset2: any[];
@@ -139,6 +143,34 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.getuserGroup();
     this.orderHistory = [];
     this.slidesStore = [];
+    this.studentsByLGA = [
+      {title: 'Total', count: 100},
+      {title: 'KOSOFE', count: 10},
+      {title: 'ALIMOSHO', count: 9},
+      {title: 'SURULERE', count: 15},
+      {title: 'ETI-OSA', count: 25},
+    ];
+    this.farmersByLGA = [
+      {title: 'Total', count: 100},
+      {title: 'KOSOFE', count: 10},
+      {title: 'ALIMOSHO', count: 9},
+      {title: 'SURULERE', count: 15},
+      {title: 'ETI-OSA', count: 25},
+    ];
+    this.caterersByLGA = [
+      {title: 'Total', count: 100},
+      {title: 'KOSOFE', count: 10},
+      {title: 'ALIMOSHO', count: 9},
+      {title: 'SURULERE', count: 15},
+      {title: 'ETI-OSA', count: 25},
+    ];
+    this.studentsBySchool = [
+      {title: 'Total', count: 100},
+      {title: 'FGGC', count: 10},
+      {title: 'ICHS', count: 11},
+      {title: `BRIGG's Gate`, count: 25},
+      {title: 'AGGS', count: 30},
+    ];
     this.orderLoading = true;
     this.today = this.helperService.formatDate(new Date());
     this.getFoodReport();
