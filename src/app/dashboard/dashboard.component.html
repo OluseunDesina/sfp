@@ -1,22 +1,55 @@
 <!-- Container-fluid starts-->
 <div class="container-fluid">
   <div class="row">
+
+    <div class="col-auto row">
+      <ng-container *ngIf="isSid || isComp || isAcct">
+        <div class="col">
+          <div class="card">
+            <div class="card-body ecommerce-icons text-center">
+              <div><span>{{'Tot. no. of students' | uppercase}}</span></div>
+              <h4 class="font-primary mb-0 counter" [CountTo]=100 [from]="0" [duration]="0.5"></h4>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <div class="card-body ecommerce-icons text-center">
+              <div><span>{{'Tot. no. of Schools' | uppercase}}</span></div>
+              <h4 class="font-primary mb-0 counter" [CountTo]=5 [from]="0" [duration]="0.5"></h4>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <div class="card-body ecommerce-icons text-center">
+              <div><span>{{'Tot. no. of Caterers' | uppercase}}</span></div>
+              <h4 class="font-primary mb-0 counter" [CountTo]=10 [from]="0" [duration]="0.5"></h4>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <div class="card-body ecommerce-icons text-center">
+              <div><span>{{'Tot. no. of farmers' | uppercase}}</span></div>
+              <h4 class="font-primary mb-0 counter" [CountTo]=15 [from]="0" [duration]="0.5"></h4>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
     <div class="col-xl-12 xl-100 px-0 mx-0">
       <ng-container *ngIf="isComp || isSid || isAcct">
-        <div class="container">
+        <div class="">
           <h5>Students by LGA</h5>
           <owl-carousel-o [options]="customOptions">
-            <ng-template carouselSlide
-                         [id]="i + 1"
-                         *ngFor="let slide of studentsByLGA; let i=index">
+            <ng-template carouselSlide [id]="i + 1" *ngFor="let slide of studentsByLGA; let i=index">
               <div class="item">
                 <div class="card">
                   <div class="card-body ecommerce-icons text-center">
                     <div><span>{{slide.title | uppercase}}</span></div>
-                    <h4 class="font-primary mb-0 counter"
-                        [CountTo]=slide.count
-                        [from]="0"
-                        [duration]="0.5"></h4>
+                    <h4 class="font-primary mb-0 counter" [CountTo]=slide.count [from]="0" [duration]="0.5"></h4>
                   </div>
                 </div>
               </div>
@@ -26,20 +59,15 @@
       </ng-container>
 
       <ng-container *ngIf="isComp || isSid || isAcct">
-        <div class="container">
+        <div class="">
           <h5>Students by School</h5>
           <owl-carousel-o [options]="customOptions">
-            <ng-template carouselSlide
-                         [id]="i + 1"
-                         *ngFor="let slide of studentsBySchool; let i=index">
+            <ng-template carouselSlide [id]="i + 1" *ngFor="let slide of studentsBySchool; let i=index">
               <div class="item">
                 <div class="card">
                   <div class="card-body ecommerce-icons text-center">
                     <div><span>{{slide.title | uppercase}}</span></div>
-                    <h4 class="font-primary mb-0 counter"
-                        [CountTo]=slide.count
-                        [from]="0"
-                        [duration]="0.5"></h4>
+                    <h4 class="font-primary mb-0 counter" [CountTo]=slide.count [from]="0" [duration]="0.5"></h4>
                   </div>
                 </div>
               </div>
@@ -49,20 +77,15 @@
       </ng-container>
 
       <ng-container *ngIf="isComp || isSid || isAcct">
-        <div class="container">
+        <div class="">
           <h5>Caterers by LGA</h5>
           <owl-carousel-o [options]="customOptions">
-            <ng-template carouselSlide
-                         [id]="i + 1"
-                         *ngFor="let slide of caterersByLGA; let i=index">
+            <ng-template carouselSlide [id]="i + 1" *ngFor="let slide of caterersByLGA; let i=index">
               <div class="item">
                 <div class="card">
                   <div class="card-body ecommerce-icons text-center">
                     <div><span>{{slide.title | uppercase}}</span></div>
-                    <h4 class="font-primary mb-0 counter"
-                        [CountTo]=slide.count
-                        [from]="0"
-                        [duration]="0.5"></h4>
+                    <h4 class="font-primary mb-0 counter" [CountTo]=slide.count [from]="0" [duration]="0.5"></h4>
                   </div>
                 </div>
               </div>
@@ -70,21 +93,17 @@
           </owl-carousel-o>
         </div>
       </ng-container>
+
       <ng-container *ngIf="isComp || isSid || isAcct">
-        <div class="container">
+        <div class="">
           <h5>Farmers by LGA</h5>
           <owl-carousel-o [options]="customOptions">
-            <ng-template carouselSlide
-                         [id]="i + 1"
-                         *ngFor="let slide of farmersByLGA; let i=index">
+            <ng-template carouselSlide [id]="i + 1" *ngFor="let slide of farmersByLGA; let i=index">
               <div class="item">
                 <div class="card">
                   <div class="card-body ecommerce-icons text-center">
                     <div><span>{{slide.title | uppercase}}</span></div>
-                    <h4 class="font-primary mb-0 counter"
-                        [CountTo]=slide.count
-                        [from]="0"
-                        [duration]="0.5"></h4>
+                    <h4 class="font-primary mb-0 counter" [CountTo]=slide.count [from]="0" [duration]="0.5"></h4>
                   </div>
                 </div>
               </div>
@@ -133,118 +152,23 @@
 
     </div>
 
-    <!-- <div class="col-xl-5 xl-100">
-      <div class="card">
-        <div class="card-header">
-          <h5>Today Orders</h5>
-        </div>
-        <div class="card-body">
-          <div *ngIf="orderLoading == true"
-               class="col-auto mx-auto">
-            <mat-spinner class="mx-auto"></mat-spinner>
-          </div>
-          <div *ngIf="orderLoading == false && this.orderHistory.length > 0"
-               class="table-responsive sellers">
-            <table class="table table-bordernone">
-              <thead>
-                <tr>
-                  <th scope="col">Name</th>
-                  <th scope="col">Food</th>
-                  <th scope="col">Qty.</th>
-                  <th scope="col">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let order of orderHistory">
-                  <td *ngIf="!isStaff">
-                    <div class="d-inline-block align-middle">
-                      <div class="d-inline-block">
-                        <p>{{order.user}}</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td *ngIf="isStaff">
-                    <div class="d-inline-block align-middle">
-                      <div class="d-inline-block">
-                        <p>{{order?.user_full?.first_name}} {{order?.user_full?.last_name}}</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td *ngIf="!isStaff">
-                    <p>{{order.food | titlecase}}</p>
-                  </td>
-                  <td *ngIf="isStaff">
-                    <p>{{order?.food?.name | titlecase}}</p>
-                  </td>
-                  <td>
-                    <p>{{order.quantity}}</p>
-                  </td>
-                  <td>
-                    <p>{{order.status | titlecase}}</p>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div *ngIf="orderLoading == false && this.orderHistory.length == 0">
-            <p class="text-center">
-              No data to display
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </div> -->
-
-    <div [ngClass]="{'col-12': vendorReport?.length > 2, 'col-md-6': vendorReport?.length <=2}"
-         class="row">
-      <div *ngFor="let vendor of vendorReport"
-           class="mr-2 col xl-50">
+    <div [ngClass]="{'col-12': vendorReport?.length > 2, 'col-md-6': vendorReport?.length <=2}" class="row">
+      <div *ngFor="let vendor of vendorReport" class="mr-2 col xl-50">
         <div class="card social-widget-card">
           <div class="card-body">
             <h5 class="text-primary b-b-light">{{vendor.vendor_name}}</h5>
             <div class="row">
               <div class="col text-center b-r-light"><span>Count</span>
-                <h4 class="counter mb-0"
-                    [CountTo]="vendor.count"
-                    [from]="0"
-                    [duration]="1"></h4>
+                <h4 class="counter mb-0" [CountTo]="vendor.count" [from]="0" [duration]="1"></h4>
               </div>
               <div class="col text-center"><span>Value</span>
-                <h4 class="counter mb-0"
-                    [CountTo]="vendor.total"
-                    [from]="0"
-                    [duration]="1"></h4>
+                <h4 class="counter mb-0" [CountTo]="vendor.total" [from]="0" [duration]="1"></h4>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <div class="col-auto row">
-      <ng-container *ngIf="isSid || isComp || isAcct">
-        <div *ngFor="let ratio of ratioArray"
-             class="col">
-          <div class="card">
-            <div class="card-body">
-              <div class="number-widgets">
-                <div class="media">
-                  <div class="media-body align-self-center">
-                    <h6 class="mb-0">{{ratio.title}}</h6>
-                  </div>
-                  <div class="radial-bar radial-bar-100 radial-bar-primary"
-                       [attr.data-label]="ratio.percentage"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ng-container>
-    </div>
-
-
 
   </div>
 </div>
