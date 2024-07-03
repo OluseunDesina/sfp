@@ -175,44 +175,44 @@ export class NavService {
             badgeType: "primary",
             active: true,
             children: [
-              {
-                title: "School Admin",
-                icon: "anchor",
-                type: "sub",
-                badgeType: "primary",
-                active: false,
-                children: [
-                  // {
-                  //   path: "/user/company-admin-create",
-                  //   title: "Add Admin",
-                  //   type: "link",
-                  // },
-                  {
-                    path: "/user/company-admin-list",
-                    title: "All Admin",
-                    type: "link",
-                  },
-                ],
-              },
-              {
-                title: "School Accountant",
-                icon: "anchor",
-                type: "sub",
-                badgeType: "primary",
-                active: false,
-                children: [
-                  {
-                    path: "/user/accountant-create",
-                    title: "Add Accountant",
-                    type: "link",
-                  },
-                  {
-                    path: "/user/accountant-list",
-                    title: "All Accountants",
-                    type: "link",
-                  },
-                ],
-              },
+              // {
+              //   title: "School Admin",
+              //   icon: "anchor",
+              //   type: "sub",
+              //   badgeType: "primary",
+              //   active: false,
+              //   children: [
+              //     // {
+              //     //   path: "/user/company-admin-create",
+              //     //   title: "Add Admin",
+              //     //   type: "link",
+              //     // },
+              //     {
+              //       path: "/user/company-admin-list",
+              //       title: "All Admin",
+              //       type: "link",
+              //     },
+              //   ],
+              // },
+              // {
+              //   title: "School Accountant",
+              //   icon: "anchor",
+              //   type: "sub",
+              //   badgeType: "primary",
+              //   active: false,
+              //   children: [
+              //     {
+              //       path: "/user/accountant-create",
+              //       title: "Add Accountant",
+              //       type: "link",
+              //     },
+              //     {
+              //       path: "/user/accountant-list",
+              //       title: "All Accountants",
+              //       type: "link",
+              //     },
+              //   ],
+              // },
               {
                 title: "Schools",
                 icon: "anchor",
@@ -245,44 +245,44 @@ export class NavService {
                 path: "/user/farmer-list",
                 type: "link",
               },
-              {
-                title: "Department",
-                icon: "anchor",
-                type: "sub",
-                badgeType: "primary",
-                active: false,
-                children: [
-                  {
-                    path: "/user/department-create",
-                    title: "Add Department",
-                    type: "link",
-                  },
-                  {
-                    path: "/user/department-list",
-                    title: "All Departments",
-                    type: "link",
-                  },
-                ],
-              },
-              {
-                title: "Vendor",
-                icon: "anchor",
-                type: "sub",
-                badgeType: "primary",
-                active: false,
-                children: [
-                  {
-                    path: "/user/vendor-create",
-                    title: "Add Vendor",
-                    type: "link",
-                  },
-                  {
-                    path: "/user/vendor-list",
-                    title: "All Vendors",
-                    type: "link",
-                  },
-                ],
-              },
+              // {
+              //   title: "Department",
+              //   icon: "anchor",
+              //   type: "sub",
+              //   badgeType: "primary",
+              //   active: false,
+              //   children: [
+              //     {
+              //       path: "/user/department-create",
+              //       title: "Add Department",
+              //       type: "link",
+              //     },
+              //     {
+              //       path: "/user/department-list",
+              //       title: "All Departments",
+              //       type: "link",
+              //     },
+              //   ],
+              // },
+              // {
+              //   title: "Vendor",
+              //   icon: "anchor",
+              //   type: "sub",
+              //   badgeType: "primary",
+              //   active: false,
+              //   children: [
+              //     {
+              //       path: "/user/vendor-create",
+              //       title: "Add Vendor",
+              //       type: "link",
+              //     },
+              //     {
+              //       path: "/user/vendor-list",
+              //       title: "All Vendors",
+              //       type: "link",
+              //     },
+              //   ],
+              // },
             ],
           },
           {
