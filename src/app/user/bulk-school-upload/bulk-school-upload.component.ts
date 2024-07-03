@@ -43,6 +43,7 @@ export class BulkSchoolUploadComponent implements OnInit {
   htmlWorkbookJSON!: any[];
   displayedColumns = ["firstname", "lastname", "email", "action"];
   selectedFile: File;
+  isLoading: boolean;
 
   constructor(
     private userService: UserService,
@@ -124,6 +125,7 @@ export class BulkSchoolUploadComponent implements OnInit {
   }
 
   uploadStaffsInfo() {
+    this.isLoading = true
     this.userService.uploadSchools({
       schools: this.htmlWorkbookJSON.map(item => ({
         head_teacher_firstname: `${item["HEAD TEACHER FIRST NAME"]}`,
@@ -148,7 +150,8 @@ export class BulkSchoolUploadComponent implements OnInit {
       students: [],
     })
     this.userService.getStaffCreationErrorUpdate().subscribe((errorArray) => {
-      let newArray = this.htmlWorkbookJSON.filter((element: any, index) => {
+    this.isLoading = false
+    let newArray = this.htmlWorkbookJSON.filter((element: any, index) => {
         if (errorArray[index].error) {
           element.comment = errorArray[index].error;
           return element;

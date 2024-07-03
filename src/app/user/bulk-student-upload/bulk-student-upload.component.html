@@ -15,31 +15,25 @@
           </div>
         </div>
         <div class="card-body">
-
+          <div class="example-loading-shade" *ngIf="isLoading">
+            <div class="loader-box">
+              <div class="loader">
+                <div class="line bg-primary"></div>
+                <div class="line bg-primary"></div>
+                <div class="line bg-primary"></div>
+                <div class="line bg-primary"></div>
+              </div>
+            </div>
+            <!-- <mat-spinner *ngIf="tableLoading"></mat-spinner> -->
+          </div>
           Preview
 
           <div *ngIf="htmlWorkbookJSON?.length > 0" @ifFadeSlideInOut class="col-12 upload-table">
-            <!-- Show upload progress -->
-            <!-- <div>
-              <div class="fill-progress">
-                Queue progress:
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
-                </div>
-              </div>
-              <button type="button" class="btn btn-success btn-s mr-1" (click)="uploader.uploadAll()"
-                [disabled]="!uploader.getNotUploadedItems().length">
-                <span class="fa fa-upload"></span> Upload all
-              </button>
-              <button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()"
-                [disabled]="!htmlWorkbookJSON.length">
-                <span class="fa fa-trash"></span> Remove all
-              </button>
-            </div> -->
 
             <button (click)="uploadStaffsInfo()" class="btn btn-primary">Verify NIN and Save</button>
             <p>Queue length: {{ htmlWorkbookJSON?.length }}</p>
             <form [formGroup]="form" autocomplete="off">
+
               <div class="table-responsive">
                 <table class="table">
                   <thead>

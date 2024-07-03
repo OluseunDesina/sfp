@@ -43,6 +43,7 @@ export class BulkCartererUploadComponent implements OnInit {
   htmlWorkbookJSON!: any[];
   displayedColumns = ["firstname", "lastname", "email", "action"];
   selectedFile: File;
+  isLoading: boolean;
 
   constructor(
     private userService: UserService,
@@ -123,6 +124,7 @@ export class BulkCartererUploadComponent implements OnInit {
   }
 
   uploadStaffsInfo() {
+    this.isLoading = true
     this.userService.uploadCarterer({
       schools: [],
       farmers: [],
@@ -141,6 +143,7 @@ export class BulkCartererUploadComponent implements OnInit {
       })),
     });
     this.userService.getStaffCreationErrorUpdate().subscribe((errorArray) => {
+      this.isLoading = false
       let newArray = this.htmlWorkbookJSON.filter((element: any, index) => {
         if (errorArray[index].error) {
           element.comment = errorArray[index].error;

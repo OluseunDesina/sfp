@@ -237,14 +237,14 @@ export class NavService {
                 path: "/user/caterer-list",
                 type: "link",
               },
-              {
-                title: "Farmers",
-                icon: "anchor",
-                badgeType: "primary",
-                active: false,
-                path: "/user/farmer-list",
-                type: "link",
-              },
+              // {
+              //   title: "Farmers",
+              //   icon: "anchor",
+              //   badgeType: "primary",
+              //   active: false,
+              //   path: "/user/farmer-list",
+              //   type: "link",
+              // },
               // {
               //   title: "Department",
               //   icon: "anchor",
