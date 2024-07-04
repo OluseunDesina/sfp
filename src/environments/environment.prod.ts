@@ -1,10 +1,4 @@
 export const environment = {
   production: true,
-  // prod
-  // url: "http://178.128.32.169:8000/",
-  // url: "https://bucca.secureid-digital.com.ng/",
-  url: "https://da18-41-58-58-65.ngrok-free.app/",
-  // url: "https://live-bucca-v2.herokuapp.com/",
-  // test
-  // url: "https://bucca-v2.herokuapp.com/"
+  url: "https://feeding-latest.onrender.com/",
 };

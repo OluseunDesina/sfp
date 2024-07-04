@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  url: "https://da18-41-58-58-65.ngrok-free.app/",
+  url: "https://feeding-latest.onrender.com/",
 };
 
 /*

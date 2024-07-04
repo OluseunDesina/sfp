@@ -237,14 +237,14 @@ export class NavService {
                 path: "/user/caterer-list",
                 type: "link",
               },
-              // {
-              //   title: "Farmers",
-              //   icon: "anchor",
-              //   badgeType: "primary",
-              //   active: false,
-              //   path: "/user/farmer-list",
-              //   type: "link",
-              // },
+              {
+                title: "Farmers",
+                icon: "anchor",
+                badgeType: "primary",
+                active: false,
+                path: "/user/farmer-list",
+                type: "link",
+              },
               // {
               //   title: "Department",
               //   icon: "anchor",
@@ -381,32 +381,27 @@ export class NavService {
                 title: "Vendor Withdrawal",
                 type: "link",
               },
-              // {
-              //   path: "/transactions/voided-transactions",
-              //   title: "Voided Transactions",
-              //   type: "link",
-              // },
             ],
           },
-          {
-            title: "Survey",
-            icon: "edit",
-            type: "sub",
-            badgeType: "primary",
-            active: true,
-            children: [
-              {
-                path: "/survey/survey-list",
-                title: "Survey Questions",
-                type: "link",
-              },
-              {
-                path: "/survey/survey-response-stat",
-                title: "Survey Responses",
-                type: "link",
-              },
-            ],
-          },
+          // {
+          //   title: "Survey",
+          //   icon: "edit",
+          //   type: "sub",
+          //   badgeType: "primary",
+          //   active: true,
+          //   children: [
+          //     {
+          //       path: "/survey/survey-list",
+          //       title: "Survey Questions",
+          //       type: "link",
+          //     },
+          //     {
+          //       path: "/survey/survey-response-stat",
+          //       title: "Survey Responses",
+          //       type: "link",
+          //     },
+          //   ],
+          // },
         ];
         this.items.next(this.MENUITEMS);
         break;

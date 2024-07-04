@@ -9,14 +9,14 @@
           <button *ngIf="showNav" class="navbar-toggler" type="button" [matMenuTriggerFor]="menu">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <mat-menu #menu="matMenu">
+          <!-- <mat-menu #menu="matMenu">
             <button mat-menu-item>What we do</button>
             <button mat-menu-item>Be a Food Partner</button>
             <button mat-menu-item>Contact Us</button>
             <a mat-button (click)="openDialog()" class="btn btn-primary nav-link auth-links">Login</a>
-          </mat-menu>
+          </mat-menu> -->
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul *ngIf="showNav" class="navbar-nav navbar-nav-scroll">
+            <!-- <ul *ngIf="showNav" class="navbar-nav navbar-nav-scroll">
               <li class="mr-3 nav-item">
                 <a class="">Today Special Offers</a>
               </li>
@@ -29,7 +29,7 @@
               <li class="mr-3 nav-item">
                 <a class="">Our Popular Food</a>
               </li>
-            </ul>
+            </ul> -->
             <div *ngIf="showNav" class="ml-auto d-flex">
               <button (click)="openDialog()" class="btn btn-primary">
                 Login

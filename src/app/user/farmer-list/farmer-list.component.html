@@ -1,1 +1,126 @@
-<p>farmer-list works!</p>
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-header">
+      <div class="d-flex justify-content-between">
+        <h5>{{title | titlecase}}</h5>
+        <div>
+          <button *ngIf="isComp" [routerLink]="'/user/bulk-farmer-create'" class="btn btn-primary mr-2">
+            Bulk Upload
+          </button>
+
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <app-table-functions (exportExcel)="onExportExcel()" (search)="onSearch($event)"
+        [searchPlaceHolder]="searchPlaceHolder" [showSearch]="true">
+      </app-table-functions>
+      <div class="mat-elevation-z8">
+
+        <div class="example-loading-shade" *ngIf="tableLoading">
+          <div class="loader-box">
+            <div class="loader">
+              <div class="line bg-primary"></div>
+              <div class="line bg-primary"></div>
+              <div class="line bg-primary"></div>
+              <div class="line bg-primary"></div>
+            </div>
+          </div>
+          <!-- <mat-spinner *ngIf="tableLoading"></mat-spinner> -->
+        </div>
+
+        <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
+
+          <!-- Contact Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{(element.firstname + ' ' +  element.middlename + ' ' +  element.lastname)}}</td>
+          </ng-container>
+
+          <!-- Contact NIN Column -->
+          <ng-container matColumnDef="nin">
+            <th mat-header-cell *matHeaderCellDef> NIN </th>
+            <td mat-cell *matCellDef="let element"> {{element.nin || 'N/A'}} </td>
+          </ng-container>
+
+          <!-- Company Name Column -->
+          <ng-container matColumnDef="address">
+            <th mat-header-cell *matHeaderCellDef> Address </th>
+            <td mat-cell *matCellDef="let element"> {{element.address || 'N/A'}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="city">
+            <th mat-header-cell *matHeaderCellDef> City </th>
+            <td mat-cell *matCellDef="let element"> {{element.city || 'N/A'}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="state">
+            <th mat-header-cell *matHeaderCellDef> State </th>
+            <td mat-cell *matCellDef="let element"> {{element.state || 'N/A'}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="lga">
+            <th mat-header-cell *matHeaderCellDef> LGA </th>
+            <td mat-cell *matCellDef="let element"> {{element.lga || 'N/A'}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="ward">
+            <th mat-header-cell *matHeaderCellDef> Ward </th>
+            <td mat-cell *matCellDef="let element"> {{element.ward || 'N/A'}} </td>
+          </ng-container>
+
+          <!-- Balance Column -->
+          <!-- <ng-container matColumnDef="balance">
+            <th mat-header-cell *matHeaderCellDef> Balance </th>
+            <td mat-cell *matCellDef="let element"> {{element.balance | currency:"NGN" : "₦" : '1.0-0'}} </td>
+          </ng-container> -->
+
+          <!-- Last login Column -->
+          <ng-container matColumnDef="date_created">
+            <th mat-header-cell *matHeaderCellDef> Date created </th>
+            <td mat-cell *matCellDef="let element"> {{element.date_created | date : 'mediumDate' }} </td>
+          </ng-container>
+
+          <!-- Star Column -->
+          <ng-container matColumnDef="star">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <!-- <button mat-menu-item (click)="deactivateUser(element)">
+                  <mat-icon>
+                    {{element.is_active ? 'no_accounts' : 'account_circle'}}
+                  </mat-icon>
+                  <span>
+                    {{element.is_active ? 'Dectivate' : 'Activate'}}
+                  </span>
+                </button> -->
+                <button mat-menu-item (click)="onEditUser(element)">
+                  <mat-icon>
+                    edit_note
+                  </mat-icon>
+                  <span>
+                    Edit
+                  </span>
+                </button>
+              </mat-menu>
+
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let element; columns: displayedColumns;">
+          </tr>
+          <!-- <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr> -->
+        </table>
+        <app-paginator [length]=length (pageEvent)=pageChange($event)></app-paginator>
+      </div>
+
+
+    </div>
+  </div>
+  <!-- </div>
+  </div> -->
+</div>

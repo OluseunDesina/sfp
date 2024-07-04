@@ -15,6 +15,11 @@
   position: absolute;
 }
 
+.gif {
+  max-height: 400px;
+  width: auto;
+}
+
 .auth-links {
   font-family: Poppins;
   font-style: normal;
@@ -40,8 +45,7 @@
 .hero-description {
   font-size: 24px;
   font-weight: 400;
-  line-height: 26.13px;
-  font: Tw Cen MT;
+  line-height: 36px;
 }
 
 .go-button {
@@ -56,15 +60,13 @@ section {
 }
 
 .section-header {
-  font: Tw Cen MT;
   font-size: 48px;
   font-weight: 700;
   line-height: 52.27px;
 }
 
 .section-description {
-  font: Tw Cen MT;
   font-size: 18px;
   font-weight: 400;
-  line-height: 19.6px;
+  line-height: 29px;
 }

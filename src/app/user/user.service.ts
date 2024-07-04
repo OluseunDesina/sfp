@@ -42,6 +42,10 @@ export class UserService {
   private studentsListener = new Subject<PaginatedResponse>();
   private schools!: PaginatedResponse;
   private schoolsListener = new Subject<PaginatedResponse>();
+  private farmers!: PaginatedResponse;
+  private farmersListener = new Subject<PaginatedResponse>();
+  private caterers!: PaginatedResponse;
+  private caterersListener = new Subject<PaginatedResponse>();
 
 
   constructor(
@@ -341,19 +345,19 @@ export class UserService {
   getFarmerList(pageSize: number = 10, pageIndex: number = 1) {
     const query = `?limit=${pageSize}&offset=${pageIndex}`;
     this.http
-      .get<PaginatedResponse>(`${this.apiUrl}auth/fgn_schools/${query}`)
+      .get<PaginatedResponse>(`${this.apiUrl}auth/fgn_farmers/${query}`)
       // .get<PaginatedResponse>(`${this.apiUrl}auth/fgn_students`)
       .subscribe(
         (res) => {
-          this.schools = res;
-          this.schoolsListener.next({ ...this.schools });
+          this.farmers = res;
+          this.farmersListener.next({ ...this.farmers });
         },
         (err) => {
-          this.schoolsListener.next(new PaginatedResponse())
+          this.farmersListener.next(new PaginatedResponse())
         }
       );
 
-      return this.schoolsListener.asObservable()
+      return this.farmersListener.asObservable()
   }
 
   uploadFarmer(employees) {
@@ -365,7 +369,7 @@ export class UserService {
           this.isLoadingListener.next(false);
           this.notificationService.success(
             `Successful`,
-            `Carterer(s) created`
+            `Farmer(s) created`
           );
           this.router.navigate(["/user/farmer-list"]);
         },
@@ -385,15 +389,15 @@ export class UserService {
       // .get<PaginatedResponse>(`${this.apiUrl}auth/fgn_students`)
       .subscribe(
         (res) => {
-          this.schools = res;
-          this.schoolsListener.next({ ...this.schools });
+          this.caterers = res;
+          this.caterersListener.next({ ...this.caterers });
         },
         (err) => {
-          this.schoolsListener.next(new PaginatedResponse())
+          this.caterersListener.next(new PaginatedResponse())
         }
       );
 
-      return this.schoolsListener.asObservable()
+      return this.caterersListener.asObservable()
   }
 
   uploadCarterer(employees) {
