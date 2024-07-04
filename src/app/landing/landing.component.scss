@@ -1,38 +1,6 @@
 @import "../../assets/scss/theme/variables";
-
-.nav-item {
-  font-family: Poppins;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 24px;
-  line-height: 36px;
-  text-align: center;
-
-  color: #707070;
-}
-
-.fixed-top {
-  position: absolute;
-}
-
-.gif {
-  max-height: 400px;
-  width: auto;
-}
-
-.auth-links {
-  font-family: Poppins;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 36px;
-  /* identical to box height */
-
-  display: flex;
-  align-items: center;
-  text-align: center;
-
-  color: #ffffff !important;
+.text-justify {
+  text-align: justify;
 }
 
 .hero-text-main {
@@ -69,4 +37,37 @@ section {
   font-size: 18px;
   font-weight: 400;
   line-height: 29px;
+}
+
+@media only screen and (max-width: 600px) {
+  .hero-text-main {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .hero-description {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .section-header {
+    font-size: 32px;
+    line-height: 38px;
+  }
+
+  .section-description {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  section {
+    margin: 10px auto;
+    padding: 10px;
+  }
+
+  .go-button {
+    border-radius: 30px 0 0 0;
+    padding: 10px 20px;
+    font-size: 14px;
+  }
 }
