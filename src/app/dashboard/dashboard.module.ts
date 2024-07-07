@@ -11,6 +11,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { ChartsModule } from 'ng2-charts';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { FormsModule } from '@angular/forms';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -23,12 +27,15 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     HttpClientModule,
     MatProgressSpinnerModule,
     MatButtonToggleModule,
-    // FormsModule,
+    FormsModule,
     CarouselModule,
     // NgbModule,
     // ChartistModule,
     ChartsModule,
     CountToModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule
     // DashboardRoutingModule,
     // NgxChartsModule,
     // Ng2GoogleChartsModule,

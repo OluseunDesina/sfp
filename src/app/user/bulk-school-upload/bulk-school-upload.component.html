@@ -6,12 +6,19 @@
           <div class="d-flex align-items-center justify-content-between">
             <h5>{{title | titlecase}}</h5>
             <!-- accept=".xlsx, .xml, .xls, .csv" -->
-            <input (change)="onFileSelected($event)" #excelInput type="file">
 
-            <button (click)="excelInput.click()" class="btn btn-primary">
-              <i class="fa fa-plus mr-2"></i>
-              Select File
-            </button>
+            <div>
+
+              <input (change)="onFileSelected($event)" #excelInput type="file">
+              <button class="btn btn-primary mr-2">
+                Download Template
+              </button>
+
+              <button (click)="excelInput.click()" class="btn btn-primary">
+                <i class="fa fa-plus mr-2"></i>
+                Select File
+              </button>
+            </div>
           </div>
         </div>
         <div class="card-body">

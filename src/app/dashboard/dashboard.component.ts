@@ -15,6 +15,13 @@ var primary = localStorage.getItem("primary_color") || "#27AE60";
   styleUrls: ["./dashboard.component.scss"],
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
+  states: any[] = [
+    "Abia", "Adamawa", "Akwa Ibom", "Anambra", "Bauchi", "Bayelsa", "Benue", "Borno",
+    "Cross River", "Delta", "Ebonyi", "Edo", "Ekiti", "Enugu", "Gombe", "Imo",
+    "Jigawa", "Kaduna", "Kano", "Katsina", "Kebbi", "Kogi", "Kwara", "Lagos",
+    "Nasarawa", "Niger", "Ogun", "Ondo", "Osun", "Oyo", "Plateau", "Rivers",
+    "Sokoto", "Taraba", "Yobe", "Zamfara", "Federal Capital Territory (FCT)"
+];
   barChartOptions = {
     scaleShowVerticalLines: false,
     responsive: true,
@@ -131,6 +138,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   isVend: boolean;
   isAcct: boolean;
   latestMeal: any;
+  students = 100;
+  schools = 500;
+  farmers = 50;
+  caterers = 200;
+  selectedState: any = 0;
 
   constructor(
     private dashboardService: DashboardService,
@@ -186,6 +198,20 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     //   fgColor: primary,
     // });
     // document.getElementById("review").append(review);
+  }
+
+  onStateChange() {
+    if (this.selectedState == 0) {
+      this.students = 100;
+      this.schools = 500;
+      this.farmers = 50;
+      this.caterers = 200
+      return
+    }
+    this.students = Math.floor(Math.random() * 100)
+    this.schools = Math.floor(Math.random() * 500)
+    this.farmers = Math.floor(Math.random() * 50)
+    this.caterers = Math.floor(Math.random() * 200)
   }
 
   ngAfterViewInit(): void {

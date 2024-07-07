@@ -34,7 +34,8 @@
           <!-- Contact Name Column -->
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef> Name </th>
-            <td mat-cell *matCellDef="let element"> {{(element.firstname + ' ' +  element.middlename + ' ' +  element.lastname)}}</td>
+            <td mat-cell *matCellDef="let element"> {{(element.firstname + ' ' + element.middlename + ' ' +
+              element.lastname)}}</td>
           </ng-container>
 
           <!-- Contact NIN Column -->
@@ -98,35 +99,68 @@
           <ng-container matColumnDef="star">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
-              <button mat-button [matMenuTriggerFor]="menu">
+              <!--   -->
+              <button [matMenuTriggerFor]="menu"  mat-button>
                 <mat-icon>more_vert</mat-icon>
               </button>
+
               <mat-menu #menu="matMenu">
-                <!-- <button mat-menu-item (click)="deactivateUser(element)">
-                  <mat-icon>
-                    {{element.is_active ? 'no_accounts' : 'account_circle'}}
-                  </mat-icon>
+                <button mat-menu-item (click)="openTestResults()">
                   <span>
-                    {{element.is_active ? 'Dectivate' : 'Activate'}}
+                    View Test results
                   </span>
-                </button> -->
-                <button mat-menu-item (click)="onEditUser(element)">
-                  <mat-icon>
-                    edit_note
-                  </mat-icon>
+                </button>
+
+                <button mat-menu-item (click)="expandedElement = element">
                   <span>
-                    Edit
+                    View Caterer
                   </span>
                 </button>
               </mat-menu>
-
             </td>
           </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+          <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+          <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+              <div class="example-element-detail"
+                [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                <div class="col-12 row">
+                  <div class="col-md">
+                    <p class="mb-0">Number of Students alloted</p>
+                    <h6>
+                      {{100 | number : '1.0-0'}}
+                    </h6>
+                  </div>
+                  <div class="col-md">
+                    <p class="mb-0">Payment Info</p>
+                    <h6>
+                      Bank: {{'Access Bank'}}
+                    </h6>
+                    <h6>
+                      Account Number: {{'0011223344'}}
+                    </h6>
+                    <h6>
+                      Account Name: {{'Sunny and Sons'}}
+                    </h6>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let element; columns: displayedColumns;">
+          </tr> -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="example-element-row"
+            [class.example-expanded-row]="expandedElement === element">
           </tr>
-          <!-- <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr> -->
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+          <tr class="mat-row" *matNoDataRow>
+            <td class="text-center mat-cell" [attr.colspan]="displayedColumns.length">No data to display</td>
+          </tr>
         </table>
         <app-paginator [length]=length (pageEvent)=pageChange($event)></app-paginator>
       </div>

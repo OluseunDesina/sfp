@@ -1,16 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { HelperService } from 'src/app/shared/services/helper.service';
+import { MatDialog } from '@angular/material/dialog';
+import { CatererTestResultComponent } from '../caterer-test-result/caterer-test-result.component';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-carterer-list',
   templateUrl: './carterer-list.component.html',
-  styleUrls: ['./carterer-list.component.scss']
+  styleUrls: ['./carterer-list.component.scss'],
+  animations: [
+    trigger("detailExpand", [
+      state("collapsed", style({ height: "0px", minHeight: "0" })),
+      state("expanded", style({ height: "*" })),
+      transition(
+        "expanded <=> collapsed",
+        animate("225ms cubic-bezier(0.4, 0.0, 0.2, 1)")
+      ),
+    ]),
+  ],
 })
 export class CartererListComponent implements OnInit {
   tableLoading: boolean = true;
   title = "Caterer List";
   dataSource: any[] = [];
+  expandedElement: any;
   displayedColumns: any[] = [
     "name",
     "nin",
@@ -22,8 +36,8 @@ export class CartererListComponent implements OnInit {
     "ward",
     "status",
     "star",
+    // "expand"
   ];
-  expandedElement: any;
   length: number;
   pageSize: number;
   pageIndex: number;
@@ -40,12 +54,16 @@ export class CartererListComponent implements OnInit {
   constructor(
     private userService: UserService,
     private helperService: HelperService,
-    // private dialog: MatDialog
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
     this.getUserGroup();
     this.getCatererList();
+  }
+
+  openTestResults() {
+    this.dialog.open(CatererTestResultComponent)
   }
 
   getUserGroup() {

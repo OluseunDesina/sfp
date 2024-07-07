@@ -43,6 +43,7 @@ import { CartererListComponent } from './carterer-list/carterer-list.component';
 import { FarmerListComponent } from './farmer-list/farmer-list.component';
 import { BulkFarmerUploadComponent } from './bulk-farmer-upload/bulk-farmer-upload.component';
 import { BulkCartererUploadComponent } from './bulk-carterer-upload/bulk-carterer-upload.component';
+import { CatererTestResultComponent } from './caterer-test-result/caterer-test-result.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { BulkCartererUploadComponent } from './bulk-carterer-upload/bulk-cartere
     FarmerListComponent,
     BulkFarmerUploadComponent,
     BulkCartererUploadComponent,
+    CatererTestResultComponent,
   ],
   imports: [
     CommonModule,

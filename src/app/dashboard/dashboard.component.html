@@ -1,174 +1,124 @@
 <!-- Container-fluid starts-->
 <div class="container-fluid">
+  <div class="d-flex justify-content-between my-2">
+    <h4 class="text-primary">
+      NHGSF Portal
+    </h4>
+
+    <select [(ngModel)]="selectedState" (ngModelChange)="onStateChange()" class="custom-select">
+      <option value="0">All States</option>
+      <option *ngFor="let state of states" [value]="state">{{state}}</option>
+    </select>
+  </div>
   <div class="row">
-
-    <div class="col-auto row">
-      <ng-container *ngIf="isSid || isComp || isAcct">
-        <div class="col-md">
-          <div class="card">
-            <div class="card-body ecommerce-icons text-center">
-              <div><span>{{'Tot. no. of students' | uppercase}}</span></div>
-              <h4 class="font-primary mb-0 counter" [CountTo]=100 [from]="0" [duration]="0.5"></h4>
-            </div>
-          </div>
-        </div>
-        <div class="col-md">
-          <div class="card">
-            <div class="card-body ecommerce-icons text-center">
-              <div><span>{{'Tot. no. of Schools' | uppercase}}</span></div>
-              <h4 class="font-primary mb-0 counter" [CountTo]=5 [from]="0" [duration]="0.5"></h4>
-            </div>
-          </div>
-        </div>
-        <div class="col-md">
-          <div class="card">
-            <div class="card-body ecommerce-icons text-center">
-              <div><span>{{'Tot. no. of Caterers' | uppercase}}</span></div>
-              <h4 class="font-primary mb-0 counter" [CountTo]=10 [from]="0" [duration]="0.5"></h4>
-            </div>
-          </div>
-        </div>
-        <div class="col-md">
-          <div class="card">
-            <div class="card-body ecommerce-icons text-center">
-              <div><span>{{'Tot. no. of farmers' | uppercase}}</span></div>
-              <h4 class="font-primary mb-0 counter" [CountTo]=15 [from]="0" [duration]="0.5"></h4>
-            </div>
-          </div>
-        </div>
-      </ng-container>
-    </div>
-
-    <div class="col-xl-12 xl-100 px-0 mx-0">
-      <ng-container *ngIf="isComp || isSid || isAcct">
-        <div class="">
-          <h5>Students by LGA</h5>
-          <owl-carousel-o [options]="customOptions">
-            <ng-template carouselSlide [id]="i + 1" *ngFor="let slide of studentsByLGA; let i=index">
-              <div class="item">
-                <div class="card">
-                  <div class="card-body ecommerce-icons text-center">
-                    <div><span>{{slide.title | uppercase}}</span></div>
-                    <h4 class="font-primary mb-0 counter" [CountTo]=slide.count [from]="0" [duration]="0.5"></h4>
-                  </div>
-                </div>
-              </div>
-            </ng-template>
-          </owl-carousel-o>
-        </div>
-      </ng-container>
-
-      <ng-container *ngIf="isComp || isSid || isAcct">
-        <div class="">
-          <h5>Students by School</h5>
-          <owl-carousel-o [options]="customOptions">
-            <ng-template carouselSlide [id]="i + 1" *ngFor="let slide of studentsBySchool; let i=index">
-              <div class="item">
-                <div class="card">
-                  <div class="card-body ecommerce-icons text-center">
-                    <div><span>{{slide.title | uppercase}}</span></div>
-                    <h4 class="font-primary mb-0 counter" [CountTo]=slide.count [from]="0" [duration]="0.5"></h4>
-                  </div>
-                </div>
-              </div>
-            </ng-template>
-          </owl-carousel-o>
-        </div>
-      </ng-container>
-
-      <ng-container *ngIf="isComp || isSid || isAcct">
-        <div class="">
-          <h5>Caterers by LGA</h5>
-          <owl-carousel-o [options]="customOptions">
-            <ng-template carouselSlide [id]="i + 1" *ngFor="let slide of caterersByLGA; let i=index">
-              <div class="item">
-                <div class="card">
-                  <div class="card-body ecommerce-icons text-center">
-                    <div><span>{{slide.title | uppercase}}</span></div>
-                    <h4 class="font-primary mb-0 counter" [CountTo]=slide.count [from]="0" [duration]="0.5"></h4>
-                  </div>
-                </div>
-              </div>
-            </ng-template>
-          </owl-carousel-o>
-        </div>
-      </ng-container>
-
-      <ng-container *ngIf="isComp || isSid || isAcct">
-        <div class="">
-          <h5>Farmers by LGA</h5>
-          <owl-carousel-o [options]="customOptions">
-            <ng-template carouselSlide [id]="i + 1" *ngFor="let slide of farmersByLGA; let i=index">
-              <div class="item">
-                <div class="card">
-                  <div class="card-body ecommerce-icons text-center">
-                    <div><span>{{slide.title | uppercase}}</span></div>
-                    <h4 class="font-primary mb-0 counter" [CountTo]=slide.count [from]="0" [duration]="0.5"></h4>
-                  </div>
-                </div>
-              </div>
-            </ng-template>
-          </owl-carousel-o>
-        </div>
-      </ng-container>
-
-      <!-- <ng-container>
-        <div class="row mx-0 px-0">
-          <div class="col-md-12">
-            <div class="card">
-              <div class="card-header pb-1">
-                <div class="d-flex justify-content-between">
-                  <h5 class="mb-0">Bar Chart</h5>
-                  <div>
-                    <button (click)="barChartData[0].data = dataset2"
-                            class="btn btn-outline-primary mr-2">
-                      Value
-                    </button>
-                    <button (click)="barChartData[0].data = dataset1"
-                            class="btn btn-outline-primary">
-                      Count
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body charts-box">
-                <canvas height="100px"
-                        baseChart
-                        class="chart flot-chart-placeholder"
-                        [datasets]="barChartData"
-                        [labels]="barChartLabels"
-                        [options]="barChartOptions"
-                        [colors]="barChartColors"
-                        [legend]="barChartLegend"
-                        [chartType]="barChartType"
-                        (chartHover)="chartHovered($event)"
-                        (chartClick)="chartClicked($event)"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ng-container> -->
-
-
-    </div>
-
-    <div [ngClass]="{'col-12': vendorReport?.length > 2, 'col-md-6': vendorReport?.length <=2}" class="row">
-      <div *ngFor="let vendor of vendorReport" class="mr-2 col xl-50">
-        <div class="card social-widget-card">
-          <div class="card-body">
-            <h5 class="text-primary b-b-light">{{vendor.vendor_name}}</h5>
-            <div class="row">
-              <div class="col text-center b-r-light"><span>Count</span>
-                <h4 class="counter mb-0" [CountTo]="vendor.count" [from]="0" [duration]="1"></h4>
-              </div>
-              <div class="col text-center"><span>Value</span>
-                <h4 class="counter mb-0" [CountTo]="vendor.total" [from]="0" [duration]="1"></h4>
-              </div>
-            </div>
+    <ng-container *ngIf="isSid || isComp || isAcct">
+      <div class="col-md">
+        <div class="card">
+          <div class="card-body ecommerce-icons text-center">
+            <div><span>{{'Tot. no. of students' | uppercase}}</span></div>
+            <!-- <h4 *ngif="firstAt" class="font-primary mb-0 counter" [CountTo]="students" [from]="0" [duration]="0.5"></h4> -->
+            <h4 class="font-primary mb-0 counter"> {{students}}</h4>
           </div>
         </div>
       </div>
-    </div>
+      <div class="col-md">
+        <div class="card">
+          <div class="card-body ecommerce-icons text-center">
+            <div><span>{{'Tot. no. of Schools' | uppercase}}</span></div>
+            <!-- <h4 class="font-primary mb-0 counter" [CountTo]="schools" [from]="0" [duration]="0.5"></h4> -->
+            <h4 class="font-primary mb-0 counter"> {{schools}}</h4>
+          </div>
+        </div>
+      </div>
+      <div class="col-md">
+        <div class="card">
+          <div class="card-body ecommerce-icons text-center">
+            <div><span>{{'Tot. no. of Caterers' | uppercase}}</span></div>
+            <!-- <h4 class="font-primary mb-0 counter" [CountTo]="caterers" [from]="0" [duration]="0.5"></h4> -->
+            <h4 class="font-primary mb-0 counter"> {{caterers}}</h4>
+          </div>
+        </div>
+      </div>
+      <div class="col-md">
+        <div class="card">
+          <div class="card-body ecommerce-icons text-center">
+            <div><span>{{'Tot. no. of farmers' | uppercase}}</span></div>
+            <!-- <h4 class="font-primary mb-0 counter" [CountTo]="farmers" [from]="0" [duration]="0.5"></h4> -->
+            <h4 class="font-primary mb-0 counter"> {{farmers}}</h4>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+  </div>
+
+  <div class="row">
+    <ng-container *ngIf="isSid || isComp || isAcct">
+
+      <div class="col-md">
+        <div class="card">
+          <div class="card-body ecommerce-icons text-center">
+            <div class="d-flex">
+              <button mat-button [matMenuTriggerFor]="healthMenu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </div>
+            <div>
+              <img class="img-fluid min-logo" src="assets/coat-of-arms-of-nigeria-logo.png" alt="">
+            </div>
+            <!-- <h4 class="font-primary mb-0 counter" [CountTo]="schools" [from]="0" [duration]="0.5"></h4> -->
+            <h4 class="font-primary mb-0"> {{'Min. of Health'}}</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md">
+        <div class="card">
+          <div class="card-body ecommerce-icons text-center">
+            <div class="d-flex">
+              <button mat-button [matMenuTriggerFor]="eduMenu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </div>
+            <div>
+              <img class="img-fluid min-logo" src="assets/coat-of-arms-of-nigeria-logo.png" alt="">
+            </div>
+            <!-- <h4 class="font-primary mb-0 counter" [CountTo]="schools" [from]="0" [duration]="0.5"></h4> -->
+            <h4 class="font-primary mb-0"> {{'Min. of Education'}}</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md">
+        <div class="card" >
+          <div class="card-body ecommerce-icons text-center">
+            <div class="d-flex">
+              <button mat-button [matMenuTriggerFor]="agricMenu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </div>
+            <div>
+              <img class="img-fluid min-logo" src="assets/coat-of-arms-of-nigeria-logo.png" alt="">
+            </div>
+            <!-- <h4 class="font-primary mb-0 counter" [CountTo]="schools" [from]="0" [duration]="0.5"></h4> -->
+            <h4 class="font-primary mb-0"> {{'Min. of Agric'}}</h4>
+          </div>
+        </div>
+
+        <mat-menu #healthMenu="matMenu">
+          <button [routerLink]="['/user/farmer-list']" mat-menu-item mat-menu-item>Farmers</button>
+        </mat-menu>
+
+        <mat-menu #eduMenu="matMenu">
+          <button [routerLink]="['/user/school-list']" mat-menu-item>Schools</button>
+          <button [routerLink]="['/user/student-list']" routerLinkActive="router-link-active"  mat-menu-item>Students</button>
+        </mat-menu>
+
+        <mat-menu #agricMenu="matMenu">
+          <button [routerLink]="['/user/farmer-list']" mat-menu-item mat-menu-item>Farmers</button>
+        </mat-menu>
+      </div>
+    </ng-container>
 
   </div>
 </div>

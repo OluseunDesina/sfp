@@ -152,6 +152,7 @@ export class NavService {
         break;
       case "cmp_adm":
         this.MENUITEMS = [
+          // dashboard
           {
             title: "Dashboard",
             icon: "activity",
@@ -160,59 +161,15 @@ export class NavService {
             active: true,
             path: "/dashboard",
           },
+
+          // Min. Of Education
           {
-            title: "School Device Management",
-            icon: "coffee",
-            type: "link",
-            badgeType: "primary",
-            active: true,
-            path: "/devices",
-          },
-          {
-            title: "User Management",
+            title: "Min. Of Education",
             icon: "users",
             type: "sub",
             badgeType: "primary",
             active: true,
             children: [
-              // {
-              //   title: "School Admin",
-              //   icon: "anchor",
-              //   type: "sub",
-              //   badgeType: "primary",
-              //   active: false,
-              //   children: [
-              //     // {
-              //     //   path: "/user/company-admin-create",
-              //     //   title: "Add Admin",
-              //     //   type: "link",
-              //     // },
-              //     {
-              //       path: "/user/company-admin-list",
-              //       title: "All Admin",
-              //       type: "link",
-              //     },
-              //   ],
-              // },
-              // {
-              //   title: "School Accountant",
-              //   icon: "anchor",
-              //   type: "sub",
-              //   badgeType: "primary",
-              //   active: false,
-              //   children: [
-              //     {
-              //       path: "/user/accountant-create",
-              //       title: "Add Accountant",
-              //       type: "link",
-              //     },
-              //     {
-              //       path: "/user/accountant-list",
-              //       title: "All Accountants",
-              //       type: "link",
-              //     },
-              //   ],
-              // },
               {
                 title: "Schools",
                 icon: "anchor",
@@ -229,6 +186,18 @@ export class NavService {
                 path: "/user/student-list",
                 type: "link",
               },
+            ],
+          },
+
+          // Min. Of Health
+          {
+            title: "Min. of Health.",
+            icon: "users",
+            type: "sub",
+            badgeType: "primary",
+            active: true,
+            children: [
+
               {
                 title: "Caterers",
                 icon: "anchor",
@@ -237,6 +206,17 @@ export class NavService {
                 path: "/user/caterer-list",
                 type: "link",
               },
+            ],
+          },
+
+          // Min. Of Agric
+          {
+            title: "Min. Of Agric",
+            icon: "users",
+            type: "sub",
+            badgeType: "primary",
+            active: true,
+            children: [
               {
                 title: "Farmers",
                 icon: "anchor",
@@ -245,45 +225,15 @@ export class NavService {
                 path: "/user/farmer-list",
                 type: "link",
               },
-              // {
-              //   title: "Department",
-              //   icon: "anchor",
-              //   type: "sub",
-              //   badgeType: "primary",
-              //   active: false,
-              //   children: [
-              //     {
-              //       path: "/user/department-create",
-              //       title: "Add Department",
-              //       type: "link",
-              //     },
-              //     {
-              //       path: "/user/department-list",
-              //       title: "All Departments",
-              //       type: "link",
-              //     },
-              //   ],
-              // },
-              // {
-              //   title: "Vendor",
-              //   icon: "anchor",
-              //   type: "sub",
-              //   badgeType: "primary",
-              //   active: false,
-              //   children: [
-              //     {
-              //       path: "/user/vendor-create",
-              //       title: "Add Vendor",
-              //       type: "link",
-              //     },
-              //     {
-              //       path: "/user/vendor-list",
-              //       title: "All Vendors",
-              //       type: "link",
-              //     },
-              //   ],
-              // },
             ],
+          },
+          {
+            title: "School Device Management",
+            icon: "coffee",
+            type: "link",
+            badgeType: "primary",
+            active: true,
+            path: "/devices",
           },
           {
             title: "Food",
