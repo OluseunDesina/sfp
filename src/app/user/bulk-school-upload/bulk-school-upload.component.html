@@ -10,9 +10,10 @@
             <div>
 
               <input (change)="onFileSelected($event)" #excelInput type="file">
-              <button class="btn btn-primary mr-2">
+              <a target="_self" download="wallet-template.csv" class="btn btn-primary mr-2"
+                href="../../../assets/school-list.xlsx">
                 Download Template
-              </button>
+              </a>
 
               <button (click)="excelInput.click()" class="btn btn-primary">
                 <i class="fa fa-plus mr-2"></i>

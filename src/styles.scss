@@ -130,7 +130,8 @@ img {
 
 .hero-section {
   // min-height: calc(100vh - #{$navbar-height});
-  min-height: calc(80vh);
+  // min-height: calc(80vh);
+  margin-top: 20px;
 }
 
 .login-dialog {
