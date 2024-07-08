@@ -30,7 +30,7 @@ import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 })
 export class StaffListComponent implements OnInit {
   tableLoading: boolean = true;
-  title = "Student List";
+  title = "Pupil List";
   dataSource: any[] = [];
   displayedColumns: any[] = [
     "name",

@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class StudentListComponent implements OnInit {
   tableLoading: boolean = true;
-  title = "Student List";
+  title = "Pupil List";
   dataSource: any[] = [];
   displayedColumns: any[] = [
     "name",

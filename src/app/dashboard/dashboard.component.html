@@ -15,7 +15,7 @@
       <div class="col-md">
         <div class="card">
           <div class="card-body ecommerce-icons text-center">
-            <div><span>{{'Tot. no. of students' | uppercase}}</span></div>
+            <div><span>{{'Tot. no. of pupils' | uppercase}}</span></div>
             <!-- <h4 *ngif="firstAt" class="font-primary mb-0 counter" [CountTo]="students" [from]="0" [duration]="0.5"></h4> -->
             <h4 class="font-primary mb-0 counter"> {{students}}</h4>
           </div>
@@ -111,7 +111,7 @@
 
         <mat-menu #eduMenu="matMenu">
           <button [routerLink]="['/user/school-list']" mat-menu-item>Schools</button>
-          <button [routerLink]="['/user/student-list']" routerLinkActive="router-link-active"  mat-menu-item>Students</button>
+          <button [routerLink]="['/user/student-list']" routerLinkActive="router-link-active"  mat-menu-item>Pupils</button>
         </mat-menu>
 
         <mat-menu #agricMenu="matMenu">

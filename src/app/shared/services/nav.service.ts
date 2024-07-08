@@ -179,7 +179,7 @@ export class NavService {
                 type: "link",
               },
               {
-                title: "Students",
+                title: "Pupils",
                 icon: "anchor",
                 badgeType: "primary",
                 active: false,
@@ -470,7 +470,7 @@ export class NavService {
                 badgeType: "primary",
                 active: false,
                 path: "/user/staff-list",
-                title: "All Students",
+                title: "All Pupils",
                 type: "link",
               },
               {

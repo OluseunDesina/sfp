@@ -63,7 +63,7 @@ import { User } from "src/app/shared/models/vendor.model";
   ],
 })
 export class BulkEmployeeUploadComponent implements OnInit {
-  title = "create student";
+  title = "create Pupil";
   form: FormGroup;
   htmlWorkbookJSON: User[] = [];
   displayedColumns = ["firstname", "lastname", "email", "action"];

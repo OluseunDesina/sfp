@@ -38,7 +38,7 @@ import * as XLSX from "xlsx";
   ],
 })
 export class BulkSchoolUploadComponent implements OnInit {
-  title = "Upload students";
+  title = "Upload Pupils";
   form: FormGroup;
   htmlWorkbookJSON!: any[];
   displayedColumns = ["firstname", "lastname", "email", "action"];
